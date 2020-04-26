@@ -1,5 +1,8 @@
 package barber.shop;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /**
  * Class that represents the haircuts
  */
@@ -8,6 +11,8 @@ public class HairCut {
 	protected enum HairCutsEnum {
 		P1, P2, P3, P4, P5, P6, P7, P8, P9, P0, Q, W, E, R, T, Y, U, I, O, P, A, S, D, F, G, H, J, K, L, M
 	}
+	
+	private static final Logger logger = LogManager.getLogger(HairCut.class);
 
 	/**
 	 * Price of the haircut
