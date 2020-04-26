@@ -11,7 +11,8 @@ public class UI {
 	private Byte minute;
 	private String name;
 	private String place;
-	private WindowInterface windInterf;
+	private WindowInterface windowInterface;
+	private WindowPanel panel;
 
 	/**
 	 * Class constructor
@@ -25,7 +26,8 @@ public class UI {
 		this.minute = 0;
 		this.name = null;
 		this.place = null;
-		this.windInterf = new WindowInterface();
+		this.windowInterface = new WindowInterface();
+		this.panel = new WindowPanel();
 	}
 
 	/**
