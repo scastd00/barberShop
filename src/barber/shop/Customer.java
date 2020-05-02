@@ -17,12 +17,15 @@ public class Customer {
 	/**
 	 * Class constructor of the customer.
 	 *
-	 * @param name   Name of the customer.
-	 * @param hour   Hour when the customer want to go to the BarberShop.
-	 * @param minute Minute when the customer want to go to the BarberShop.
-	 * @param place  Place of the BarberShop.
-	 * @throws BarberException A BarberException will be thrown if there's no name,
-	 *                         hour, minute or place.
+	 * @param  name            Name of the customer.
+	 * @param  hour            Hour when the customer want to go to the
+	 *                         BarberShop.
+	 * @param  minute          Minute when the customer want to go to the
+	 *                         BarberShop.
+	 * @param  place           Place of the BarberShop.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if there's no
+	 *                         name, hour, minute or place.
 	 */
 	public Customer(String name, byte hour, byte minute, String place) throws BarberException {
 		StringBuilder error = new StringBuilder();
@@ -56,6 +59,16 @@ public class Customer {
 	}
 
 	/**
+	 * Empty constructor of the class
+	 */
+	public Customer() {
+		this.name = null;
+		this.hour = 0;
+		this.minute = 0;
+		this.place = null;
+	}
+
+	/**
 	 * Name getter.
 	 *
 	 * @return (String) The name of the customer.
@@ -67,9 +80,10 @@ public class Customer {
 	/**
 	 * Name setter.
 	 *
-	 * @param name (String) The new name to set.
-	 * @throws BarberException A BarberException will be thrown if the introduced
-	 *                         name is incorrect.
+	 * @param  name            (String) The new name to set.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if the
+	 *                         introduced name is incorrect.
 	 */
 	public void setName(String name) throws BarberException {
 		if (name.length() == 0) {
@@ -91,7 +105,8 @@ public class Customer {
 	/**
 	 * Hour setter.
 	 *
-	 * @param hour (byte) The new hour to set.
+	 * @param  hour            (byte) The new hour to set.
+	 * 
 	 * @throws BarberException if the introduced hour isn't valid.
 	 */
 	public void setHour(byte hour) throws BarberException {
@@ -105,7 +120,8 @@ public class Customer {
 	/**
 	 * Minute getter.
 	 *
-	 * @return (byte) Minute of the reservation (between 0 and 59, both included).
+	 * @return (byte) Minute of the reservation (between 0 and 59, both
+	 *         included).
 	 */
 	public byte getMinute() {
 		return this.minute;
@@ -114,9 +130,10 @@ public class Customer {
 	/**
 	 * Minute setter.
 	 *
-	 * @param minute (byte) The new minute to set.
-	 * @throws BarberException A BarberException will be thrown if the introduced
-	 *                         minute isn't valid.
+	 * @param  minute          (byte) The new minute to set.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if the
+	 *                         introduced minute isn't valid.
 	 */
 	public void setMinute(byte minute) throws BarberException {
 		if (hour < Constants.MIN_MINUTE || hour > Constants.MAX_MINUTE) {
@@ -138,9 +155,10 @@ public class Customer {
 	/**
 	 * Place setter.
 	 *
-	 * @param place (String) Place where the customer want to go.
-	 * @throws BarberException A BarberException will be thrown if the introduced
-	 *                         place isn't valid.
+	 * @param  place           (String) Place where the customer want to go.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if the
+	 *                         introduced place isn't valid.
 	 */
 	public void setPlace(String place) throws BarberException {
 		if (place.length() == 0) {

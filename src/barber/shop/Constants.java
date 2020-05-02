@@ -25,11 +25,13 @@ public class Constants {
 	}
 
 	/**
-	 * Fills the haircuts HashMap with | Key: number | Value: HairCut object |
+	 * Fills the haircuts HashMap with | Key: (Byte) number | Value: (HairCut) object |
 	 *
 	 * @param hash haircut HashMap
 	 */
 	private void fillHashMap(HashMap<Byte, HairCut> hash) {
+		hash.put((byte) 0, new HairCut((short) 0));
+
 		for (byte i = 1; i <= NUM_HAIRCUTS; i++) {
 			hash.put(i, new HairCut((byte) (i - 1)));
 		}

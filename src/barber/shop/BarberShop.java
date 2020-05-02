@@ -20,25 +20,38 @@ public class BarberShop {
 	}
 
 	public void addReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		byte posAdd = this.map(hour, minute);
-		this.customersTimetable[posAdd] = new Customer(name, hour, minute, place);
+		if(this.isPossibleToMakeTransaction(name, hour, minute, place)) {
+			byte posAdd = this.map(hour, minute);
+			this.customersTimetable[posAdd] = new Customer(name, hour, minute, place);
+		} else {
+			throw new BarberException("Error: Invalid values");
+		}
 	}
 
 	public void cancelReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		byte posCancel = this.map(hour, minute);
-		this.customersTimetable[posCancel] = null;
+		if(this.isPossibleToMakeTransaction(name, hour, minute, place)) {
+			byte posCancel = this.map(hour, minute);
+			this.customersTimetable[posCancel] = null;
+		} else {
+			throw new BarberException("Error: Invalid values");
+		}
 	}
 
 	public void modifyReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		byte posMod = this.map(hour, minute);
-		this.customersTimetable[posMod] = new Customer(name, hour, minute, place);
+		if(this.isPossibleToMakeTransaction(name, hour, minute, place)) {
+			byte posMod = this.map(hour, minute);
+			this.customersTimetable[posMod] = new Customer(name, hour, minute, place);
+		} else {
+			throw new BarberException("Error: Invalid values");
+		}
+		
 	}
 
 	public float exchange(float paid, float toPay) throws BarberException {
 		float exchange = paid - toPay;
 
 		if (exchange < 0) {
-			throw new BarberException("The customer owe some money");
+			throw new BarberException("The customer owe some money: " + exchange * (-1));
 		}
 
 		return exchange;
@@ -48,5 +61,16 @@ public class BarberShop {
 		return 0;
 	}
 
+	private boolean isPossibleToMakeTransaction(String name, byte hour, byte minute, String place) {
+		boolean isPossible = true;
+
+		if ((name.length() == 0) || (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR)
+				|| (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) || (place.length() == 0)) {
+
+			isPossible = false;
+		}
+
+		return isPossible;
+	}
 
 }

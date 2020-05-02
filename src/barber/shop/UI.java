@@ -4,13 +4,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class UI {
+
 	private static final Logger logger = LogManager.getLogger(UI.class);
 	private BarberShop barberShop;
 	private Constants haircuts;
-	private Byte hour;
-	private Byte minute;
-	private String name;
-	private String place;
+	private Customer customer;
 	private WindowInterface windowInterface;
 	private WindowPanel panel;
 
@@ -22,12 +20,9 @@ public class UI {
 	public UI(BarberShop bShop) {
 		this.barberShop = bShop;
 		this.haircuts = new Constants();
-		this.hour = 0;
-		this.minute = 0;
-		this.name = null;
-		this.place = null;
-		this.windowInterface = new WindowInterface();
-		this.panel = new WindowPanel();
+		this.customer = new Customer();
+		// this.windowInterface = new WindowInterface();
+		// this.panel = new WindowPanel();
 	}
 
 	/**
@@ -57,52 +52,69 @@ public class UI {
 				case 1:
 					addUIReservation();
 					break;
+
 				case 2:
 					cancelUIReservation();
 					break;
+
 				case 3:
 					modifyUIReservation();
 					break;
+
 				case 4:
 					moneyUITransactions();
 					break;
+
 				case 0:
 					System.exit(0);
 					break;
+
 				default:
 					throw new BarberException(input + " is not a valid number");
 			}
 		} while (option != 0);
 	}
 
-	public void addUIReservation() {
+	/**
+	 * Adds a reservation for the specified customer
+	 */
+	private void addUIReservation() {
 		this.transactions();
 		try {
-			this.barberShop.addReservation(this.name, this.hour, this.minute, this.place);
+			this.barberShop.addReservation(this.customer.getName(), this.customer.getHour(), this.customer.getMinute(),
+					this.customer.getPlace());
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
 	}
 
-	public void cancelUIReservation() {
+	/**
+	 * Cancels a reservation of the specified customer
+	 */
+	private void cancelUIReservation() {
 		this.transactions();
 		try {
-			this.barberShop.cancelReservation(this.name, this.hour, this.minute, this.place);
+			this.barberShop.cancelReservation(this.customer.getName(), this.customer.getHour(),
+					this.customer.getMinute(), this.customer.getPlace());
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
 	}
 
-	public void modifyUIReservation() {
+	/**
+	 * Modifies a reservation for the specified customer
+	 */
+	private void modifyUIReservation() {
 		this.transactions();
 		try {
-			this.barberShop.modifyReservation(this.name, this.hour, this.minute, this.place);
+			this.barberShop.modifyReservation(this.customer.getName(), this.customer.getHour(),
+					this.customer.getMinute(), this.customer.getPlace());
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
 	}
 
-	public void moneyUITransactions() throws BarberException {
+	private void moneyUITransactions() throws BarberException {
 		float sum = 0;
 		byte option;
 		logger.trace("Introduce the service you offered {}", "\n");
@@ -130,9 +142,10 @@ public class UI {
 	/**
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
-	 * @return (byte) The number of the hour.
-	 * @throws BarberException A BarberException will be thrown if the input is not
-	 *                         a number.
+	 * @return                 (byte) The number of the hour.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if the input is
+	 *                         not a number.
 	 */
 	public byte inputHour() throws BarberException {
 		String input = Keyboard.readLine().trim();
@@ -148,9 +161,10 @@ public class UI {
 	/**
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
-	 * @return (byte) The number of the minute.
-	 * @throws BarberException A BarberException will be thrown if the input is not
-	 *                         a number.
+	 * @return                 (byte) The number of the minute.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if the input is
+	 *                         not a number.
 	 */
 	public byte inputMinute() throws BarberException {
 		String input = Keyboard.readLine().trim();
@@ -177,13 +191,15 @@ public class UI {
 	/**
 	 * Returns the price of the chosen haircut
 	 *
-	 * @param option haircut to chose
-	 * @return the price of the haircut
-	 * @throws BarberException if option is less than 0 or greater than number of
-	 *                         haircuts available
+	 * @param  option          haircut to chose
+	 * 
+	 * @return                 the price of the haircut
+	 * 
+	 * @throws BarberException if option is less than 0 or greater than number
+	 *                         of haircuts available
 	 */
 	private float haircutCost(byte option) throws BarberException {
-		if (option < 1 || option > Constants.NUM_HAIRCUTS) {
+		if (option < 0 && option > Constants.NUM_HAIRCUTS) {
 			throw new BarberException("Incorrect value");
 		} else {
 			return this.haircuts.getHaircutsHashMap().get(option).getPrice();
@@ -196,16 +212,16 @@ public class UI {
 	private void transactions() {
 		try {
 			logger.trace("Introduce an hour to modify the reservation: ");
-			this.hour = inputHour();
+			this.customer.setHour(inputHour());
 
 			logger.trace("Introduce a minute to modify the reservation: ");
-			this.minute = inputMinute();
+			this.customer.setMinute(inputMinute());
 
 			logger.trace("Introduce the name of the customer to modify the reservation: ");
-			this.name = Keyboard.readLine().trim();
+			this.customer.setName(Keyboard.readLine().trim());
 
 			logger.trace("Introduce the place where you want to modify the reservation: ");
-			this.place = Keyboard.readLine().trim();
+			this.customer.setPlace(Keyboard.readLine().trim());
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
