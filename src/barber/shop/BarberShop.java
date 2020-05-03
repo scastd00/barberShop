@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * BarberShop
+ * Class that makes all the transactions of a barber shop
  */
 public class BarberShop {
 
@@ -20,7 +20,7 @@ public class BarberShop {
 	}
 
 	public void addReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		if(this.isPossibleToMakeTransaction(name, hour, minute, place)) {
+		if (this.isPossibleToMakeTransaction(name, hour, minute, place)) {
 			byte posAdd = this.map(hour, minute);
 			this.customersTimetable[posAdd] = new Customer(name, hour, minute, place);
 		} else {
@@ -29,7 +29,7 @@ public class BarberShop {
 	}
 
 	public void cancelReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		if(this.isPossibleToMakeTransaction(name, hour, minute, place)) {
+		if (this.isPossibleToMakeTransaction(name, hour, minute, place)) {
 			byte posCancel = this.map(hour, minute);
 			this.customersTimetable[posCancel] = null;
 		} else {
@@ -38,13 +38,13 @@ public class BarberShop {
 	}
 
 	public void modifyReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		if(this.isPossibleToMakeTransaction(name, hour, minute, place)) {
+		if (this.isPossibleToMakeTransaction(name, hour, minute, place)) {
 			byte posMod = this.map(hour, minute);
 			this.customersTimetable[posMod] = new Customer(name, hour, minute, place);
 		} else {
 			throw new BarberException("Error: Invalid values");
 		}
-		
+
 	}
 
 	public float exchange(float paid, float toPay) throws BarberException {
@@ -58,7 +58,10 @@ public class BarberShop {
 	}
 
 	private byte map(byte hour, byte minute) {
-		return 0;
+		if(hour == 0)
+			return minute;
+		else 
+			return (byte) (hour * 60 + minute);
 	}
 
 	private boolean isPossibleToMakeTransaction(String name, byte hour, byte minute, String place) {

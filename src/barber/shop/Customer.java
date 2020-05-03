@@ -9,20 +9,17 @@ import org.apache.logging.log4j.LogManager;
 public class Customer {
 
 	private String name;
-	private byte hour;
-	private byte minute;
+	private Time time;
 	private String place;
 	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);
 
 	/**
 	 * Class constructor of the customer.
 	 *
-	 * @param  name            Name of the customer.
-	 * @param  hour            Hour when the customer want to go to the
-	 *                         BarberShop.
-	 * @param  minute          Minute when the customer want to go to the
-	 *                         BarberShop.
-	 * @param  place           Place of the BarberShop.
+	 * @param name   Name of the customer.
+	 * @param hour   Hour when the customer want to go to the BarberShop.
+	 * @param minute Minute when the customer want to go to the BarberShop.
+	 * @param place  Place of the BarberShop.
 	 * 
 	 * @throws BarberException A BarberException will be thrown if there's no
 	 *                         name, hour, minute or place.
@@ -51,8 +48,7 @@ public class Customer {
 
 		} else {
 			this.name = name;
-			this.hour = hour;
-			this.minute = minute;
+			this.time = new Time(hour, minute);
 			this.place = place;
 		}
 
@@ -63,8 +59,7 @@ public class Customer {
 	 */
 	public Customer() {
 		this.name = null;
-		this.hour = 0;
-		this.minute = 0;
+		this.time = new Time();
 		this.place = null;
 	}
 
@@ -80,7 +75,7 @@ public class Customer {
 	/**
 	 * Name setter.
 	 *
-	 * @param  name            (String) The new name to set.
+	 * @param name (String) The new name to set.
 	 * 
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced name is incorrect.
@@ -99,13 +94,13 @@ public class Customer {
 	 * @return (byte) Hour of the reservation.
 	 */
 	public byte getHour() {
-		return this.hour;
+		return this.time.getHour();
 	}
 
 	/**
 	 * Hour setter.
 	 *
-	 * @param  hour            (byte) The new hour to set.
+	 * @param hour (byte) The new hour to set.
 	 * 
 	 * @throws BarberException if the introduced hour isn't valid.
 	 */
@@ -113,7 +108,7 @@ public class Customer {
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
 			throw new BarberException("ERROR: hour value must be between 0 and 23");
 		} else {
-			this.hour = hour;
+			this.time.setHour(hour);
 		}
 	}
 
@@ -124,22 +119,22 @@ public class Customer {
 	 *         included).
 	 */
 	public byte getMinute() {
-		return this.minute;
+		return this.time.getMinute();
 	}
 
 	/**
 	 * Minute setter.
 	 *
-	 * @param  minute          (byte) The new minute to set.
+	 * @param minute (byte) The new minute to set.
 	 * 
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced minute isn't valid.
 	 */
 	public void setMinute(byte minute) throws BarberException {
-		if (hour < Constants.MIN_MINUTE || hour > Constants.MAX_MINUTE) {
+		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
 			throw new BarberException("ERROR: minute value must be between 0 and 59");
 		} else {
-			this.minute = minute;
+			this.time.setMinute(minute);
 		}
 	}
 
@@ -155,7 +150,7 @@ public class Customer {
 	/**
 	 * Place setter.
 	 *
-	 * @param  place           (String) Place where the customer want to go.
+	 * @param place (String) Place where the customer want to go.
 	 * 
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced place isn't valid.

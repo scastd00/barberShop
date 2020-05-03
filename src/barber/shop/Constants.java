@@ -25,7 +25,8 @@ public class Constants {
 	}
 
 	/**
-	 * Fills the haircuts HashMap with | Key: (Byte) number | Value: (HairCut) object |
+	 * Fills the haircuts HashMap with | Key: (Byte) number | Value: (HairCut)
+	 * object |
 	 *
 	 * @param hash haircut HashMap
 	 */

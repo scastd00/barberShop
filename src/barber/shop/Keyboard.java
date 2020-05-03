@@ -13,8 +13,9 @@ public final class Keyboard {
 	 * Read a line from console.
 	 *
 	 * @return String written in the command.
-	 * @throws BarberException A BarberException will be thrown if there would be
-	 *                         any issue with the I/O system.
+	 * 
+	 * @throws BarberException A BarberException will be thrown if there would
+	 *                         be any issue with the I/O system.
 	 */
 	public static String readLine() throws BarberException {
 		String line = "";

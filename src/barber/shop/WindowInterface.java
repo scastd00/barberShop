@@ -20,17 +20,17 @@ public class WindowInterface extends JFrame {
 
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
-		//this.setSize(screenWidth / 2, screenHeight / 2);
+		// this.setSize(screenWidth / 2, screenHeight / 2);
 		this.setVisible(true);
 		logger.debug("Window created");
 		this.setTitle("Barber Shop App");
 		this.setBounds(400, 100, 700, 500);
-		
+
 		this.setLocation(screenWidth / 4, (int) (screenHeight / 3.5));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(true);
-		//this.setExtendedState(MAXIMIZED_BOTH);
-		
+		// this.setExtendedState(MAXIMIZED_BOTH);
+
 		this.panel = new WindowPanel();
 		add(panel);
 	}

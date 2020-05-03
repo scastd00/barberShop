@@ -11,7 +11,7 @@ public class HairCut {
 	protected enum HairCutsEnum {
 		P1, P2, P3, P4, P5, P6, P7, P8, P9, P0, Q, W, E, R, T, Y, U, I, O, P, A, S, D, F, G, H, J, K, L, M
 	}
-	
+
 	private static final Logger logger = LogManager.getLogger(HairCut.class);
 
 	/**
@@ -56,6 +56,7 @@ public class HairCut {
 	 * Changes a num into the corresponding value of the haircut enumeration
 	 *
 	 * @param num haircut
+	 * 
 	 * @return value of the haircut enumeration
 	 */
 	private HairCutsEnum numberToHaircut(short num) {
@@ -66,6 +67,7 @@ public class HairCut {
 	 * Changes a value of the haircut enumeration into the price of it
 	 *
 	 * @param haircut
+	 * 
 	 * @return price of the haircut
 	 */
 	private float hairCutToPrice(HairCutsEnum haircut) {
@@ -75,9 +77,11 @@ public class HairCut {
 			case P1:
 				num = 8.00f;
 				break;
+
 			case P2:
 				num = 10.50f;
 				break;
+
 			case P3:
 				num = 6.50f;
 				break;

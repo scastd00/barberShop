@@ -50,19 +50,19 @@ public class UI {
 
 			switch (option) {
 				case 1:
-					addUIReservation();
+					addReservation();
 					break;
 
 				case 2:
-					cancelUIReservation();
+					cancelReservation();
 					break;
 
 				case 3:
-					modifyUIReservation();
+					modifyReservation();
 					break;
 
 				case 4:
-					moneyUITransactions();
+					moneyTransactions();
 					break;
 
 				case 0:
@@ -78,7 +78,7 @@ public class UI {
 	/**
 	 * Adds a reservation for the specified customer
 	 */
-	private void addUIReservation() {
+	private void addReservation() {
 		this.transactions();
 		try {
 			this.barberShop.addReservation(this.customer.getName(), this.customer.getHour(), this.customer.getMinute(),
@@ -91,7 +91,7 @@ public class UI {
 	/**
 	 * Cancels a reservation of the specified customer
 	 */
-	private void cancelUIReservation() {
+	private void cancelReservation() {
 		this.transactions();
 		try {
 			this.barberShop.cancelReservation(this.customer.getName(), this.customer.getHour(),
@@ -104,7 +104,7 @@ public class UI {
 	/**
 	 * Modifies a reservation for the specified customer
 	 */
-	private void modifyUIReservation() {
+	private void modifyReservation() {
 		this.transactions();
 		try {
 			this.barberShop.modifyReservation(this.customer.getName(), this.customer.getHour(),
@@ -114,7 +114,7 @@ public class UI {
 		}
 	}
 
-	private void moneyUITransactions() throws BarberException {
+	private void moneyTransactions() throws BarberException {
 		float sum = 0;
 		byte option;
 		logger.trace("Introduce the service you offered {}", "\n");
@@ -142,7 +142,7 @@ public class UI {
 	/**
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
-	 * @return                 (byte) The number of the hour.
+	 * @return (byte) The number of the hour.
 	 * 
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
@@ -161,7 +161,7 @@ public class UI {
 	/**
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
-	 * @return                 (byte) The number of the minute.
+	 * @return (byte) The number of the minute.
 	 * 
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
@@ -191,9 +191,9 @@ public class UI {
 	/**
 	 * Returns the price of the chosen haircut
 	 *
-	 * @param  option          haircut to chose
+	 * @param option haircut to chose
 	 * 
-	 * @return                 the price of the haircut
+	 * @return the price of the haircut
 	 * 
 	 * @throws BarberException if option is less than 0 or greater than number
 	 *                         of haircuts available
