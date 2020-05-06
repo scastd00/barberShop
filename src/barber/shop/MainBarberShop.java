@@ -3,6 +3,8 @@ package barber.shop;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import barber.shop.exceptions.BarberException;
+
 public class MainBarberShop {
 
 	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);

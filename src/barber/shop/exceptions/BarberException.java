@@ -1,4 +1,4 @@
-package barber.shop;
+package barber.shop.exceptions;
 
 /**
  * Class that represents Exceptions thrown during the execution of the program

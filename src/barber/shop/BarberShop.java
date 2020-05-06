@@ -3,6 +3,8 @@ package barber.shop;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import barber.shop.exceptions.BarberException;
+
 /**
  * Class that makes all the transactions of a barber shop
  */
@@ -58,10 +60,10 @@ public class BarberShop {
 	}
 
 	private byte map(byte hour, byte minute) {
-		if(hour == 0)
-			return minute;
-		else 
-			return (byte) (hour * 60 + minute);
+		if (hour == 0)
+			return (byte) (minute % 4);
+		else
+			return (byte) (hour * 60 + minute % 4); // TODO: comprobar 
 	}
 
 	private boolean isPossibleToMakeTransaction(String name, byte hour, byte minute, String place) {

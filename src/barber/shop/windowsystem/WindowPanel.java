@@ -1,4 +1,4 @@
-package barber.shop;
+package barber.shop.windowsystem;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

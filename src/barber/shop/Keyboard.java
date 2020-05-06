@@ -3,6 +3,8 @@ package barber.shop;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import barber.shop.exceptions.BarberException;
+
 /**
  * Class that reads lines introduced in the console.
  */

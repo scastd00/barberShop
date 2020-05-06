@@ -3,6 +3,10 @@ package barber.shop;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import barber.shop.exceptions.BarberException;
+import barber.shop.windowsystem.WindowInterface;
+import barber.shop.windowsystem.WindowPanel;
+
 public class UI {
 
 	private static final Logger logger = LogManager.getLogger(UI.class);
