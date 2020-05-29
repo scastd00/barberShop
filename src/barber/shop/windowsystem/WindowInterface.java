@@ -32,6 +32,6 @@ public class WindowInterface extends JFrame {
 		// this.setExtendedState(MAXIMIZED_BOTH);
 
 		this.panel = new WindowPanel();
-		add(panel);
+		this.add(panel);
 	}
 }

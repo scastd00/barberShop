@@ -20,13 +20,12 @@ public class Constants {
 		fillHashMap(this.haircutsHashMap);
 	}
 
-	public HashMap<Byte, HairCut> getHaircutsHashMap() {
+	public Map<Byte, HairCut> getHaircutsHashMap() {
 		return this.haircutsHashMap;
 	}
 
 	/**
-	 * Fills the haircuts HashMap with | Key: (Byte) number | Value: (HairCut)
-	 * object |
+	 * Fills the haircuts HashMap with | Key: (Byte) number | Value: (HairCut) object |
 	 *
 	 * @param hash haircut HashMap
 	 */
@@ -37,8 +36,6 @@ public class Constants {
 			hash.put(i, new HairCut((byte) (i - 1)));
 		}
 	}
-
-	public static final byte MAX_CUSTOMERS_DAY = 48; // Client each 24h
 
 	public static final byte MAX_HOUR = 23;
 

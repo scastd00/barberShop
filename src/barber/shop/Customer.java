@@ -13,6 +13,7 @@ public class Customer {
 	private String name;
 	private Time time;
 	private String place;
+	private String code;
 	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);
 
 	/**
@@ -22,7 +23,7 @@ public class Customer {
 	 * @param hour   Hour when the customer want to go to the BarberShop.
 	 * @param minute Minute when the customer want to go to the BarberShop.
 	 * @param place  Place of the BarberShop.
-	 * 
+	 *
 	 * @throws BarberException A BarberException will be thrown if there's no
 	 *                         name, hour, minute or place.
 	 */
@@ -52,6 +53,7 @@ public class Customer {
 			this.name = name;
 			this.time = new Time(hour, minute);
 			this.place = place;
+			this.code = this.codeGenerator();
 		}
 
 	}
@@ -68,7 +70,7 @@ public class Customer {
 	/**
 	 * Name getter.
 	 *
-	 * @return (String) The name of the customer.
+	 * @return The name of the customer.
 	 */
 	public String getName() {
 		return this.name;
@@ -77,8 +79,8 @@ public class Customer {
 	/**
 	 * Name setter.
 	 *
-	 * @param name (String) The new name to set.
-	 * 
+	 * @param name The new name to set.
+	 *
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced name is incorrect.
 	 */
@@ -93,7 +95,7 @@ public class Customer {
 	/**
 	 * Hour getter.
 	 *
-	 * @return (byte) Hour of the reservation.
+	 * @return Hour of the reservation.
 	 */
 	public byte getHour() {
 		return this.time.getHour();
@@ -102,8 +104,8 @@ public class Customer {
 	/**
 	 * Hour setter.
 	 *
-	 * @param hour (byte) The new hour to set.
-	 * 
+	 * @param hour The new hour to set.
+	 *
 	 * @throws BarberException if the introduced hour isn't valid.
 	 */
 	public void setHour(byte hour) throws BarberException {
@@ -117,8 +119,7 @@ public class Customer {
 	/**
 	 * Minute getter.
 	 *
-	 * @return (byte) Minute of the reservation (between 0 and 59, both
-	 *         included).
+	 * @return Minute of the reservation (between 0 and 59, both included).
 	 */
 	public byte getMinute() {
 		return this.time.getMinute();
@@ -127,8 +128,8 @@ public class Customer {
 	/**
 	 * Minute setter.
 	 *
-	 * @param minute (byte) The new minute to set.
-	 * 
+	 * @param minute The new minute to set.
+	 *
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced minute isn't valid.
 	 */
@@ -143,7 +144,7 @@ public class Customer {
 	/**
 	 * Place getter.
 	 *
-	 * @return (String) Place where the customer want to go.
+	 * @return Place where the customer want to go.
 	 */
 	public String getPlace() {
 		return this.place;
@@ -152,8 +153,8 @@ public class Customer {
 	/**
 	 * Place setter.
 	 *
-	 * @param place (String) Place where the customer want to go.
-	 * 
+	 * @param place Place where the customer want to go.
+	 *
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced place isn't valid.
 	 */
@@ -163,5 +164,38 @@ public class Customer {
 		} else {
 			this.place = place;
 		}
+	}
+
+	/**
+	 * Code getter.
+	 *
+	 * @return The code of each person depending the time of the reservation.
+	 */
+	public String getCode() {
+		return this.code;
+	}
+
+	/**
+	 * Generates the code for each customer depending the time of the
+	 * reservation.
+	 *
+	 * @return The code of this person.
+	 */
+	private String codeGenerator() {
+		StringBuilder genCode = new StringBuilder(4);
+
+		if (this.getHour() < 10) {
+			genCode.append("0" + this.getHour());
+		} else {
+			genCode.append(this.getHour());
+		}
+
+		if (this.getMinute() < 10) {
+			genCode.append("0" + this.getMinute());
+		} else {
+			genCode.append(this.getMinute());
+		}
+
+		return genCode.toString();
 	}
 }

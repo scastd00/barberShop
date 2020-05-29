@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<project name="BarberShop" basedir="." default="todo" 
+<project name="BarberShop" basedir="." default="todo"
 	xmlns:jacoco="antlib:org.jacoco.ant">
 	<property name="projectName" value="BarberShop" />
 	<property name="src.dir" value="src" />
@@ -173,12 +173,13 @@
 		<echo message="Execution finished" />
 	</target>
 
-	<!-- Executes the coverage report -->
+	<!-- Executes the coverage report
 	<target name="coverage">
 		<exec executable="/usr/bin/google-chrome-stable">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>
 	</target>
+	-->
 
-	<target name="todo" depends="compile, document, test, report, coverage, execute" />
+	<target name="todo" depends="compile, document, test, report, execute" />
 </project>
