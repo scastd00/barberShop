@@ -85,8 +85,7 @@ public class UI {
 	private void addReservation() {
 		this.transactions();
 		try {
-			this.barberShop.addReservation(this.customer.getName(), this.customer.getHour(), this.customer.getMinute(),
-					this.customer.getPlace());
+			this.barberShop.addReservation(this.customer);
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
@@ -98,8 +97,7 @@ public class UI {
 	private void cancelReservation() {
 		this.transactions();
 		try {
-			this.barberShop.cancelReservation(this.customer.getName(), this.customer.getHour(),
-					this.customer.getMinute(), this.customer.getPlace());
+			this.barberShop.cancelReservation(this.customer);
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
@@ -111,8 +109,7 @@ public class UI {
 	private void modifyReservation() {
 		this.transactions();
 		try {
-			this.barberShop.modifyReservation(this.customer.getName(), this.customer.getHour(),
-					this.customer.getMinute(), this.customer.getPlace());
+			this.barberShop.modifyReservation(this.customer);
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
@@ -147,7 +144,7 @@ public class UI {
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
 	 * @return (byte) The number of the hour.
-	 * 
+	 *
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
 	 */
@@ -166,7 +163,7 @@ public class UI {
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
 	 * @return (byte) The number of the minute.
-	 * 
+	 *
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
 	 */
@@ -196,9 +193,9 @@ public class UI {
 	 * Returns the price of the chosen haircut
 	 *
 	 * @param option haircut to chose
-	 * 
+	 *
 	 * @return the price of the haircut
-	 * 
+	 *
 	 * @throws BarberException if option is less than 0 or greater than number
 	 *                         of haircuts available
 	 */

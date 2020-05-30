@@ -2,6 +2,7 @@ package barber.shop;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -23,14 +24,14 @@ public class BarberShop {
 	/**
 	 * Hash for all the customers. Size: 24
 	 */
-	private HashMap<Integer, Customer[]> customerTimeHashMap;
+	private HashMap<Byte, ArrayList<Customer>> customersTimeHashMap;
 
 	/**
 	 * Class constructor for MAX_CUSTOMERS_DAY
 	 */
 	public BarberShop() {
 		this.customersTimetable = new Customer[6];
-		this.customerTimeHashMap = new HashMap<>(24);
+		this.customersTimeHashMap = new HashMap<>(24);
 	}
 
 	/**
@@ -40,33 +41,41 @@ public class BarberShop {
 	 */
 	public BarberShop(int customers) {
 		this.customersTimetable = new Customer[customers];
+		this.customersTimeHashMap = new HashMap<>(24);
 	}
 
-	public void addReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		if (this.isPossibleToMakeTransaction(name, hour, minute, place)) {
-			byte posAdd = this.hashFunction(hour, minute);
-			this.customersTimetable[posAdd] = new Customer(name, hour, minute, place);
-			// Se puede quitar los parámetros y hacer set después
+	public void addReservation(Customer customer) throws BarberException {
+		if (this.isPossibleToMakeTransaction(customer.getName(), customer.getHour(), customer.getMinute(),
+				customer.getPlace())) {
+			byte position = this.getHashHour(customer);
+			ArrayList<Customer> customersArray = this.customersTimeHashMap.get(position);
+
+			if (customersArray == null) {
+				this.customersTimeHashMap.put(position, new ArrayList<Customer>(6));
+			}
+
+			byte posList = this.getHashMinute(customer);
+			this.customersTimeHashMap.get(position).add(posList, customer);
 		} else {
-			throw new BarberException("Error: Invalid values");
+			throw new BarberException("Error: Invalid values. Try again");
 		}
 	}
 
-	public void cancelReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		if (this.isPossibleToMakeTransaction(name, hour, minute, place)) {
-			byte posCancel = this.hashFunction(hour, minute);
-			this.customersTimetable[posCancel] = null;
+	public void cancelReservation(Customer customer) throws BarberException {
+		if (this.isPossibleToMakeTransaction(customer.getName(), customer.getHour(), customer.getMinute(),
+				customer.getPlace())) {
+			this.customersTimeHashMap.get(this.getHashHour(customer)).remove(this.getHashMinute(customer));
 		} else {
-			throw new BarberException("Error: Invalid values");
+			throw new BarberException("Error: Invalid values. Try again");
 		}
 	}
 
-	public void modifyReservation(String name, byte hour, byte minute, String place) throws BarberException {
-		if (this.isPossibleToMakeTransaction(name, hour, minute, place)) {
-			byte posMod = this.hashFunction(hour, minute);
-			this.customersTimetable[posMod] = new Customer(name, hour, minute, place);
+	public void modifyReservation(Customer customer) throws BarberException {
+		if (this.isPossibleToMakeTransaction(customer.getName(), customer.getHour(), customer.getMinute(),
+				customer.getPlace())) {
+
 		} else {
-			throw new BarberException("Error: Invalid values");
+			throw new BarberException("Error: Invalid values. Try again");
 		}
 
 	}
@@ -81,8 +90,12 @@ public class BarberShop {
 		return exchange;
 	}
 
-	private byte hashFunction(byte hour, byte minute) {
-		return 0;
+	private byte getHashHour(Customer customer) {
+		return (byte) (customer.getHour() % 24);
+	}
+
+	private byte getHashMinute(Customer customer) {
+		return (byte) (customer.getMinute() % 60);
 	}
 
 	public boolean isPossibleToMakeTransaction(String name, byte hour, byte minute, String place) {
