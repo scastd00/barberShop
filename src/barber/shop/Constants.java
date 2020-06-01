@@ -1,11 +1,24 @@
 package barber.shop;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
- * Constants used in the other classes of the program.
+ * Constants used in the program.
  */
 public class Constants {
+
+	public static final byte MAX_HOUR = 23;
+
+	public static final byte MIN_HOUR = 0;
+
+	public static final byte MAX_MINUTE = 59;
+
+	public static final byte MIN_MINUTE = 0;
+
+	public static final byte NUM_HAIRCUTS = 30;
+
+	public static final byte ARRAY_LIST_SIZE = 4;
 
 	/**
 	 * HashMap where the haircuts are stored to access them
@@ -25,7 +38,7 @@ public class Constants {
 	}
 
 	/**
-	 * Fills the haircuts HashMap with | Key: (Byte) number | Value: (HairCut) object |
+	 * Fills the haircuts HashMap with Key: (Byte) | Value: (HairCut)
 	 *
 	 * @param hash haircut HashMap
 	 */
@@ -36,14 +49,4 @@ public class Constants {
 			hash.put(i, new HairCut((byte) (i - 1)));
 		}
 	}
-
-	public static final byte MAX_HOUR = 23;
-
-	public static final byte MIN_HOUR = 0;
-
-	public static final byte MAX_MINUTE = 59;
-
-	public static final byte MIN_MINUTE = 0;
-
-	public static final byte NUM_HAIRCUTS = 30;
 }

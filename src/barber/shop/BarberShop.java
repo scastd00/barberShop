@@ -17,62 +17,63 @@ public class BarberShop {
 	private static final Logger logger = LogManager.getLogger(BarberShop.class);
 
 	/**
-	 * Array for all the customers of the day.
-	 */
-	private Customer[] customersTimetable;
-
-	/**
-	 * Hash for all the customers. Size: 24
+	 * Hash for all the customers. Size = 24.
 	 */
 	private HashMap<Byte, ArrayList<Customer>> customersTimeHashMap;
 
 	/**
-	 * Class constructor for MAX_CUSTOMERS_DAY
+	 * Class constructor for 24 hours
 	 */
 	public BarberShop() {
-		this.customersTimetable = new Customer[6];
-		this.customersTimeHashMap = new HashMap<>(24);
+		this.customersTimeHashMap = new HashMap<>(Constants.MAX_HOUR + 1);
+		for (byte i = 0; i < this.customersTimeHashMap.size(); i++) {
+			this.customersTimeHashMap.put(i, new ArrayList<Customer>(4));
+		}
 	}
 
 	/**
-	 * Class constructor for a custom size
+	 * Makes a reservation for a new valid customer.
 	 *
-	 * @param customers number of customers for the array
+	 * @param customer the customer to make the reservation.
+	 *
+	 * @throws BarberException if the customer values are incorrect.
 	 */
-	public BarberShop(int customers) {
-		this.customersTimetable = new Customer[customers];
-		this.customersTimeHashMap = new HashMap<>(24);
-	}
-
 	public void addReservation(Customer customer) throws BarberException {
-		if (this.isPossibleToMakeTransaction(customer.getName(), customer.getHour(), customer.getMinute(),
-				customer.getPlace())) {
-			byte position = this.getHashHour(customer);
-			ArrayList<Customer> customersArray = this.customersTimeHashMap.get(position);
+		if (this.isPossibleToMakeTransaction(customer)) {
+			byte position = this.hashPosition(customer);
 
-			if (customersArray == null) {
-				this.customersTimeHashMap.put(position, new ArrayList<Customer>(6));
-			}
-
-			byte posList = this.getHashMinute(customer);
-			this.customersTimeHashMap.get(position).add(posList, customer);
+			// Inserts the new customer in the position
+			// (Hash, ArrayList) = (Hour, Minute)
+			this.customersTimeHashMap.get(position).add(this.listPosition(customer), customer);
 		} else {
 			throw new BarberException("Error: Invalid values. Try again");
 		}
 	}
 
+	/**
+	 * Removes an existing reservation of the specified customer.
+	 *
+	 * @param customer the customer to remove the reservation.
+	 *
+	 * @throws BarberException if the customer values are incorrect.
+	 */
 	public void cancelReservation(Customer customer) throws BarberException {
-		if (this.isPossibleToMakeTransaction(customer.getName(), customer.getHour(), customer.getMinute(),
-				customer.getPlace())) {
-			this.customersTimeHashMap.get(this.getHashHour(customer)).remove(this.getHashMinute(customer));
+		if (this.isPossibleToMakeTransaction(customer)) {
+			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 		} else {
 			throw new BarberException("Error: Invalid values. Try again");
 		}
 	}
 
+	/**
+	 * Modifies an existing reservation.
+	 *
+	 * @param customer the customer to modify the reservation.
+	 *
+	 * @throws BarberException if the customer values are incorrect.
+	 */
 	public void modifyReservation(Customer customer) throws BarberException {
-		if (this.isPossibleToMakeTransaction(customer.getName(), customer.getHour(), customer.getMinute(),
-				customer.getPlace())) {
+		if (this.isPossibleToMakeTransaction(customer)) {
 
 		} else {
 			throw new BarberException("Error: Invalid values. Try again");
@@ -80,6 +81,16 @@ public class BarberShop {
 
 	}
 
+	/**
+	 * Calculates the money payment
+	 *
+	 * @param paid  money paid
+	 * @param toPay sum of all cuts offered
+	 *
+	 * @return the cashback if the customer paid more money
+	 *
+	 * @throws BarberException if the customer owes some money
+	 */
 	public float exchange(float paid, float toPay) throws BarberException {
 		float exchange = paid - toPay;
 
@@ -90,19 +101,46 @@ public class BarberShop {
 		return exchange;
 	}
 
-	private byte getHashHour(Customer customer) {
+	/**
+	 * Returns the position of the customer in the Hash
+	 *
+	 * @param customer Customer to get the hour
+	 *
+	 * @return the hour where the customer must be in the Hash
+	 */
+	private byte hashPosition(Customer customer) {
 		return (byte) (customer.getHour() % 24);
 	}
 
-	private byte getHashMinute(Customer customer) {
-		return (byte) (customer.getMinute() % 60);
+	/**
+	 * Returns the position of the customer in the ArrayList
+	 *
+	 * @param customer Customer to get the minute
+	 *
+	 * @return the minute where the customer must be in the ArrayList
+	 */
+	private byte listPosition(Customer customer) {
+		return (byte) (customer.getMinute() % Constants.ARRAY_LIST_SIZE);
 	}
 
-	public boolean isPossibleToMakeTransaction(String name, byte hour, byte minute, String place) {
+	/**
+	 * Checks that the customer values are right.
+	 *
+	 * @param customer Customer to make a transaction.
+	 *
+	 * @return true if is a valid customer, false otherwise.
+	 */
+	public boolean isPossibleToMakeTransaction(Customer customer) {
 		boolean isPossible = true;
 
-		if ((name.length() == 0) || (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR)
-				|| (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) || (place.length() == 0)) {
+		if (customer == null) {
+			throw new IllegalArgumentException("Bad customer parameter");
+		}
+
+		if ((customer.getName().length() == 0)
+				|| (customer.getHour() < Constants.MIN_HOUR || customer.getHour() > Constants.MAX_HOUR)
+				|| (customer.getMinute() < Constants.MIN_MINUTE || customer.getMinute() > Constants.MAX_MINUTE)
+				|| (customer.getPlace().length() == 0)) {
 
 			isPossible = false;
 		}
