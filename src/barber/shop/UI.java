@@ -13,8 +13,8 @@ public class UI {
 	private BarberShop barberShop;
 	private Constants haircuts;
 	private Customer customer;
-	private WindowInterface windowInterface;
-	private WindowPanel panel;
+//	private WindowInterface windowInterface;
+//	private WindowPanel panel;
 
 	/**
 	 * Class constructor
@@ -25,8 +25,8 @@ public class UI {
 		this.barberShop = bShop;
 		this.haircuts = new Constants();
 		this.customer = new Customer();
-		this.windowInterface = new WindowInterface();
-		this.panel = new WindowPanel();
+//		this.windowInterface = new WindowInterface();
+//		this.panel = new WindowPanel();
 	}
 
 	/**

@@ -81,7 +81,7 @@ public class Time {
 	/**
 	 * Minute setter.
 	 *
-	 * @param hour Minute to set.
+	 * @param minute Minute to set.
 	 *
 	 * @throws BarberException if minute value is incorrect.
 	 */

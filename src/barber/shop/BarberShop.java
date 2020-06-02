@@ -26,8 +26,8 @@ public class BarberShop {
 	 */
 	public BarberShop() {
 		this.customersTimeHashMap = new HashMap<>(Constants.MAX_HOUR + 1);
-		for (byte i = 0; i < this.customersTimeHashMap.size(); i++) {
-			this.customersTimeHashMap.put(i, new LinkedList<Customer>());
+		for (byte i = 0; i < Constants.MAX_HOUR; i++) {
+			this.customersTimeHashMap.put(i, new LinkedList<>());
 		}
 	}
 
@@ -41,10 +41,11 @@ public class BarberShop {
 	public void addReservation(Customer customer) throws BarberException {
 		if (this.isPossibleToMakeTransaction(customer)) {
 			byte position = this.hashPosition(customer);
+			logger.debug("");
 
 			// Inserts the new customer in the position
 			// (Hash, ArrayList) = (Hour, Minute)
-			this.customersTimeHashMap.get(position).add(this.listPosition(customer), customer);
+			this.customersTimeHashMap.get(position).add(customer);
 		} else {
 			throw new BarberException("Error: Invalid values. Try again");
 		}
