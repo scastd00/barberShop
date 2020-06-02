@@ -5,6 +5,7 @@
 	<property name="projectName" value="BarberShop" />
 	<property name="src.dir" value="src" />
 	<property name="classes.dir" value="classes" />
+	<property name="jar.dir" value="build" />
 	<property name="doc.dir" value="doc" />
 	<property name="conf.dir" value="etc" />
 	<property name="package" value="barber.shop" />
@@ -30,6 +31,7 @@
 		<delete dir="${doc.dir}" />
 		<delete file="${logs.dir}/result.xml" />
 		<delete dir="${coverage.result.dir}" />
+		<delete dir="${jar.dir}" />
 	</target>
 
 
@@ -152,10 +154,20 @@
 		<echo message="Generated coverage report with Jacoco" />
 	</target>
 
+	<!-- Jars the classes to run the swing application -->
+	<target name="jar" depends="compile">
+		<mkdir dir="build/jar"/>
+		<jar destfile="build/jar/${projectName}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${package}.Main${projectName}"/>
+			</manifest>
+		</jar>
+	</target>
+
 
 	<!-- Executes the code -->
 	<target name="execute" depends="compile">
-		<java classname="${package}.Main${projectName}">
+		<java classname="${package}.Main${projectName}" fork="true">
 			<classpath>
 				<!-- Where to search the src files-->
 				<pathelement path="${classes.dir}" />
@@ -169,12 +181,10 @@
 			<arg value="5" />
 			-->
 		</java>
-
-		<echo message="Execution finished" />
 	</target>
 
 	<!-- Executes the coverage report
-	<target name="coverage">
+	<target name="coverage" depends="report">
 		<exec executable="/usr/bin/google-chrome-stable">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>

@@ -2,8 +2,8 @@ package barber.shop;
 
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -19,7 +19,7 @@ public class BarberShop {
 	/**
 	 * Hash for all the customers. Size = 24.
 	 */
-	private HashMap<Byte, ArrayList<Customer>> customersTimeHashMap;
+	private HashMap<Byte, LinkedList<Customer>> customersTimeHashMap;
 
 	/**
 	 * Class constructor for 24 hours
@@ -27,7 +27,7 @@ public class BarberShop {
 	public BarberShop() {
 		this.customersTimeHashMap = new HashMap<>(Constants.MAX_HOUR + 1);
 		for (byte i = 0; i < this.customersTimeHashMap.size(); i++) {
-			this.customersTimeHashMap.put(i, new ArrayList<Customer>(4));
+			this.customersTimeHashMap.put(i, new LinkedList<Customer>());
 		}
 	}
 

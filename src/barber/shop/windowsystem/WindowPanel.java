@@ -15,15 +15,20 @@ public class WindowPanel extends JPanel implements ActionListener {
 
 	private static final Logger logger = LogManager.getLogger(WindowPanel.class);
 	JButton button = new JButton("Peinado");
+	JButton button2 = new JButton("Peinado 2");
 
 	public WindowPanel() {
 		this.add(button);
+		this.add(button2);
 		button.addActionListener(this);
+		button2.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.setBackground(Color.BLUE);
+		logger.warn(e.getActionCommand());
+		logger.info("hola");
 	}
 
 }
