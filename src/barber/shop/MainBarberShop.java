@@ -12,7 +12,6 @@ public class MainBarberShop {
 
 	public static void main(String[] args) {
 		SwingWindow sw = new SwingWindow();
-		sw.initialize();
 	}
 
 }
