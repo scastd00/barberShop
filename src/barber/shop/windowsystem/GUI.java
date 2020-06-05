@@ -10,9 +10,9 @@ import barber.shop.HairCut;
 import barber.shop.Keyboard;
 import barber.shop.exceptions.BarberException;
 
-public class WindowInterface {
+public class GUI {
 
-	private static final Logger logger = LogManager.getLogger(WindowInterface.class);
+	private static final Logger logger = LogManager.getLogger(GUI.class);
 	private BarberShop barberShop;
 	private Constants haircuts;
 
@@ -21,7 +21,7 @@ public class WindowInterface {
 	 *
 	 * @param bShop a barber shop
 	 */
-	public WindowInterface(BarberShop bShop) {
+	public GUI(BarberShop bShop) {
 		this.barberShop = bShop;
 		this.haircuts = new Constants();
 	}
@@ -220,9 +220,12 @@ public class WindowInterface {
 				case "Modify Reservation":
 					this.barberShop.modifyReservation(new Customer(fullName, h, m, place));
 					break;
+					
+				case "Exit":
+					System.exit(0);
+					break;
 
 				default:
-					logger.trace("No place selected");
 					break;
 			}
 		} catch (NumberFormatException nfe) {

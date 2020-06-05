@@ -47,7 +47,7 @@ public class BarberShop {
 			// (Hash, ArrayList) = (Hour, Minute)
 			this.customersTimeHashMap.get(position).add(customer);
 		} else {
-			throw new BarberException("Error: Invalid values. Try again");
+			throw new BarberException("Invalid values. Try again");
 		}
 	}
 
@@ -62,7 +62,7 @@ public class BarberShop {
 		if (this.isPossibleToMakeTransaction(customer)) {
 //			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 		} else {
-			throw new BarberException("Error: Invalid values. Try again");
+			throw new BarberException("Invalid values. Try again");
 		}
 	}
 
@@ -77,7 +77,7 @@ public class BarberShop {
 		if (this.isPossibleToMakeTransaction(customer)) {
 
 		} else {
-			throw new BarberException("Error: Invalid values. Try again");
+			throw new BarberException("Invalid values. Try again");
 		}
 
 	}

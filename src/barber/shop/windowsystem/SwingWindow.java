@@ -1,6 +1,6 @@
-package barber.shop;
+package barber.shop.windowsystem;
 
-import barber.shop.windowsystem.*;
+import barber.shop.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,30 +9,30 @@ public class SwingWindow {
 
 	private JFrame frmBarberShop;
 	private BarberShop bs;
-	private WindowInterface wi;
+	private GUI wi;
 	private JTextField txtCompleteName;
 	private JTextField txtHour;
 	private JTextField txtMinute;
 
 	/**
-	 * Create the application.
+	 * Creates the application.
 	 */
 	public SwingWindow() {
-		initialize();
+		this.frmBarberShop = new JFrame();
+		this.bs = new BarberShop();
+		this.wi = new GUI(bs);
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initializes the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension screenSize = screen.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
-		bs = new BarberShop();
-		wi = new WindowInterface(bs);
+		
 
-		frmBarberShop = new JFrame();
 		frmBarberShop.setFont(new Font("Monospaced", Font.BOLD, 12));
 		frmBarberShop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBarberShop.setTitle("Barber Shop");
@@ -43,9 +43,11 @@ public class SwingWindow {
 		 * Selection of the place
 		 */
 		JComboBox<String> comboBox = new JComboBox<>();
-		String[] comboBoxList = new String[] { "Select a Place", "Astorga", "San Justo de la Vega" };
+		String[] comboBoxList = new String[] { "", "Astorga", "San Justo de la Vega" };
 		comboBox.setModel(new DefaultComboBoxModel<>(comboBoxList));
 		comboBox.setBounds(200, 123, 185, 24);
+		
+		// Buttons start //
 
 		/**
 		 * Add reservation button
@@ -85,11 +87,13 @@ public class SwingWindow {
 						txtMinute.getText(), place);
 			}
 		});
+		
+		// Buttons end //
 
 		frmBarberShop.getContentPane().add(btnModifyReservation);
-		frmBarberShop.getContentPane().setLayout(null);
 		frmBarberShop.getContentPane().add(btnAddReservation);
 		frmBarberShop.getContentPane().add(btnCancelReservation);
+		frmBarberShop.getContentPane().setLayout(null);
 
 		txtCompleteName = new JTextField();
 		txtCompleteName.setText("Complete Name");
@@ -111,7 +115,6 @@ public class SwingWindow {
 
 		frmBarberShop.getContentPane().add(comboBox);
 		frmBarberShop.setBounds(250, 250, screenWidth, screenHeight);
-		txtMinute.getText();
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {

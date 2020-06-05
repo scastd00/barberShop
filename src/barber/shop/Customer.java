@@ -43,7 +43,7 @@ public class Customer {
 		}
 
 		if (place.length() == 0) {
-			error.append("ERROR: You must introduce a valid place\n");
+			error.append("You must introduce a valid place\n");
 		}
 
 		if (error.length() > 0) {

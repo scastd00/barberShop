@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import barber.shop.exceptions.BarberException;
-import barber.shop.windowsystem.WindowInterface;
+import barber.shop.windowsystem.GUI;
 import barber.shop.windowsystem.WindowPanel;
 
 public class TextUI {
