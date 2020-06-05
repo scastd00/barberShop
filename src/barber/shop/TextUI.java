@@ -3,30 +3,33 @@ package barber.shop;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import barber.shop.exceptions.BarberException;
 import barber.shop.windowsystem.WindowInterface;
 import barber.shop.windowsystem.WindowPanel;
 
-public class UI {
+public class TextUI {
 
-	private static final Logger logger = LogManager.getLogger(UI.class);
+	private static final Logger logger = LogManager.getLogger(TextUI.class);
 	private BarberShop barberShop;
 	private Constants haircuts;
 	private Customer customer;
-//	private WindowInterface windowInterface;
-//	private WindowPanel panel;
+	// private WindowInterface windowInterface;
+	// private WindowPanel panel;
 
 	/**
 	 * Class constructor
 	 *
 	 * @param bShop a barber shop
 	 */
-	public UI(BarberShop bShop) {
+	public TextUI(BarberShop bShop) {
 		this.barberShop = bShop;
 		this.haircuts = new Constants();
 		this.customer = new Customer();
-//		this.windowInterface = new WindowInterface();
-//		this.panel = new WindowPanel();
+		// this.windowInterface = new WindowInterface();
+		// this.panel = new WindowPanel();
 	}
 
 	/**
@@ -227,4 +230,7 @@ public class UI {
 			logger.warn(e.getMessage());
 		}
 	}
+
+	
+
 }

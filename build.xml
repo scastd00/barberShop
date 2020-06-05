@@ -167,6 +167,7 @@
 
 	<!-- Executes the code -->
 	<target name="execute" depends="compile">
+		<!-- Fork for executing the Swing Window -->
 		<java classname="${package}.Main${projectName}" fork="true">
 			<classpath>
 				<!-- Where to search the src files-->
@@ -176,14 +177,10 @@
 					<include name="**/*.jar" />
 				</fileset>
 			</classpath>
-			<!-- Passed arguments
-			<arg value="15" />
-			<arg value="5" />
-			-->
 		</java>
 	</target>
 
-	<!-- Executes the coverage report
+	<!-- Executes the coverage report file
 	<target name="coverage" depends="report">
 		<exec executable="/usr/bin/google-chrome-stable">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>

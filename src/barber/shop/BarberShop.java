@@ -60,7 +60,7 @@ public class BarberShop {
 	 */
 	public void cancelReservation(Customer customer) throws BarberException {
 		if (this.isPossibleToMakeTransaction(customer)) {
-			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
+//			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 		} else {
 			throw new BarberException("Error: Invalid values. Try again");
 		}

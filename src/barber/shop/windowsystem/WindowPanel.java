@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -14,14 +15,16 @@ import org.apache.logging.log4j.Logger;
 public class WindowPanel extends JPanel implements ActionListener {
 
 	private static final Logger logger = LogManager.getLogger(WindowPanel.class);
-	JButton button = new JButton("Peinado");
-	JButton button2 = new JButton("Peinado 2");
+	private JButton button = new JButton("Peinado");
+	private JButton button2 = new JButton("Peinado 2");
 
 	public WindowPanel() {
 		this.add(button);
 		this.add(button2);
 		button.addActionListener(this);
 		button2.addActionListener(this);
+		button.setBounds(100, 200, 100, 100);
+		button.setIcon(new ImageIcon("./../../../../etc/images/69084.png"));
 	}
 
 	@Override

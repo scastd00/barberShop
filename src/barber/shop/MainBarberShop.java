@@ -11,12 +11,7 @@ public class MainBarberShop {
 
 	public static void main(String[] args) {
 		BarberShop bShop = new BarberShop();
-		try {
-			UI ui = new UI(bShop);
-			ui.init();
-		} catch (BarberException e) {
-			logger.warn(e.getMessage());
-		}
+		SwingWindow sw = new SwingWindow();
 	}
 
 }
