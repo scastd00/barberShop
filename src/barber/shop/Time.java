@@ -86,7 +86,7 @@ public class Time {
 	 * @throws BarberException if minute value is incorrect.
 	 */
 	public void setMinute(int minute) throws BarberException {
-		if (minute < Constants.MIN_HOUR || minute > Constants.MAX_HOUR) {
+		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
 			throw new BarberException("Error: Incorrect minute value");
 		} else {
 			this.minute = minute;
