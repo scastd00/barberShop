@@ -100,7 +100,23 @@ public class Time {
 	 */
 	@Override
 	public String toString() {
-		return String.format("%d:%d", this.hour, this.minute);
+		StringBuilder timeString = new StringBuilder(4);
+
+		if (this.getHour() < 10) {
+			timeString.append("0").append(this.getHour());
+		} else {
+			timeString.append(this.getHour());
+		}
+
+		timeString.append(":");
+
+		if (this.getMinute() < 10) {
+			timeString.append("0").append(this.getMinute());
+		} else {
+			timeString.append(this.getMinute());
+		}
+
+		return timeString.toString();
 	}
 
 }

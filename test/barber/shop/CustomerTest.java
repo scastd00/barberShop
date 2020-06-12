@@ -9,10 +9,12 @@ import org.junit.Test;
 public class CustomerTest {
 
 	private Customer customer;
+	private Customer customer1;
 
 	@Before
 	public void setUp() throws Exception {
 		customer = new Customer();
+		customer1 = new Customer("Sam", 1, 0, "Astorga");
 	}
 
 	@Test(expected = BarberException.class)
@@ -115,5 +117,11 @@ public class CustomerTest {
 		customer.setPlace("");
 	}
 
-
+	@Test
+	public void testToString() throws BarberException {
+		assertEquals("Sam 01:00 Astorga", customer1.toString());
+		customer1.setHour(16);
+		customer1.setMinute(15);
+		assertEquals("Sam 16:15 Astorga", customer1.toString());
+	}
 }

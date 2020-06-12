@@ -12,7 +12,6 @@ public class Customer {
 	private String name;
 	private Time time;
 	private String place;
-	private String code;
 	private static final Logger logger = LogManager.getLogger(Customer.class);
 
 	/**
@@ -51,7 +50,6 @@ public class Customer {
 			this.name = name;
 			this.time = new Time(hour, minute);
 			this.place = place;
-			this.code = this.codeGenerator();
 		}
 
 	}
@@ -160,41 +158,8 @@ public class Customer {
 		}
 	}
 
-	/**
-	 * Code getter.
-	 *
-	 * @return The code of each person depending the time of the reservation.
-	 */
-	public String getCode() {
-		return this.code;
-	}
-
-	/**
-	 * Generates the code for each customer depending the time of the
-	 * reservation.
-	 *
-	 * @return The code of this person.
-	 */
-	private String codeGenerator() {
-		StringBuilder genCode = new StringBuilder(4);
-
-		if (this.getHour() < 10) {
-			genCode.append("0").append(this.getHour());
-		} else {
-			genCode.append(this.getHour());
-		}
-
-		if (this.getMinute() < 10) {
-			genCode.append("0").append(this.getMinute());
-		} else {
-			genCode.append(this.getMinute());
-		}
-
-		return genCode.toString();
-	}
-
 	@Override
 	public String toString() {
-		return this.name + this.time.toString() + this.place;
+		return this.name + " " + this.time.toString() + " " + this.place;
 	}
 }
