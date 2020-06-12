@@ -180,13 +180,12 @@
 		</java>
 	</target>
 
-	<!-- Executes the coverage report file
+	<!-- Executes the coverage report file -->
 	<target name="coverage" depends="report">
-		<exec executable="/usr/bin/google-chrome-stable">
+		<exec executable="/snap/bin/chromium">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>
 	</target>
-	-->
 
-	<target name="todo" depends="compile, document, test, report, execute" />
+	<target name="todo" depends="compile, document, test, coverage, execute" />
 </project>

@@ -3,7 +3,6 @@ package barber.shop;
 import barber.shop.exceptions.BarberException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Class that represents a customer.
@@ -26,10 +25,10 @@ public class Customer {
 	 * @throws BarberException A BarberException will be thrown if there's no
 	 *                         name, hour, minute or place.
 	 */
-	public Customer(@NotNull String name, byte hour, byte minute, String place) throws BarberException {
+	public Customer(String name, int hour, int minute, String place) throws BarberException {
 		StringBuilder error = new StringBuilder();
 
-		if (name.length() == 0) {
+		if (name == null || name.length() == 0) {
 			error.append("ERROR: you must introduce a valid name\n");
 		}
 
@@ -41,7 +40,7 @@ public class Customer {
 			error.append("ERROR: minute value must be between 0 and 59\n");
 		}
 
-		if (place.length() == 0) {
+		if (place == null || place.length() == 0) {
 			error.append("You must introduce a valid place\n");
 		}
 
@@ -82,8 +81,8 @@ public class Customer {
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced name is incorrect.
 	 */
-	public void setName(@NotNull String name) throws BarberException {
-		if (name.length() == 0) {
+	public void setName(String name) throws BarberException {
+		if (name == null || name.length() == 0) {
 			throw new BarberException("ERROR: you must introduce a valid name");
 		} else {
 			this.name = name;
@@ -95,7 +94,7 @@ public class Customer {
 	 *
 	 * @return Hour of the reservation.
 	 */
-	public byte getHour() {
+	public int getHour() {
 		return this.time.getHour();
 	}
 
@@ -105,7 +104,7 @@ public class Customer {
 	 * @param hour The new hour to set.
 	 * @throws BarberException if the introduced hour isn't valid.
 	 */
-	public void setHour(byte hour) throws BarberException {
+	public void setHour(int hour) throws BarberException {
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
 			throw new BarberException("ERROR: hour value must be between 0 and 23");
 		} else {
@@ -118,7 +117,7 @@ public class Customer {
 	 *
 	 * @return Minute of the reservation (between 0 and 59, both included).
 	 */
-	public byte getMinute() {
+	public int getMinute() {
 		return this.time.getMinute();
 	}
 
@@ -129,7 +128,7 @@ public class Customer {
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced minute isn't valid.
 	 */
-	public void setMinute(byte minute) throws BarberException {
+	public void setMinute(int minute) throws BarberException {
 		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
 			throw new BarberException("ERROR: minute value must be between 0 and 59");
 		} else {
@@ -154,7 +153,7 @@ public class Customer {
 	 *                         introduced place isn't valid.
 	 */
 	public void setPlace(String place) throws BarberException {
-		if (place.length() == 0) {
+		if (place == null || place.length() == 0) {
 			throw new BarberException("ERROR: You must introduce a valid place");
 		} else {
 			this.place = place;
@@ -192,5 +191,10 @@ public class Customer {
 		}
 
 		return genCode.toString();
+	}
+
+	@Override
+	public String toString() {
+		return this.name + this.time.toString() + this.place;
 	}
 }

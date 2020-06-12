@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 public class Time {
 
 	private static final Logger logger = LogManager.getLogger(Time.class);
-	private byte hour;
-	private byte minute;
+	private int hour;
+	private int minute;
 
 	/**
 	 * Class constructor.
@@ -20,7 +20,7 @@ public class Time {
 	 * @param minute Minute to set.
 	 * @throws BarberException if values of hour or minute are incorrect.
 	 */
-	public Time(byte hour, byte minute) throws BarberException {
+	public Time(int hour, int minute) throws BarberException {
 		StringBuilder error = new StringBuilder();
 
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
@@ -52,7 +52,7 @@ public class Time {
 	 *
 	 * @return Returns the hour of the time.
 	 */
-	public byte getHour() {
+	public int getHour() {
 		return this.hour;
 	}
 
@@ -62,7 +62,7 @@ public class Time {
 	 * @param hour Hour to set.
 	 * @throws BarberException if hour value is incorrect.
 	 */
-	public void setHour(byte hour) throws BarberException {
+	public void setHour(int hour) throws BarberException {
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
 			throw new BarberException("Error: Incorrect hour value");
 		} else {
@@ -75,7 +75,7 @@ public class Time {
 	 *
 	 * @return Returns the minute of the time.
 	 */
-	public byte getMinute() {
+	public int getMinute() {
 		return this.minute;
 	}
 
@@ -85,7 +85,7 @@ public class Time {
 	 * @param minute Minute to set.
 	 * @throws BarberException if minute value is incorrect.
 	 */
-	public void setMinute(byte minute) throws BarberException {
+	public void setMinute(int minute) throws BarberException {
 		if (minute < Constants.MIN_HOUR || minute > Constants.MAX_HOUR) {
 			throw new BarberException("Error: Incorrect minute value");
 		} else {
