@@ -7,13 +7,16 @@ import org.junit.Test;
 
 public class ConstantsTest {
 
+	private Constants constants;
+
 	@Before
 	public void setUp() throws Exception {
+		constants = new Constants();
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void test(){
+
 	}
 
 }

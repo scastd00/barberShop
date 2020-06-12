@@ -3,11 +3,7 @@ package barber.shop.windowsystem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import barber.shop.BarberShop;
-import barber.shop.Constants;
-import barber.shop.Customer;
-import barber.shop.HairCut;
-import barber.shop.Keyboard;
+import barber.shop.*;
 import barber.shop.exceptions.BarberException;
 
 public class GUI {
@@ -194,7 +190,7 @@ public class GUI {
 	 *                         of haircuts available
 	 */
 	private float haircutCost(byte option) throws BarberException {
-		if (option < 0 && option > Constants.NUM_HAIRCUTS) {
+		if (option < 0 || option > Constants.NUM_HAIRCUTS) {
 			throw new BarberException("Incorrect value");
 		} else {
 			return this.haircuts.getHaircutsHashMap().get(option).getPrice();
@@ -220,7 +216,7 @@ public class GUI {
 				case "Modify Reservation":
 					this.barberShop.modifyReservation(new Customer(fullName, h, m, place));
 					break;
-					
+
 				case "Exit":
 					System.exit(0);
 					break;

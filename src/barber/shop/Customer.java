@@ -1,9 +1,9 @@
 package barber.shop;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 import barber.shop.exceptions.BarberException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Class that represents a customer.
@@ -14,7 +14,7 @@ public class Customer {
 	private Time time;
 	private String place;
 	private String code;
-	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);
+	private static final Logger logger = LogManager.getLogger(Customer.class);
 
 	/**
 	 * Class constructor of the customer.
@@ -23,11 +23,10 @@ public class Customer {
 	 * @param hour   Hour when the customer want to go to the BarberShop.
 	 * @param minute Minute when the customer want to go to the BarberShop.
 	 * @param place  Place of the BarberShop.
-	 *
 	 * @throws BarberException A BarberException will be thrown if there's no
 	 *                         name, hour, minute or place.
 	 */
-	public Customer(String name, byte hour, byte minute, String place) throws BarberException {
+	public Customer(@NotNull String name, byte hour, byte minute, String place) throws BarberException {
 		StringBuilder error = new StringBuilder();
 
 		if (name.length() == 0) {
@@ -80,11 +79,10 @@ public class Customer {
 	 * Name setter.
 	 *
 	 * @param name The new name to set.
-	 *
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced name is incorrect.
 	 */
-	public void setName(String name) throws BarberException {
+	public void setName(@NotNull String name) throws BarberException {
 		if (name.length() == 0) {
 			throw new BarberException("ERROR: you must introduce a valid name");
 		} else {
@@ -105,7 +103,6 @@ public class Customer {
 	 * Hour setter.
 	 *
 	 * @param hour The new hour to set.
-	 *
 	 * @throws BarberException if the introduced hour isn't valid.
 	 */
 	public void setHour(byte hour) throws BarberException {
@@ -129,7 +126,6 @@ public class Customer {
 	 * Minute setter.
 	 *
 	 * @param minute The new minute to set.
-	 *
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced minute isn't valid.
 	 */
@@ -154,7 +150,6 @@ public class Customer {
 	 * Place setter.
 	 *
 	 * @param place Place where the customer want to go.
-	 *
 	 * @throws BarberException A BarberException will be thrown if the
 	 *                         introduced place isn't valid.
 	 */
@@ -185,13 +180,13 @@ public class Customer {
 		StringBuilder genCode = new StringBuilder(4);
 
 		if (this.getHour() < 10) {
-			genCode.append("0" + this.getHour());
+			genCode.append("0").append(this.getHour());
 		} else {
 			genCode.append(this.getHour());
 		}
 
 		if (this.getMinute() < 10) {
-			genCode.append("0" + this.getMinute());
+			genCode.append("0").append(this.getMinute());
 		} else {
 			genCode.append(this.getMinute());
 		}

@@ -1,12 +1,15 @@
 package barber.shop;
 
 import barber.shop.exceptions.BarberException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Class that represents the time organization of the BarberShop
  */
 public class Time {
 
+	private static final Logger logger = LogManager.getLogger(Time.class);
 	private byte hour;
 	private byte minute;
 
@@ -15,7 +18,6 @@ public class Time {
 	 *
 	 * @param hour   Hour to set.
 	 * @param minute Minute to set.
-	 *
 	 * @throws BarberException if values of hour or minute are incorrect.
 	 */
 	public Time(byte hour, byte minute) throws BarberException {
@@ -58,7 +60,6 @@ public class Time {
 	 * Hour setter.
 	 *
 	 * @param hour Hour to set.
-	 *
 	 * @throws BarberException if hour value is incorrect.
 	 */
 	public void setHour(byte hour) throws BarberException {
@@ -82,7 +83,6 @@ public class Time {
 	 * Minute setter.
 	 *
 	 * @param minute Minute to set.
-	 *
 	 * @throws BarberException if minute value is incorrect.
 	 */
 	public void setMinute(byte minute) throws BarberException {
