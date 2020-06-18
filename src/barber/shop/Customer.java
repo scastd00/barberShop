@@ -9,10 +9,10 @@ import org.apache.logging.log4j.Logger;
  */
 public class Customer {
 
+	private static final Logger logger = LogManager.getLogger(Customer.class);
 	private String name;
 	private Time time;
 	private String place;
-	private static final Logger logger = LogManager.getLogger(Customer.class);
 
 	/**
 	 * Class constructor of the customer.
@@ -156,6 +156,14 @@ public class Customer {
 		} else {
 			this.place = place;
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || this.getClass() != o.getClass()) return false;
+		Customer customer = (Customer) o;
+		return this.name.equalsIgnoreCase(customer.name);
 	}
 
 	@Override

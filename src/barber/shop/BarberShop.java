@@ -2,7 +2,6 @@ package barber.shop;
 
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +22,7 @@ public class BarberShop {
 	private HashMap<Integer, ArrayList<Customer>> customersTimeHashMap;
 
 	/**
-	 * Class constructor for 24 hours
+	 * Class constructor for the specified hours in Constants class.
 	 */
 	public BarberShop() {
 		this.customersTimeHashMap = new HashMap<>(Constants.MAX_HOUR + 1);
@@ -154,13 +153,25 @@ public class BarberShop {
 		return isPossible;
 	}
 
+	private boolean contains(Customer customer) {
+		for (int i = 0; i < this.customersTimeHashMap.size(); i++) {
+			ArrayList<Customer> list = this.customersTimeHashMap.get(i);
+			for (Customer c : list) {
+				if (c.equals(customer)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public void printHash() {
 		for (int i = 0; i < this.customersTimeHashMap.size(); i++) {
 			ArrayList<Customer> list = this.customersTimeHashMap.get(i);
-			for (Customer cust :
-				list) {
-				if (cust != null) {
-					System.out.println(cust.toString());
+			for (Customer c : list) {
+				if (c != null) {
+					logger.info(c);
 				}
 			}
 		}
