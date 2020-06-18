@@ -1,50 +1,50 @@
 <?xml version="1.0" ?>
 
-<project name="BarberShop" basedir="." default="todo"
-	xmlns:jacoco="antlib:org.jacoco.ant">
-	<property name="projectName" value="BarberShop" />
-	<property name="src.dir" value="src" />
-	<property name="classes.dir" value="classes" />
-	<property name="jar.dir" value="build" />
-	<property name="doc.dir" value="doc" />
-	<property name="conf.dir" value="etc" />
-	<property name="package" value="barber.shop" />
-	<property name="title" value="Barber Shop" />
-	<property name="lib.dir" value="lib" />
-	<property name="tests.dir" value="test" />
-	<property name="logs.dir" value="logs" />
+<project xmlns:jacoco="antlib:org.jacoco.ant" name="BarberShop" basedir="."
+         default="todo">
+	<property name="projectName" value="BarberShop"/>
+	<property name="src.dir" value="src"/>
+	<property name="classes.dir" value="classes"/>
+	<property name="jar.dir" value="build"/>
+	<property name="doc.dir" value="doc"/>
+	<property name="conf.dir" value="etc"/>
+	<property name="package" value="barber.shop"/>
+	<property name="title" value="Barber Shop"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="tests.dir" value="test"/>
+	<property name="logs.dir" value="logs"/>
 	<property name="junit.jar" value="${lib.dir}/junit-4.8.2.jar"/>
-	<property name="coverage.result.dir" location="./coverage_report" />
-	<property name="coverage.result.report.dir" location="${coverage.result.dir}/site/jacoco" />
-	<property name="coverage.result.exec.file" location="${coverage.result.dir}/jacoco.exec" />
+	<property name="coverage.result.dir" location="./coverage_report"/>
+	<property name="coverage.result.report.dir" location="${coverage.result.dir}/site/jacoco"/>
+	<property name="coverage.result.exec.file" location="${coverage.result.dir}/jacoco.exec"/>
 
 
 	<!--Loading jacoco libraries -->
 	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-		<classpath path="${lib.dir}/jacocoant.jar" />
+		<classpath path="${lib.dir}/jacocoant.jar"/>
 	</taskdef>
 
 
 	<!-- Cleaning project folders -->
 	<target name="clean">
-		<delete dir="${classes.dir}" />
-		<delete dir="${doc.dir}" />
-		<delete file="${logs.dir}/result.xml" />
-		<delete dir="${coverage.result.dir}" />
-		<delete dir="${jar.dir}" />
+		<delete dir="${classes.dir}"/>
+		<delete dir="${doc.dir}"/>
+		<delete file="${logs.dir}/result.xml"/>
+		<delete dir="${coverage.result.dir}"/>
+		<delete dir="${jar.dir}"/>
 	</target>
 
 
 	<!-- Compile after cleaning -->
 	<target name="compile" depends="clean">
-		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${classes.dir}"/>
 
 		<javac destdir="${classes.dir}" verbose="true" debug="true" includeantruntime="false">
 			<!-- Where to find the src files -->
-			<src path="${src.dir}" />
+			<src path="${src.dir}"/>
 			<classpath>
 				<fileset dir="${lib.dir}">
-					<include name="**/*.jar" />
+					<include name="**/*.jar"/>
 				</fileset>
 			</classpath>
 		</javac>
@@ -56,28 +56,29 @@
         -->
 		<unjar dest="${classes.dir}">
 			<fileset dir="${lib.dir}">
-				<include name="**/log4j*.jar" />
+				<include name="**/log4j*.jar"/>
 			</fileset>
 		</unjar>
 
-		<copy file="${conf.dir}/log4j2.xml" todir="${classes.dir}" />
+		<copy file="${conf.dir}/log4j2.xml" todir="${classes.dir}"/>
 
-		<echo message="Compilation completed" />
+		<echo message="Compilation completed"/>
 	</target>
 
 
 	<!-- Documentation target -->
 	<target name="document">
-		<mkdir dir="${doc.dir}" />
-		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="true" author="true" access="private" splitindex="true" version="true" windowtitle="${title}" doctitle="${title}">
+		<mkdir dir="${doc.dir}"/>
+		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="true" author="true"
+		         access="private" splitindex="true" version="true" windowtitle="${title}" doctitle="${title}">
 			<classpath>
 				<fileset dir="${lib.dir}">
-					<include name="**/*.jar" />
+					<include name="**/*.jar"/>
 				</fileset>
 			</classpath>
 		</javadoc>
 
-		<echo message="Documentation completed" />
+		<echo message="Documentation completed"/>
 	</target>
 
 
@@ -85,38 +86,38 @@
 	<target name="compileTests" depends="compile">
 		<javac includeantruntime="false" destdir="${classes.dir}">
 			<!-- Where to search the src files -->
-			<src path="${tests.dir}" />
+			<src path="${tests.dir}"/>
 			<classpath>
-				<file name="${junit.jar}" />
-				<fileset dir="${classes.dir}" />
+				<file name="${junit.jar}"/>
+				<fileset dir="${classes.dir}"/>
 			</classpath>
 		</javac>
 
-		<echo message="Tests compilation done" />
+		<echo message="Tests compilation done"/>
 	</target>
 
 
 	<!-- Testing the .java files -->
 	<target name="test" depends="compileTests">
-		<mkdir dir="${logs.dir}" />
+		<mkdir dir="${logs.dir}"/>
 		<jacoco:coverage destfile="${coverage.result.exec.file}">
 			<junit showoutput="true" printsummary="yes" haltonfailure="no" enabletestlistenerevents="true" fork="true">
 
 				<!-- Where to find the src files -->
 				<classpath>
-					<pathelement path="${classes.dir}" />
-					<pathelement path="${conf.dir}" />
-					<file name="${junit.jar}" />
+					<pathelement path="${classes.dir}"/>
+					<pathelement path="${conf.dir}"/>
+					<file name="${junit.jar}"/>
 				</classpath>
 				<!-- Using only the test files to Jacoco -->
 				<batchtest todir="${coverage.result.dir}">
 					<fileset dir="${classes.dir}">
-						<exclude name="**/*$*.class" />
-						<include name="barber/*/**Test.class" />
+						<exclude name="**/*$*.class"/>
+						<include name="barber/*/**Test.class"/>
 					</fileset>
 				</batchtest>
 				<test name="${package}.AllTests" haltonfailure="no" outfile="result" todir="${logs.dir}">
-					<formatter type="xml" />
+					<formatter type="xml"/>
 				</test>
 			</junit>
 		</jacoco:coverage>
@@ -127,31 +128,31 @@
 	<target name="report">
 		<jacoco:report>
 			<executiondata>
-				<file file="${coverage.result.exec.file}" />
+				<file file="${coverage.result.exec.file}"/>
 			</executiondata>
 			<structure name="Coverage with Jacoco">
 				<classfiles>
 					<fileset dir="${classes.dir}">
-						<exclude name="**/*$*.class" />
-						<include name="barber/*/**.class" />
-						<exclude name="barber/*/*Test*.class" />
-						<exclude name="barber/*/Main*.class" />
-						<exclude name="barber/*/*Exception.class" />
-						<exclude name="barber/*/Keyboard.class" />
-						<exclude name="barber/*/TextUI.class" />
+						<exclude name="**/*$*.class"/>
+						<include name="barber/*/**.class"/>
+						<exclude name="barber/*/*Test*.class"/>
+						<exclude name="barber/*/Main*.class"/>
+						<exclude name="barber/*/*Exception.class"/>
+						<exclude name="barber/*/Keyboard.class"/>
+						<exclude name="barber/*/TextUI.class"/>
 					</fileset>
 				</classfiles>
 
 				<sourcefiles encoding="UTF-8">
-					<fileset dir="${src.dir}" />
+					<fileset dir="${src.dir}"/>
 				</sourcefiles>
 			</structure>
-			<html destdir="${coverage.result.report.dir}" />
-			<csv destfile="${coverage.result.report.dir}/report.csv" />
-			<xml destfile="${coverage.result.report.dir}/report.xml" />
+			<html destdir="${coverage.result.report.dir}"/>
+			<csv destfile="${coverage.result.report.dir}/report.csv"/>
+			<xml destfile="${coverage.result.report.dir}/report.xml"/>
 		</jacoco:report>
 
-		<echo message="Generated coverage report with Jacoco" />
+		<echo message="Generated coverage report with Jacoco"/>
 	</target>
 
 	<!-- Jars the classes to run the swing application -->
@@ -171,10 +172,10 @@
 		<java classname="${package}.Main${projectName}" fork="true">
 			<classpath>
 				<!-- Where to search the src files-->
-				<pathelement path="${classes.dir}" />
-				<pathelement path="${conf.dir}" />
+				<pathelement path="${classes.dir}"/>
+				<pathelement path="${conf.dir}"/>
 				<fileset dir="${lib.dir}">
-					<include name="**/*.jar" />
+					<include name="**/*.jar"/>
 				</fileset>
 			</classpath>
 		</java>
@@ -187,5 +188,5 @@
 		</exec>
 	</target>
 
-	<target name="todo" depends="compile, document, test, coverage, execute" />
+	<target name="todo" depends="compile, document, test, coverage, execute"/>
 </project>

@@ -8,14 +8,14 @@ import org.junit.Test;
 import barber.shop.exceptions.BarberException;
 
 public class BarberShopTest {
-	
+
 	private BarberShop bs;
 	private Customer cust;
 
 	@Before
 	public void setUp() throws Exception {
 		bs = new BarberShop();
-		cust = new Customer("Sam", (byte) 12, (byte) 30, "Astorga");
+		cust = new Customer("Sam",2,30,"Astorga");
 	}
 
 	@Test

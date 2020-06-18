@@ -23,7 +23,7 @@ public class Constants {
 	/**
 	 * HashMap where the haircuts are stored to access them
 	 */
-	private HashMap<Byte, HairCut> haircutsHashMap;
+	private HashMap<Integer, HairCut> haircutsHashMap;
 
 	/**
 	 * Class constructor for the hash of haircuts
@@ -33,7 +33,7 @@ public class Constants {
 		fillHashMap(this.haircutsHashMap);
 	}
 
-	public Map<Byte, HairCut> getHaircutsHashMap() {
+	public Map<Integer, HairCut> getHaircutsHashMap() {
 		return this.haircutsHashMap;
 	}
 
@@ -42,11 +42,11 @@ public class Constants {
 	 *
 	 * @param hash haircut HashMap
 	 */
-	private void fillHashMap(HashMap<Byte, HairCut> hash) {
-		hash.put((byte) 0, new HairCut((short) 0));
+	private void fillHashMap(HashMap<Integer, HairCut> hash) {
+		hash.put(0, new HairCut(0));
 
-		for (byte i = 1; i <= NUM_HAIRCUTS; i++) {
-			hash.put(i, new HairCut((byte) (i - 1)));
+		for (int i = 1; i <= NUM_HAIRCUTS; i++) {
+			hash.put(i, new HairCut(i - 1));
 		}
 	}
 }

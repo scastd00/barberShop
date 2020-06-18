@@ -58,9 +58,9 @@ public class Customer {
 	 * Empty constructor of the class
 	 */
 	public Customer() {
-		this.name = null;
+		this.name = "";
 		this.time = new Time();
-		this.place = null;
+		this.place = "";
 	}
 
 	/**

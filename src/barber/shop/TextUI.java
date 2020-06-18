@@ -3,9 +3,6 @@ package barber.shop;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import barber.shop.exceptions.BarberException;
 import barber.shop.windowsystem.GUI;
 import barber.shop.windowsystem.WindowPanel;
@@ -13,9 +10,9 @@ import barber.shop.windowsystem.WindowPanel;
 public class TextUI {
 
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
-	private BarberShop barberShop;
-	private Constants haircuts;
-	private Customer customer;
+	private final BarberShop barberShop;
+	private final Constants haircuts;
+	private final Customer customer;
 	// private WindowInterface windowInterface;
 	// private WindowPanel panel;
 
@@ -49,37 +46,43 @@ public class TextUI {
 			logger.trace("4 - Money transactions");
 
 			String input = Keyboard.readLine().trim();
+
 			try {
-				option = Byte.valueOf(input);
+				if (input.length() == 0) {
+					logger.warn("{} is not a number", input);
+				} else {
+					option = Byte.parseByte(input);
+
+					switch (option) {
+						case 1:
+							addReservation();
+							break;
+
+						case 2:
+							cancelReservation();
+							break;
+
+						case 3:
+							modifyReservation();
+							break;
+
+						case 4:
+							moneyTransactions();
+							break;
+
+						case 0:
+							System.exit(0);
+							break;
+
+						default:
+							logger.warn("Invalid option, try again.");
+					}
+				}
 			} catch (NumberFormatException e) {
 				throw new BarberException(input + " is not a number");
 			}
-
-			switch (option) {
-				case 1:
-					addReservation();
-					break;
-
-				case 2:
-					cancelReservation();
-					break;
-
-				case 3:
-					modifyReservation();
-					break;
-
-				case 4:
-					moneyTransactions();
-					break;
-
-				case 0:
-					System.exit(0);
-					break;
-
-				default:
-					throw new BarberException(input + " is not a valid number");
-			}
-		} while (option != 0);
+			this.barberShop.printHash();
+		} while (true);
 	}
 
 	/**
@@ -128,7 +131,7 @@ public class TextUI {
 			String input = Keyboard.readLine().trim();
 
 			try {
-				option = Byte.valueOf(input);
+				option = Byte.parseByte(input);
 			} catch (NumberFormatException e) {
 				throw new BarberException(input + " is not a number");
 			}
@@ -147,16 +150,15 @@ public class TextUI {
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
 	 * @return (byte) The number of the hour.
-	 *
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
 	 */
-	public byte inputHour() throws BarberException {
+	public int inputHour() throws BarberException {
 		String input = Keyboard.readLine().trim();
 		logger.debug("Input hour: {}", input); // It is shown in the log file
 
 		try {
-			return Byte.valueOf(input);
+			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
 			throw new BarberException(input + " is not a number.");
 		}
@@ -166,16 +168,15 @@ public class TextUI {
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
 	 * @return (byte) The number of the minute.
-	 *
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
 	 */
-	public byte inputMinute() throws BarberException {
+	public int inputMinute() throws BarberException {
 		String input = Keyboard.readLine().trim();
 		logger.debug("Input minute: {}", input); // It is shown in the log file
 
 		try {
-			return Byte.valueOf(input);
+			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
 			throw new BarberException(input + " is not a number.");
 		}
@@ -187,7 +188,7 @@ public class TextUI {
 	private void showHaircuts() {
 		StringBuilder output = new StringBuilder("0 - Finish\n");
 		for (int i = 0; i < Constants.NUM_HAIRCUTS; i++) {
-			output.append((i + 1) + " - " + HairCut.HairCutsEnum.values()[i].toString() + "\n");
+			output.append(i + 1).append(" - ").append(HairCut.HairCutsEnum.values()[i].toString()).append("\n");
 		}
 		logger.trace(output);
 	}
@@ -196,14 +197,12 @@ public class TextUI {
 	 * Returns the price of the chosen haircut
 	 *
 	 * @param option haircut to chose
-	 *
 	 * @return the price of the haircut
-	 *
 	 * @throws BarberException if option is less than 0 or greater than number
 	 *                         of haircuts available
 	 */
-	private float haircutCost(byte option) throws BarberException {
-		if (option < 0 && option > Constants.NUM_HAIRCUTS) {
+	private float haircutCost(int option) throws BarberException {
+		if (option < 0 || option > Constants.NUM_HAIRCUTS) {
 			throw new BarberException("Incorrect value");
 		} else {
 			return this.haircuts.getHaircutsHashMap().get(option).getPrice();
@@ -231,6 +230,5 @@ public class TextUI {
 		}
 	}
 
-	
 
 }

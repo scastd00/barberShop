@@ -1,15 +1,12 @@
 package barber.shop;
 
 import barber.shop.exceptions.BarberException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Class that represents the time organization of the BarberShop
  */
 public class Time {
 
-	private static final Logger logger = LogManager.getLogger(Time.class);
 	private int hour;
 	private int minute;
 
@@ -119,4 +116,7 @@ public class Time {
 		return timeString.toString();
 	}
 
+	public int compareTo(Time otherTime) {
+		return Integer.compare(this.minute, otherTime.getMinute());
+	}
 }

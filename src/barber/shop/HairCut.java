@@ -29,7 +29,7 @@ public class HairCut {
 	 *
 	 * @param num number corresponding to the haircut
 	 */
-	public HairCut(short num) {
+	public HairCut(int num) {
 		this.price = hairCutToPrice(numberToHaircut(num));
 		this.hairCut = numberToHaircut(num).toString();
 	}
@@ -56,10 +56,9 @@ public class HairCut {
 	 * Changes a num into the corresponding value of the haircut enumeration
 	 *
 	 * @param num haircut
-	 * 
 	 * @return value of the haircut enumeration
 	 */
-	private HairCutsEnum numberToHaircut(short num) {
+	private HairCutsEnum numberToHaircut(int num) {
 		return HairCutsEnum.values()[num];
 	}
 
@@ -67,7 +66,6 @@ public class HairCut {
 	 * Changes a value of the haircut enumeration into the price of it
 	 *
 	 * @param haircut
-	 * 
 	 * @return price of the haircut
 	 */
 	private float hairCutToPrice(HairCutsEnum haircut) {
