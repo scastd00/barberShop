@@ -32,24 +32,33 @@ public class BarberShop {
 				this.customersTimeHashMap.get(i).add(j, null);
 			}
 		}
-
 	}
 
 	/**
 	 * Makes a reservation for a new valid customer.
+	 * Inserts the new customer in the position (Hash, ArrayList) = (Hour, Minute)
 	 *
 	 * @param customer the customer to make the reservation.
 	 * @throws BarberException if the customer values are incorrect.
 	 */
 	public void addReservation(Customer customer) throws BarberException {
-		if (this.isPossibleToMakeTransaction(customer)) {
-			int position = this.hashPosition(customer);
-
-			// Insertion of the new customer in the position (Hash, ArrayList) = (Hour, Minute)
-			this.customersTimeHashMap.get(position).add(this.listPosition(customer), customer);
-		} else {
+		if (!this.isPossibleToMakeTransaction(customer)) {
 			throw new BarberException("Invalid values. Try again");
 		}
+
+		if (this.contains(customer)) {
+			throw new BarberException("This customer already has a reservation");
+		}
+
+		int hashPos = this.hashPosition(customer);
+		int listPos = this.listPosition(customer);
+
+		// Checks if the introduced customer already exists in the table
+		if (this.customersTimeHashMap.get(hashPos).get(listPos) != null) {
+			throw new BarberException("Other customer has a reservation in that hour");
+		}
+
+		this.customersTimeHashMap.get(hashPos).add(listPos, customer);
 	}
 
 	/**
@@ -59,26 +68,35 @@ public class BarberShop {
 	 * @throws BarberException if the customer values are incorrect.
 	 */
 	public void cancelReservation(Customer customer) throws BarberException {
-		if (this.isPossibleToMakeTransaction(customer)) {
-//			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
-		} else {
+		if (!this.isPossibleToMakeTransaction(customer)) {
 			throw new BarberException("Invalid values. Try again");
 		}
+
+		if (!this.contains(customer)) {
+			throw new BarberException("This customer does not have a reservation");
+		}
+
+		this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 	}
 
 	/**
 	 * Modifies an existing reservation.
 	 *
-	 * @param customer the customer to modify the reservation.
+	 * @param oldCustomer the customer to modify the reservation.
+	 * @param newCustomer the new customer.
 	 * @throws BarberException if the customer values are incorrect.
 	 */
-	public void modifyReservation(Customer customer) throws BarberException {
-		if (this.isPossibleToMakeTransaction(customer)) {
-
-		} else {
+	public void modifyReservation(Customer oldCustomer, Customer newCustomer) throws BarberException {
+		if (!this.isPossibleToMakeTransaction(oldCustomer) && !this.isPossibleToMakeTransaction(newCustomer)) {
 			throw new BarberException("Invalid values. Try again");
 		}
 
+		if (!this.contains(oldCustomer)) {
+			throw new BarberException("This customer does not have a reservation");
+		}
+
+		this.cancelReservation(oldCustomer);
+		this.addReservation(newCustomer);
 	}
 
 	/**
@@ -136,28 +154,21 @@ public class BarberShop {
 	 * @return true if is a valid customer, false otherwise.
 	 */
 	public boolean isPossibleToMakeTransaction(Customer customer) {
-		boolean isPossible = true;
-
 		if (customer == null) {
 			throw new IllegalArgumentException("Bad customer parameter");
 		}
 
-		if ((customer.getName() == null || customer.getName().length() == 0)
-			|| (customer.getHour() < Constants.MIN_HOUR || customer.getHour() > Constants.MAX_HOUR)
-			|| (customer.getMinute() < Constants.MIN_MINUTE || customer.getMinute() > Constants.MAX_MINUTE)
-			|| (customer.getPlace() == null || customer.getPlace().length() == 0)) {
-
-			isPossible = false;
-		}
-
-		return isPossible;
+		return (customer.getName() != null && customer.getName().length() != 0)
+			&& (customer.getHour() >= Constants.MIN_HOUR && customer.getHour() <= Constants.MAX_HOUR)
+			&& (customer.getMinute() >= Constants.MIN_MINUTE && customer.getMinute() <= Constants.MAX_MINUTE)
+			&& (customer.getPlace() != null && customer.getPlace().length() != 0);
 	}
 
 	private boolean contains(Customer customer) {
 		for (int i = 0; i < this.customersTimeHashMap.size(); i++) {
 			ArrayList<Customer> list = this.customersTimeHashMap.get(i);
 			for (Customer c : list) {
-				if (c.equals(customer)) {
+				if (c != null && c.equals(customer)) {
 					return true;
 				}
 			}

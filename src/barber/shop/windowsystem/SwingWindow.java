@@ -15,7 +15,6 @@ public class SwingWindow {
 	private JTextField txtHour;
 	private JTextField txtMinute;
 	private BarberShop bs;
-	private GUI gui;
 	private JTable table;
 
 	/**
@@ -24,7 +23,6 @@ public class SwingWindow {
 	public SwingWindow() {
 		frmBarberShop = new JFrame();
 		bs = new BarberShop();
-		gui = new GUI(bs);
 	}
 
 	public void init() {
@@ -56,9 +54,9 @@ public class SwingWindow {
 		btnAddReservation.setBounds(23, 169, 150, 25);
 		btnAddReservation.addActionListener(add -> {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
-			gui.actionPerformed(add.getActionCommand(), txtCompleteName.getText(), txtHour.getText(),
+			/*gui.actionPerformed(add.getActionCommand(), txtCompleteName.getText(), txtHour.getText(),
 				txtMinute.getText(), place);
-		});
+		*/});
 
 		/*
 		 * Cancel reservation button
@@ -67,9 +65,9 @@ public class SwingWindow {
 		btnCancelReservation.setBounds(443, 169, 170, 25);
 		btnCancelReservation.addActionListener(cancel -> {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
-			gui.actionPerformed(cancel.getActionCommand(), txtCompleteName.getText(), txtHour.getText(),
+			/*gui.actionPerformed(cancel.getActionCommand(), txtCompleteName.getText(), txtHour.getText(),
 				txtMinute.getText(), place);
-		});
+		*/});
 
 		/*
 		 * Modify reservation button
@@ -78,9 +76,9 @@ public class SwingWindow {
 		btnModifyReservation.setBounds(225, 169, 170, 25);
 		btnModifyReservation.addActionListener(modify -> {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
-			gui.actionPerformed(modify.getActionCommand(), txtCompleteName.getText(), txtHour.getText(),
+			/*gui.actionPerformed(modify.getActionCommand(), txtCompleteName.getText(), txtHour.getText(),
 				txtMinute.getText(), place);
-		});
+		*/});
 
 		// Buttons end //
 

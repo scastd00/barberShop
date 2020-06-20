@@ -24,7 +24,6 @@ public class WindowPanel extends JPanel implements ActionListener {
 		button.addActionListener(this);
 		button2.addActionListener(this);
 		button.setBounds(100, 200, 100, 100);
-		button.setIcon(new ImageIcon("./../../../../etc/images/69084.png"));
 	}
 
 	@Override

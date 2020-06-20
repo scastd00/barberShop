@@ -24,11 +24,7 @@ public class MainBarberShop {
 		TextUI ui = new TextUI(bs);
 
 		try {
-			bs.addReservation(new Customer("Sam1", 12, 28, "Ast"));
-			bs.addReservation(new Customer("Sam3", 12, 30, "Ast"));
-			bs.addReservation(new Customer("Sam2", 12, 16, "Ast"));
-			bs.addReservation(new Customer("Sam2", 12, 31, "Ast"));
-			bs.printHash();
+			ui.init();
 		} catch (BarberException e) {
 			logger.fatal("Exception");
 		}
