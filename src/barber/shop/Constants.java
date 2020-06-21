@@ -16,21 +16,25 @@ public class Constants {
 
 	public static final byte MIN_MINUTE = 0;
 
-	public static final byte NUM_HAIRCUTS = 30;
+	public static final int NUM_HAIRCUTS = HairCuts.values().length;
 
 	public static final byte ARRAY_LIST_SIZE = 4;
+
+	public static final int MODIFY_TIME = 1;
+
+	public static final int MODIFY_ALL = 2;
 
 	/**
 	 * HashMap where the haircuts are stored to access them
 	 */
-	private HashMap<Integer, HairCut> haircutsHashMap;
+	private final HashMap<Integer, HairCut> haircutsHashMap;
 
 	/**
 	 * Class constructor for the hash of haircuts
 	 */
 	public Constants() {
 		this.haircutsHashMap = new HashMap<>();
-		fillHashMap(this.haircutsHashMap);
+		this.fillHashMap();
 	}
 
 	public Map<Integer, HairCut> getHaircutsHashMap() {
@@ -39,14 +43,10 @@ public class Constants {
 
 	/**
 	 * Fills the haircuts HashMap with Key: (Byte) | Value: (HairCut)
-	 *
-	 * @param hash haircut HashMap
 	 */
-	private void fillHashMap(HashMap<Integer, HairCut> hash) {
-		hash.put(0, new HairCut(0));
-
-		for (int i = 1; i <= NUM_HAIRCUTS; i++) {
-			hash.put(i, new HairCut(i - 1));
+	private void fillHashMap() {
+		for (int i = 0; i < Constants.NUM_HAIRCUTS; i++) {
+			this.haircutsHashMap.put(i, new HairCut(i));
 		}
 	}
 }

@@ -1,28 +1,19 @@
 package barber.shop;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 /**
  * Class that represents the haircuts
  */
 public class HairCut {
 
-	public enum HairCutsEnum {
-		P1, P2, P3, P4, P5, P6, P7, P8, P9, P0, Q, W, E, R, T, Y, U, I, O, P, A, S, D, F, G, H, J, K, L, M
-	}
-
-	private static final Logger logger = LogManager.getLogger(HairCut.class);
-
 	/**
 	 * Price of the haircut
 	 */
-	private float price;
+	private final float price;
 
 	/**
 	 * Type of haircut
 	 */
-	private String hairCut;
+	private final String hairCut;
 
 	/**
 	 * Class constructor
@@ -58,35 +49,29 @@ public class HairCut {
 	 * @param num haircut
 	 * @return value of the haircut enumeration
 	 */
-	private HairCutsEnum numberToHaircut(int num) {
-		return HairCutsEnum.values()[num];
+	private HairCuts numberToHaircut(int num) {
+		return HairCuts.values()[num];
 	}
 
 	/**
 	 * Changes a value of the haircut enumeration into the price of it
 	 *
-	 * @param haircut
+	 * @param haircut selected haircut
 	 * @return price of the haircut
 	 */
-	private float hairCutToPrice(HairCutsEnum haircut) {
-		float num = 0;
-
+	private float hairCutToPrice(HairCuts haircut) {
 		switch (haircut) {
 			case P1:
-				num = 8.00f;
-				break;
+				return 8.00f;
 
 			case P2:
-				num = 10.50f;
-				break;
+				return 10.50f;
 
 			case P3:
-				num = 6.50f;
-				break;
+				return 6.50f;
 
 			default:
-				break;
+				return 0;
 		}
-		return num;
 	}
 }

@@ -76,7 +76,10 @@ public class BarberShop {
 			throw new BarberException("This customer does not have a reservation");
 		}
 
-		this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
+		if(this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(customer)) {
+			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
+		}
+
 	}
 
 	/**
@@ -92,7 +95,7 @@ public class BarberShop {
 		}
 
 		if (!this.contains(oldCustomer)) {
-			throw new BarberException("This customer does not have a reservation");
+			throw new BarberException(oldCustomer.getName() + " customer does not have a reservation");
 		}
 
 		this.cancelReservation(oldCustomer);

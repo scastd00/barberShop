@@ -2,6 +2,8 @@ package barber.shop;
 
 import barber.shop.exceptions.BarberException;
 
+import java.util.Objects;
+
 /**
  * Class that represents the time organization of the BarberShop
  */
@@ -116,7 +118,20 @@ public class Time {
 		return timeString.toString();
 	}
 
-	public int compareTo(Time otherTime) {
-		return Integer.compare(this.minute, otherTime.getMinute());
+	/**
+	 * Compares hour and minute of the this and o Times
+	 * @param o other Time
+	 * @return true if this hour and minute are equal to o hour and minute, false otherwise
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o instanceof Time) {
+			Time time = (Time) o;
+			return this.hour == time.hour && this.minute == time.minute;
+		}
+
+		return false;
 	}
 }

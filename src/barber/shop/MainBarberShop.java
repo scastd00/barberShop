@@ -22,11 +22,12 @@ public class MainBarberShop {
 	public static void main(String[] args) {
 		BarberShop bs = new BarberShop();
 		TextUI ui = new TextUI(bs);
-
-		try {
-			ui.init();
-		} catch (BarberException e) {
-			logger.fatal("Exception");
-		}
+		do {
+			try {
+				ui.init();
+			} catch (BarberException e) {
+				logger.fatal("Exception");
+			}
+		} while (true);
 	}
 }

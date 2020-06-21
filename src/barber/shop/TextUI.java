@@ -79,6 +79,8 @@ public class TextUI {
 				}
 			} catch (NumberFormatException e) {
 				throw new BarberException(input + " is not a number");
+			} catch (BarberException e) {
+				logger.debug(e.getMessage());
 			}
 			this.barberShop.printHash();
 		} while (true);
@@ -89,7 +91,7 @@ public class TextUI {
 	 */
 	private void addReservation() {
 		try {
-			this.barberShop.addReservation(this.customerModification());
+			this.barberShop.addReservation(this.customerModification(Constants.MODIFY_ALL));
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
@@ -100,7 +102,7 @@ public class TextUI {
 	 */
 	private void cancelReservation() {
 		try {
-			this.barberShop.cancelReservation(this.customerModification());
+			this.barberShop.cancelReservation(this.customerModification(Constants.MODIFY_TIME));
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
@@ -111,17 +113,22 @@ public class TextUI {
 	 */
 	private void modifyReservation() {
 		try {
-			logger.info("Introduce the customer you want to modify\n\n");
-			Customer oldC = this.customerModification();
-			logger.info("Introduce the customer new customer\n\n");
-			Customer newC = this.customerModification();
+			logger.info("Introduce the customer you want to modify\n");
+			Customer oldC = this.customerModification(Constants.MODIFY_TIME);
+			logger.info("Introduce the new customer\n");
+			Customer newC = this.customerModification(Constants.MODIFY_ALL);
 
 			this.barberShop.modifyReservation(oldC, newC);
-		} catch (BarberException e) {
+		} catch (BarberException | IllegalArgumentException e) {
 			logger.warn(e.getMessage());
 		}
 	}
 
+	/**
+	 * Manages money transactions.
+	 *
+	 * @throws BarberException if the entered value is incorrect
+	 */
 	private void moneyTransactions() throws BarberException {
 		float sum = 0.0f;
 		byte option = 0;
@@ -147,13 +154,13 @@ public class TextUI {
 	/**
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
-	 * @return (byte) The number of the hour.
+	 * @return The number of the hour.
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
 	 */
 	public int inputHour() throws BarberException {
 		String input = Keyboard.readLine().trim();
-		logger.debug("Input hour: {}", input); // It is shown in the log file
+		logger.debug("Input hour: {}", input);
 
 		try {
 			return Integer.parseInt(input);
@@ -165,13 +172,13 @@ public class TextUI {
 	/**
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
-	 * @return (byte) The number of the minute.
+	 * @return The number of the minute.
 	 * @throws BarberException A BarberException will be thrown if the input is
 	 *                         not a number.
 	 */
 	public int inputMinute() throws BarberException {
 		String input = Keyboard.readLine().trim();
-		logger.debug("Input minute: {}", input); // It is shown in the log file
+		logger.debug("Input minute: {}", input);
 
 		try {
 			return Integer.parseInt(input);
@@ -184,9 +191,9 @@ public class TextUI {
 	 * Shows the list of the haircuts.
 	 */
 	private void showHaircuts() {
-		StringBuilder output = new StringBuilder("0 - Finish\n");
+		StringBuilder output = new StringBuilder();
 		for (int i = 0; i < Constants.NUM_HAIRCUTS; i++) {
-			output.append(i + 1).append(" - ").append(HairCut.HairCutsEnum.values()[i].toString()).append("\n");
+			output.append(i).append(" - ").append(HairCuts.values()[i].toString()).append("\n");
 		}
 		logger.trace(output);
 	}
@@ -209,22 +216,35 @@ public class TextUI {
 
 	/**
 	 * Creates a customer with the specified parameters.
+	 *
+	 * @param modify 1 - Time, 2 - All
 	 * @return a new Customer.
 	 */
-	private Customer customerModification() {
+	private Customer customerModification(int modify) {
 		Customer customer = new Customer();
+
 		try {
-			logger.trace("Introduce a hour: ");
-			customer.setHour(inputHour());
+			if (modify == 1) {
+				customer.setName("Name");
+				customer.setPlace("Place");
+				logger.trace("Introduce a hour: ");
+				customer.setHour(inputHour());
 
-			logger.trace("Introduce a minute: ");
-			customer.setMinute(inputMinute());
+				logger.trace("Introduce a minute: ");
+				customer.setMinute(inputMinute());
+			} else if (modify == 2) {
+				logger.trace("Introduce a hour: ");
+				customer.setHour(inputHour());
 
-			logger.trace("Introduce the name of the customer: ");
-			customer.setName(Keyboard.readLine().trim());
+				logger.trace("Introduce a minute: ");
+				customer.setMinute(inputMinute());
 
-			logger.trace("Introduce the place where the customer want to reserve: ");
-			customer.setPlace(Keyboard.readLine().trim());
+				logger.trace("Introduce the name of the customer: ");
+				customer.setName(Keyboard.readLine().trim());
+
+				logger.trace("Introduce the place where the customer want to reserve: ");
+				customer.setPlace(Keyboard.readLine().trim());
+			}
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
