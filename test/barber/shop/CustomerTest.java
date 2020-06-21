@@ -124,4 +124,14 @@ public class CustomerTest {
 		customer1.setMinute(15);
 		assertEquals("Sam 16:15 Astorga", customer1.toString());
 	}
+
+	@Test
+	public void testEquals() throws BarberException {
+	    assertFalse(customer.equals(customer1));
+	    customer.setName("Sam");
+	    customer.setHour(1);
+	    customer.setPlace("Astorga");
+	    assertTrue(customer.equals(customer1));
+	    assertFalse(customer.equals(new BarberShop()));
+	}
 }

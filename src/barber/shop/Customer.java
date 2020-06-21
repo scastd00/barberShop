@@ -162,7 +162,7 @@ public class Customer {
 	 * Compares the time of this customer and o customer.
 	 *
 	 * @param o Other customer
-	 * @return true if the time is equal for both customers, false otherwise.
+	 * @return true if the name is equal for both customers, false otherwise.
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -170,7 +170,7 @@ public class Customer {
 
 		if (o instanceof Customer) {
 			Customer customer = (Customer) o;
-			return this.time.equals(customer.time);
+			return this.name.equalsIgnoreCase(customer.name);
 		}
 
 		return false;

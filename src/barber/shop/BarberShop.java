@@ -19,7 +19,7 @@ public class BarberShop {
 	/**
 	 * Hash for all the customers. Size = 24.
 	 */
-	private HashMap<Integer, ArrayList<Customer>> customersTimeHashMap;
+	private final HashMap<Integer, ArrayList<Customer>> customersTimeHashMap;
 
 	/**
 	 * Class constructor for the specified hours in Constants class.
@@ -39,7 +39,7 @@ public class BarberShop {
 	 * Inserts the new customer in the position (Hash, ArrayList) = (Hour, Minute)
 	 *
 	 * @param customer the customer to make the reservation.
-	 * @throws BarberException if the customer values are incorrect.
+	 * @throws BarberException if the new customer values are incorrect or other customer holds the same position.
 	 */
 	public void addReservation(Customer customer) throws BarberException {
 		if (!this.isPossibleToMakeTransaction(customer)) {
@@ -53,7 +53,7 @@ public class BarberShop {
 		int hashPos = this.hashPosition(customer);
 		int listPos = this.listPosition(customer);
 
-		// Checks if the introduced customer already exists in the table
+		// Checks if the introduced customer already exists in the specified position
 		if (this.customersTimeHashMap.get(hashPos).get(listPos) != null) {
 			throw new BarberException("Other customer has a reservation in that hour");
 		}
@@ -76,7 +76,7 @@ public class BarberShop {
 			throw new BarberException("This customer does not have a reservation");
 		}
 
-		if(this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(customer)) {
+		if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(customer)) {
 			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 		}
 

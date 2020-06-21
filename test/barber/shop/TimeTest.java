@@ -89,4 +89,12 @@ public class TimeTest {
 		time.setMinute(27);
 		assertEquals("16:27", time.toString());
 	}
+
+	@Test
+	public void testEquals() throws BarberException {
+		assertTrue(time.equals(time1));
+	    time.setMinute(12);
+	    assertFalse(time.equals(time1));
+	    assertFalse(time.equals(new Customer()));
+	}
 }
