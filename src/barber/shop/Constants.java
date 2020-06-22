@@ -1,8 +1,5 @@
 package barber.shop;
 
-import java.util.Map;
-import java.util.HashMap;
-
 /**
  * Constants used in the program.
  */
@@ -25,28 +22,28 @@ public class Constants {
 	public static final int MODIFY_ALL = 2;
 
 	/**
-	 * HashMap where the haircuts are stored to access them
+	 * Array where the haircuts are stored to access them
 	 */
-	private final HashMap<Integer, HairCut> haircutsHashMap;
+	private final HairCut[] hairCuts;
 
 	/**
-	 * Class constructor for the hash of haircuts
+	 * Class constructor for the array of haircuts
 	 */
 	public Constants() {
-		this.haircutsHashMap = new HashMap<>();
-		this.fillHashMap();
+		this.hairCuts = new HairCut[Constants.NUM_HAIRCUTS];
+		this.fillArray();
 	}
 
-	public Map<Integer, HairCut> getHaircutsHashMap() {
-		return this.haircutsHashMap;
+	public HairCut[] getHairCuts() {
+		return this.hairCuts;
 	}
 
 	/**
 	 * Fills the haircuts HashMap with Key: (Byte) | Value: (HairCut)
 	 */
-	private void fillHashMap() {
+	private void fillArray() {
 		for (int i = 0; i < Constants.NUM_HAIRCUTS; i++) {
-			this.haircutsHashMap.put(i, new HairCut(i));
+			this.hairCuts[i] = new HairCut(i);
 		}
 	}
 }

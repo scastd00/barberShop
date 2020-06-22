@@ -2,8 +2,6 @@ package barber.shop;
 
 import barber.shop.exceptions.BarberException;
 
-import java.util.Objects;
-
 /**
  * Class that represents the time organization of the BarberShop
  */
@@ -63,7 +61,7 @@ public class Time {
 	 */
 	public void setHour(int hour) throws BarberException {
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			throw new BarberException("Error: Incorrect hour value");
+			throw new BarberException("ERROR: hour value must be between 0 and 23");
 		} else {
 			this.hour = hour;
 		}
@@ -90,6 +88,28 @@ public class Time {
 		} else {
 			this.minute = minute;
 		}
+	}
+
+	/**
+	 * Adjusts the values of the time corresponding to [Hash position, List position].
+	 *
+	 * @return an array with the values of the position that occupies a particular customer.
+	 */
+	public int[] hashListPositions() {
+		int[] output = new int[2];
+		output[0] = this.hour;
+
+		if (0 <= this.minute && this.minute < 15) {
+			return output;
+		} else if (15 <= this.minute && this.minute < 30) {
+			output[1] = 1;
+		} else if (30 <= this.minute && this.minute < 45) {
+			output[1] = 2;
+		} else {
+			output[1] = 3;
+		}
+
+		return output;
 	}
 
 	/**
@@ -120,6 +140,7 @@ public class Time {
 
 	/**
 	 * Compares hour and minute of the this and o Times
+	 *
 	 * @param o other Time
 	 * @return true if this hour and minute are equal to o hour and minute, false otherwise
 	 */

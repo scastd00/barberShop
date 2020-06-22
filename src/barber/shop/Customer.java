@@ -27,7 +27,7 @@ public class Customer {
 	public Customer(String name, int hour, int minute, String place) throws BarberException {
 		StringBuilder error = new StringBuilder();
 
-		if (name == null || name.length() == 0) {
+		if (name == null || name.trim().length() == 0) {
 			error.append("ERROR: you must introduce a valid name\n");
 		}
 
@@ -39,7 +39,7 @@ public class Customer {
 			error.append("ERROR: minute value must be between 0 and 59\n");
 		}
 
-		if (place == null || place.length() == 0) {
+		if (place == null || place.trim().length() == 0) {
 			error.append("You must introduce a valid place\n");
 		}
 
@@ -88,50 +88,25 @@ public class Customer {
 	}
 
 	/**
-	 * Hour getter.
+	 * Time getter.
 	 *
-	 * @return Hour of the reservation.
+	 * @return the time of the customer's reservation
 	 */
-	public int getHour() {
-		return this.time.getHour();
+	public Time getTime() {
+		return this.time;
 	}
 
 	/**
-	 * Hour setter.
+	 * Time setter.
 	 *
-	 * @param hour The new hour to set.
-	 * @throws BarberException if the introduced hour isn't valid.
+	 * @param time the time of the reservation to set.
 	 */
-	public void setHour(int hour) throws BarberException {
-		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			throw new BarberException("ERROR: hour value must be between 0 and 23");
-		} else {
-			this.time.setHour(hour);
+	public void setTime(Time time) throws BarberException {
+		if (time == null) {
+			throw new BarberException("Invalid time assignation");
 		}
-	}
 
-	/**
-	 * Minute getter.
-	 *
-	 * @return Minute of the reservation (between 0 and 59, both included).
-	 */
-	public int getMinute() {
-		return this.time.getMinute();
-	}
-
-	/**
-	 * Minute setter.
-	 *
-	 * @param minute The new minute to set.
-	 * @throws BarberException A BarberException will be thrown if the
-	 *                         introduced minute isn't valid.
-	 */
-	public void setMinute(int minute) throws BarberException {
-		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			throw new BarberException("ERROR: minute value must be between 0 and 59");
-		} else {
-			this.time.setMinute(minute);
-		}
+		this.time = time;
 	}
 
 	/**
@@ -147,8 +122,7 @@ public class Customer {
 	 * Place setter.
 	 *
 	 * @param place Place where the customer want to go.
-	 * @throws BarberException A BarberException will be thrown if the
-	 *                         introduced place isn't valid.
+	 * @throws BarberException if the introduced place isn't valid.
 	 */
 	public void setPlace(String place) throws BarberException {
 		if (place == null || place.length() == 0) {
@@ -178,6 +152,6 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return this.name + " " + this.time.toString() + " " + this.place;
+		return this.name + "  " + this.time.toString() + "  " + this.place;
 	}
 }

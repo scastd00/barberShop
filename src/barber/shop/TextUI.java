@@ -119,7 +119,7 @@ public class TextUI {
 			Customer newC = this.customerModification(Constants.MODIFY_ALL);
 
 			this.barberShop.modifyReservation(oldC, newC);
-		} catch (BarberException | IllegalArgumentException e) {
+		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
 	}
@@ -210,7 +210,7 @@ public class TextUI {
 		if (option < 0 || option > Constants.NUM_HAIRCUTS) {
 			throw new BarberException("Incorrect value");
 		} else {
-			return this.haircuts.getHaircutsHashMap().get(option).getPrice();
+			return this.haircuts.getHairCuts()[option].getPrice();
 		}
 	}
 
@@ -224,21 +224,18 @@ public class TextUI {
 		Customer customer = new Customer();
 
 		try {
+			logger.trace("Introduce a hour: ");
+			int hour = inputHour();
+
+			logger.trace("Introduce a minute: ");
+			int minute = inputMinute();
+
 			if (modify == 1) {
-				customer.setName("Name");
-				customer.setPlace("Place");
-				logger.trace("Introduce a hour: ");
-				customer.setHour(inputHour());
+				Customer aux = this.barberShop.getCustomerByTime(new Time(hour, minute));
+				customer.setName(aux.getName());
+				customer.setPlace(aux.getPlace());
 
-				logger.trace("Introduce a minute: ");
-				customer.setMinute(inputMinute());
 			} else if (modify == 2) {
-				logger.trace("Introduce a hour: ");
-				customer.setHour(inputHour());
-
-				logger.trace("Introduce a minute: ");
-				customer.setMinute(inputMinute());
-
 				logger.trace("Introduce the name of the customer: ");
 				customer.setName(Keyboard.readLine().trim());
 
@@ -250,5 +247,4 @@ public class TextUI {
 		}
 		return customer;
 	}
-
 }

@@ -97,4 +97,25 @@ public class TimeTest {
 	    assertFalse(time.equals(time1));
 	    assertFalse(time.equals(new Customer()));
 	}
+
+	@Test
+	public void testHashListPositions() throws BarberException {
+		time1.setHour(17);
+		time1.setMinute(10);
+	    int[] pos = time1.hashListPositions();
+	    assertEquals(17, pos[0]);
+	    assertEquals(0, pos[1]);
+		time1.setMinute(20);
+		pos = time1.hashListPositions();
+		assertEquals(17, pos[0]);
+		assertEquals(1, pos[1]);
+		time1.setMinute(40);
+		pos = time1.hashListPositions();
+		assertEquals(17, pos[0]);
+		assertEquals(2, pos[1]);
+		time1.setMinute(50);
+		pos = time1.hashListPositions();
+		assertEquals(17, pos[0]);
+		assertEquals(3, pos[1]);
+	}
 }
