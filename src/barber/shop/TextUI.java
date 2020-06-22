@@ -217,34 +217,35 @@ public class TextUI {
 	/**
 	 * Creates a customer with the specified parameters.
 	 *
-	 * @param modify 1 - Time, 2 - All
+	 * @param modify 1 - Time, 2 - All.
 	 * @return a new Customer.
+	 * @throws BarberException if there is no customer in the selected position.
+	 *                         Exception treated in {@link #addReservation()}, {@link #cancelReservation()} and
+	 *                         {@link #modifyReservation()} methods.
 	 */
-	private Customer customerModification(int modify) {
+	private Customer customerModification(int modify) throws BarberException {
 		Customer customer = new Customer();
 
-		try {
-			logger.trace("Introduce a hour: ");
-			int hour = inputHour();
+		logger.trace("Introduce a hour: ");
+		int hour = inputHour();
 
-			logger.trace("Introduce a minute: ");
-			int minute = inputMinute();
+		logger.trace("Introduce a minute: ");
+		int minute = inputMinute();
+		customer.setTime(new Time(hour, minute));
 
-			if (modify == 1) {
-				Customer aux = this.barberShop.getCustomerByTime(new Time(hour, minute));
-				customer.setName(aux.getName());
-				customer.setPlace(aux.getPlace());
+		if (modify == 1) {
+			Customer aux = this.barberShop.getCustomerByTime(new Time(hour, minute));
+			customer.setName(aux.getName());
+			customer.setPlace(aux.getPlace());
 
-			} else if (modify == 2) {
-				logger.trace("Introduce the name of the customer: ");
-				customer.setName(Keyboard.readLine().trim());
+		} else if (modify == 2) {
+			logger.trace("Introduce the name of the customer: ");
+			customer.setName(Keyboard.readLine().trim());
 
-				logger.trace("Introduce the place where the customer want to reserve: ");
-				customer.setPlace(Keyboard.readLine().trim());
-			}
-		} catch (BarberException e) {
-			logger.warn(e.getMessage());
+			logger.trace("Introduce the place where the customer want to reserve: ");
+			customer.setPlace(Keyboard.readLine().trim());
 		}
+
 		return customer;
 	}
 }

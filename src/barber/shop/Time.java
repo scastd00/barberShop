@@ -142,7 +142,7 @@ public class Time {
 	 * Compares hour and minute of the this and o Times
 	 *
 	 * @param o other Time
-	 * @return true if this hour and minute are equal to o hour and minute, false otherwise
+	 * @return <code>true</code> if this hour and minute are equal to o hour and minute, <code>false</code> otherwise
 	 */
 	@Override
 	public boolean equals(Object o) {

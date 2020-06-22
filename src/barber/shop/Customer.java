@@ -136,7 +136,7 @@ public class Customer {
 	 * Compares the time of this customer and o customer.
 	 *
 	 * @param o Other customer
-	 * @return true if the name is equal for both customers, false otherwise.
+	 * @return <code>true</code> if the name is equal for both customers, <code>false</code> otherwise.
 	 */
 	@Override
 	public boolean equals(Object o) {

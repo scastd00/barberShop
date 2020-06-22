@@ -116,7 +116,7 @@ public class BarberShop {
 	 * @throws BarberException if the customer values are incorrect.
 	 */
 	public void modifyReservation(Customer oldCustomer, Customer newCustomer) throws BarberException {
-		if (!this.isPossibleToMakeTransaction(oldCustomer) && !this.isPossibleToMakeTransaction(newCustomer)) {
+		if (!this.isPossibleToMakeTransaction(oldCustomer) || !this.isPossibleToMakeTransaction(newCustomer)) {
 			throw new BarberException("Invalid values. Try again");
 		}
 
@@ -170,7 +170,7 @@ public class BarberShop {
 	 * Checks that the customer values are right.
 	 *
 	 * @param customer Customer to make a transaction.
-	 * @return true if is a valid customer, false otherwise.
+	 * @return <code>true</code> if is a valid customer, <code>false</code> otherwise.
 	 */
 	public boolean isPossibleToMakeTransaction(Customer customer) {
 		if (customer == null) {
@@ -187,7 +187,7 @@ public class BarberShop {
 	 * Checks if the customer given is contained in the table.
 	 *
 	 * @param customer the customer to check.
-	 * @return true if customer is in the table, false otherwise
+	 * @return <code>true</code> if customer is in the table, <code>false</code> otherwise
 	 */
 	private boolean contains(Customer customer) {
 		for (int i = 0; i < this.customersTimeHashMap.size(); i++) {
