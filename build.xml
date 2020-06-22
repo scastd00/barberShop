@@ -182,7 +182,7 @@
 	</target>
 
 	<!-- Executes the coverage report file -->
-	<target name="coverage" depends="report">
+	<target name="coverage" depends="test, report">
 		<exec executable="/snap/bin/chromium">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>

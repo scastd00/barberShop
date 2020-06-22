@@ -37,6 +37,7 @@ public class BarberShop {
 
 	/**
 	 * Getter of the hashMap attribute.
+	 *
 	 * @return the hashMap of the customers.
 	 */
 	public Map<Integer, ArrayList<Customer>> getCustomersTimeHashMap() {
@@ -45,6 +46,7 @@ public class BarberShop {
 
 	/**
 	 * Returns the customer that has a reservation at the selected hour.
+	 *
 	 * @param time the hour to select the customer.
 	 * @return the customer selected.
 	 * @throws BarberException if there is no customer in the selected position.
