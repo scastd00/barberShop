@@ -1,14 +1,12 @@
 package barber.shop;
 
+import barber.shop.exceptions.BarberException;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-
-import barber.shop.exceptions.BarberException;
 
 /**
  * Class that makes all the transactions of a barber shop.
@@ -105,7 +103,6 @@ public class BarberShop {
 		if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(customer)) {
 			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 		}
-
 	}
 
 	/**

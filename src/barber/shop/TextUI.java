@@ -127,7 +127,7 @@ public class TextUI {
 	/**
 	 * Manages money transactions.
 	 *
-	 * @throws BarberException if the entered value is incorrect
+	 * @throws BarberException if the entered value is incorrect.
 	 */
 	private void moneyTransactions() throws BarberException {
 		float sum = 0.0f;
