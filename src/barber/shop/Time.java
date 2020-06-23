@@ -21,11 +21,11 @@ public class Time {
 		StringBuilder error = new StringBuilder();
 
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			error.append("Error: Incorrect hour value");
+			error.append(Constants.ERROR + " Incorrect hour value");
 		}
 
 		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			error.append("Error: Incorrect minute value");
+			error.append(Constants.ERROR + " Incorrect minute value");
 		}
 
 		if (error.length() > 0) {
@@ -61,7 +61,7 @@ public class Time {
 	 */
 	public void setHour(int hour) throws BarberException {
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			throw new BarberException("ERROR: hour value must be between 0 and 23");
+			throw new BarberException(Constants.ERROR + " hour value must be between 0 and 23");
 		} else {
 			this.hour = hour;
 		}
@@ -84,7 +84,7 @@ public class Time {
 	 */
 	public void setMinute(int minute) throws BarberException {
 		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			throw new BarberException("Error: Incorrect minute value");
+			throw new BarberException(Constants.ERROR + " Incorrect minute value");
 		} else {
 			this.minute = minute;
 		}

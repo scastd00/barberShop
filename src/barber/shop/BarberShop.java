@@ -71,7 +71,7 @@ public class BarberShop {
 		}
 
 		if (this.contains(customer)) {
-			throw new BarberException("This customer already has a reservation");
+			throw new BarberException(customer.getName() + " already has a reservation");
 		}
 
 		int hashPos = this.hashPosition(customer);
@@ -97,10 +97,13 @@ public class BarberShop {
 		}
 
 		if (!this.contains(customer)) {
-			throw new BarberException("This customer does not have a reservation");
+			throw new BarberException(customer.getName() + " doesn't have a reservation");
 		}
 
-		if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(customer)) {
+		if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)) == null) {
+			throw new BarberException(customer.getName() + " doesn't has a reservation in that hour");
+		} else if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(
+			customer)) {
 			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
 		}
 	}
@@ -118,7 +121,7 @@ public class BarberShop {
 		}
 
 		if (!this.contains(oldCustomer)) {
-			throw new BarberException(oldCustomer.getName() + " customer does not have a reservation");
+			throw new BarberException(oldCustomer.getName() + " doesn't have a reservation");
 		}
 
 		this.cancelReservation(oldCustomer);
@@ -171,7 +174,7 @@ public class BarberShop {
 	 */
 	public boolean isPossibleToMakeTransaction(Customer customer) {
 		if (customer == null) {
-			throw new IllegalArgumentException("Bad customer parameter");
+			throw new IllegalArgumentException("You must specify better parameters for this customer");
 		}
 
 		return (customer.getName() != null && customer.getName().length() != 0)

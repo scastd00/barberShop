@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 public class UI {
 	private static final Logger logger = LogManager.getLogger(UI.class);
 	private final BarberShop barberShop;
-	private final Constants haircuts;
 
 	/**
 	 * Class constructor.
@@ -17,7 +16,6 @@ public class UI {
 	 */
 	public UI(BarberShop bShop) {
 		this.barberShop = bShop;
-		this.haircuts = new Constants();
 	}
 
 	/**
@@ -73,10 +71,6 @@ public class UI {
 
 				case "Cancel Reservation":
 					cancelReservation(customer);
-					break;
-
-				case "Exit":
-					System.exit(0);
 					break;
 
 				default:

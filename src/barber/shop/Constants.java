@@ -21,6 +21,12 @@ public class Constants {
 
 	public static final int MODIFY_ALL = 2;
 
+	public static final String RED = "\u001B[31m";
+
+	public static final String RESET = "\u001B[0m";
+
+	public static final String ERROR = RED + "Error:" + RESET;
+
 	/**
 	 * Array where the haircuts are stored to access them
 	 */

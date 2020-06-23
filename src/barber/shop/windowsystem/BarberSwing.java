@@ -13,12 +13,18 @@ public class BarberSwing {
 	private final JButton addReservationButton;
 	private final JButton cancelReservationButton;
 	private final JButton modifyReservationButton;
-	private JComboBox<String> comboBox;
+	private final JButton confirmButton;
 	private final JTextField fullNameTextField;
 	private final JTextField hourTextField;
 	private final JTextField minuteTextField;
-	private UI ui;
-	private String[] comboBoxList = new String[] {"", "Astorga", "San Justo"};
+	private final JTextField name1;
+	private final JTextField hour1;
+	private final JTextField minute1;
+	private final JComboBox<String> comboBox1;
+	private JComboBox<String> comboBox;
+	private final UI ui;
+	private String[] comboBoxList = new String[] {" ", "Astorga", "San Justo"};
+	private BarberShop barberShop;
 
 	public BarberSwing() {
 		this.frmBarberShop = new JFrame("BarberShop");
@@ -29,7 +35,12 @@ public class BarberSwing {
 		this.fullNameTextField = new JTextField("Complete Name");
 		this.hourTextField = new JTextField("Hour");
 		this.minuteTextField = new JTextField("Minute");
-		BarberShop barberShop = new BarberShop();
+		this.name1 = new JTextField("New name");
+		this.hour1 = new JTextField("New hour");
+		this.minute1 = new JTextField("New minute");
+		this.comboBox1 = new JComboBox<>(comboBoxList);
+		this.confirmButton = new JButton("Confirm");
+		this.barberShop = new BarberShop();
 		this.ui = new UI(barberShop);
 	}
 
@@ -45,8 +56,7 @@ public class BarberSwing {
 		frmBarberShop.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
-		this.comboBox = new JComboBox<>();
-		comboBox.setModel(new DefaultComboBoxModel<>(comboBoxList));
+		this.comboBox = new JComboBox<>(comboBoxList);
 		comboBox.setBounds(235, 107, 180, 24);
 		frmBarberShop.getContentPane().add(comboBox);
 
@@ -60,6 +70,7 @@ public class BarberSwing {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
 			this.ui.actionPerformed(add.getActionCommand(), fullNameTextField.getText(), hourTextField.getText(),
 				minuteTextField.getText(), place);
+			this.barberShop.printHash();
 		});
 
 		/*
@@ -70,6 +81,7 @@ public class BarberSwing {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
 			this.ui.actionPerformed(cancel.getActionCommand(), fullNameTextField.getText(), hourTextField.getText(),
 				minuteTextField.getText(), place);
+			this.barberShop.printHash();
 		});
 
 		/*
@@ -100,26 +112,37 @@ public class BarberSwing {
 		frmBarberShop.getContentPane().add(this.minuteTextField);
 		this.minuteTextField.setColumns(10);
 
+
+
+
+
 		// THIS MUST BE HERE
 		frmBarberShop.setVisible(true);
 	}
 
 	private void modifyReservationOption(String op, String name, String hour, String minute, String place) {
-		JTextField name1 = new JTextField("New name");
-		JTextField hour1 = new JTextField("New hour");
-		JTextField minute1 = new JTextField("New minute");
-		JComboBox<String> comboBox1 = new JComboBox<>();
-		comboBox1.setModel(new DefaultComboBoxModel<>(comboBoxList));
+		JPanel modify = new JPanel();
+		modify.setBounds(235, 250, 400, 400);
+		modify.add(comboBox1);
+		modify.add(name1);
+		modify.add(hour1);
+		modify.add(minute1);
+		modify.add(confirmButton);
+		comboBox1.setBounds(0, 100, 180, 24);
+		name1.setBounds(0, 0, 181, 19);
+		hour1.setBounds(0, 50, 70, 19);
+		minute1.setBounds(105, 50, 85, 19);
+		confirmButton.setBounds(15, 150, 100, 20);
+		modify.setVisible(true);
+		this.frmBarberShop.getContentPane().add(modify);
+		this.frmBarberShop.setVisible(true);
 
-		comboBox1.setBounds(235, 350, 180, 24);
-		name1.setBounds(235, 250, 181, 19);
-		hour1.setBounds(235, 300, 70, 19);
-		minute1.setBounds(331, 300, 85, 19);
-
-		this.frmBarberShop.getContentPane().add(comboBox1);
-		this.frmBarberShop.getContentPane().add(name1);
-		this.frmBarberShop.getContentPane().add(hour1);
-		this.frmBarberShop.getContentPane().add(minute1);
-
+		confirmButton.addActionListener(confirm -> {
+			String[][] data = {{op, name1.getText()}, {hour, hour1.getText()}, {minute, minute1.getText()}, {place,
+				comboBoxList[comboBox1.getSelectedIndex()]}};
+			this.ui.actionModifyCustomer(data[0], data[1], data[2], data[3]);
+			modify.setVisible(false);
+			this.barberShop.printHash();
+		});
 	}
 }

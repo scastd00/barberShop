@@ -24,7 +24,8 @@ public final class Keyboard {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			line = br.readLine();
 		} catch (Exception e) {
-			throw new BarberException("Error: Something went wrong with I/O. Please, reenter the input");
+			throw new BarberException(
+				Constants.RED + "ERROR: " + Constants.RESET + "Something went wrong with I/O. Please, reenter the input");
 		}
 
 		return line;
