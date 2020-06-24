@@ -1,15 +1,19 @@
 package barber.shop.windowsystem;
 
 import barber.shop.BarberShop;
+import barber.shop.Customer;
 import barber.shop.UI;
+import barber.shop.exceptions.BarberException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static javax.swing.WindowConstants.*;
+public class BarberFrame extends JFrame {
 
-public class BarberSwing {
-	private final JFrame frmBarberShop;
+	private static final Logger logger = LogManager.getLogger(BarberFrame.class);
+	private final JPanel panelBarberShop;
 	private final JButton addReservationButton;
 	private final JButton cancelReservationButton;
 	private final JButton modifyReservationButton;
@@ -21,13 +25,14 @@ public class BarberSwing {
 	private final JTextField hour1;
 	private final JTextField minute1;
 	private final JComboBox<String> comboBox1;
-	private JComboBox<String> comboBox;
 	private final UI ui;
+	private JComboBox<String> comboBox;
 	private String[] comboBoxList = new String[] {" ", "Astorga", "San Justo"};
 	private BarberShop barberShop;
 
-	public BarberSwing() {
-		this.frmBarberShop = new JFrame("BarberShop");
+	public BarberFrame() {
+		this.setName("BarberShop");
+		this.panelBarberShop = new JPanel();
 		this.addReservationButton = new JButton("Add Reservation");
 		this.cancelReservationButton = new JButton("Cancel Reservation");
 		this.modifyReservationButton = new JButton("Modify Reservation");
@@ -50,15 +55,16 @@ public class BarberSwing {
 		int screenWidth = screenSize.width;
 
 
-		frmBarberShop.setBackground(Color.LIGHT_GRAY);
-		frmBarberShop.setFont(new Font("Monospaced", Font.BOLD, 12));
-		frmBarberShop.setBounds(0, 10, screenWidth, screenHeight);
-		frmBarberShop.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		panelBarberShop.setBackground(Color.LIGHT_GRAY);
+		this.setFont(new Font("Monospaced", Font.BOLD, 12));
+		panelBarberShop.setBounds(0, 10, 1000, 200);
+		this.setBounds(0, 10, screenWidth, screenHeight);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
 		this.comboBox = new JComboBox<>(comboBoxList);
 		comboBox.setBounds(235, 107, 180, 24);
-		frmBarberShop.getContentPane().add(comboBox);
+		panelBarberShop.add(comboBox);
 
 		// Buttons start //
 
@@ -70,7 +76,6 @@ public class BarberSwing {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
 			this.ui.actionPerformed(add.getActionCommand(), fullNameTextField.getText(), hourTextField.getText(),
 				minuteTextField.getText(), place);
-			this.barberShop.printHash();
 		});
 
 		/*
@@ -81,7 +86,6 @@ public class BarberSwing {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
 			this.ui.actionPerformed(cancel.getActionCommand(), fullNameTextField.getText(), hourTextField.getText(),
 				minuteTextField.getText(), place);
-			this.barberShop.printHash();
 		});
 
 		/*
@@ -90,59 +94,70 @@ public class BarberSwing {
 		this.modifyReservationButton.setBounds(225, 169, 170, 25);
 		this.modifyReservationButton.addActionListener(modify -> {
 			String place = comboBoxList[comboBox.getSelectedIndex()];
-			modifyReservationOption(modify.getActionCommand(), fullNameTextField.getText(), hourTextField.getText(),
-				minuteTextField.getText(), place);
+			modifyReservationOption();
 		});
 
 		// Buttons end //
 
-		frmBarberShop.getContentPane().add(this.addReservationButton);
-		frmBarberShop.getContentPane().add(this.modifyReservationButton);
-		frmBarberShop.getContentPane().add(this.cancelReservationButton);
-		frmBarberShop.getContentPane().setLayout(null);
+		panelBarberShop.add(this.addReservationButton);
+		panelBarberShop.add(this.modifyReservationButton);
+		panelBarberShop.add(this.cancelReservationButton);
+		panelBarberShop.setLayout(null);
 		this.fullNameTextField.setBounds(235, 22, 181, 19);
-		frmBarberShop.getContentPane().add(this.fullNameTextField);
-		this.fullNameTextField.setColumns(10);
+		panelBarberShop.add(this.fullNameTextField);
 
 		this.hourTextField.setBounds(235, 63, 51, 19);
-		frmBarberShop.getContentPane().add(this.hourTextField);
-		this.hourTextField.setColumns(10);
+		panelBarberShop.add(this.hourTextField);
 
 		this.minuteTextField.setBounds(298, 63, 51, 19);
-		frmBarberShop.getContentPane().add(this.minuteTextField);
-		this.minuteTextField.setColumns(10);
-
-
-
+		panelBarberShop.add(this.minuteTextField);
 
 
 		// THIS MUST BE HERE
-		frmBarberShop.setVisible(true);
+		panelBarberShop.setVisible(true);
+		this.getContentPane().add(this.panelBarberShop);
+		this.setVisible(true);
 	}
 
-	private void modifyReservationOption(String op, String name, String hour, String minute, String place) {
-		JPanel modify = new JPanel();
-		modify.setBounds(235, 250, 400, 400);
-		modify.add(comboBox1);
-		modify.add(name1);
-		modify.add(hour1);
-		modify.add(minute1);
-		modify.add(confirmButton);
+	private void modifyReservationOption() {
+		JFrame modify = new JFrame("Modify Reservation");
+		JPanel panel = new JPanel();
+
+		modify.setBounds(235, 500, 800, 650);
 		comboBox1.setBounds(0, 100, 180, 24);
 		name1.setBounds(0, 0, 181, 19);
 		hour1.setBounds(0, 50, 70, 19);
 		minute1.setBounds(105, 50, 85, 19);
 		confirmButton.setBounds(15, 150, 100, 20);
+
+		panel.setBounds(modify.getBounds());
+		panel.add(comboBox1);
+		panel.add(name1);
+		panel.add(hour1);
+		panel.add(minute1);
+		panel.add(confirmButton);
+
+		modify.getContentPane().add(panel);
 		modify.setVisible(true);
-		this.frmBarberShop.getContentPane().add(modify);
-		this.frmBarberShop.setVisible(true);
 
 		confirmButton.addActionListener(confirm -> {
-			String[][] data = {{op, name1.getText()}, {hour, hour1.getText()}, {minute, minute1.getText()}, {place,
-				comboBoxList[comboBox1.getSelectedIndex()]}};
-			this.ui.actionModifyCustomer(data[0], data[1], data[2], data[3]);
-			modify.setVisible(false);
-			this.barberShop.printHash();
+			try {
+				Customer c0 = new Customer(fullNameTextField.getText(), Integer.parseInt(hourTextField.getText()),
+					Integer.parseInt(minuteTextField.getText()), comboBoxList[comboBox.getSelectedIndex()]);
+				Customer c1 = new Customer(name1.getText(), Integer.parseInt(hour1.getText()),
+					Integer.parseInt(minute1.getText()), comboBoxList[comboBox1.getSelectedIndex()]);
+
+				this.barberShop.modifyReservation(c0, c1);
+			} catch (BarberException e) {
+				logger.warn(e.getMessage());
+			} catch (NumberFormatException e) {
+				logger.warn("Error en la hora o minuto");
+			}
+
+			if (confirmButton.isEnabled()) {
+				modify.setVisible(false);
+			}
+//			data = null;
 		});
 	}
 }

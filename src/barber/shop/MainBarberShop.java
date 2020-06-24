@@ -1,7 +1,7 @@
 package barber.shop;
 
 import barber.shop.exceptions.BarberException;
-import barber.shop.windowsystem.BarberSwing;
+import barber.shop.windowsystem.BarberFrame;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +32,7 @@ public class MainBarberShop {
 //	}
 
 	public static void main(String[] args) throws BarberException {
-		BarberSwing bs = new BarberSwing();
-		bs.init();
+		BarberFrame bf = new BarberFrame();
+		bf.init();
 	}
 }

@@ -97,11 +97,11 @@ public class BarberShop {
 		}
 
 		if (!this.contains(customer)) {
-			throw new BarberException(customer.getName() + " doesn't have a reservation");
+			throw new BarberException(customer.getName() + " doesn't have a reservation (cancel)");
 		}
 
 		if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)) == null) {
-			throw new BarberException(customer.getName() + " doesn't has a reservation in that hour");
+			throw new BarberException(customer.getName() + " doesn't has a reservation in that hour (cancel)");
 		} else if (this.customersTimeHashMap.get(this.hashPosition(customer)).get(this.listPosition(customer)).equals(
 			customer)) {
 			this.customersTimeHashMap.get(this.hashPosition(customer)).remove(this.listPosition(customer));
@@ -121,7 +121,7 @@ public class BarberShop {
 		}
 
 		if (!this.contains(oldCustomer)) {
-			throw new BarberException(oldCustomer.getName() + " doesn't have a reservation");
+			throw new BarberException(oldCustomer.getName() + " doesn't have a reservation (modify)");
 		}
 
 		this.cancelReservation(oldCustomer);
