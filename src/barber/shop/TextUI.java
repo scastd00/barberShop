@@ -6,15 +6,13 @@ import org.apache.logging.log4j.LogManager;
 import barber.shop.exceptions.BarberException;
 
 /**
- * Class that represents the User Interface of the app.
+ * Class that represents the User Interface (Console) of the application.
  */
 public class TextUI {
 
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
 	private final BarberShop barberShop;
 	private final Constants haircuts;
-	// private WindowInterface windowInterface;
-	// private WindowPanel panel;
 
 	/**
 	 * Class constructor.
@@ -24,8 +22,6 @@ public class TextUI {
 	public TextUI(BarberShop bShop) {
 		this.barberShop = bShop;
 		this.haircuts = new Constants();
-		// this.windowInterface = new WindowInterface();
-		// this.panel = new WindowPanel();
 	}
 
 	/**
@@ -48,7 +44,7 @@ public class TextUI {
 
 			try {
 				if (input.length() == 0) {
-					logger.warn("{} is not a number", input);
+					logger.warn("{} {} is not a number", Constants.WARN, input);
 				} else {
 					option = Byte.parseByte(input);
 
@@ -74,11 +70,11 @@ public class TextUI {
 							break;
 
 						default:
-							logger.warn("Invalid option, try again.");
+							logger.warn("Invalid option, try again");
 					}
 				}
 			} catch (NumberFormatException e) {
-				throw new BarberException(input + " is not a number");
+				logger.warn( "{} {} is not a number", Constants.WARN, input);
 			} catch (BarberException e) {
 				logger.debug(e.getMessage());
 			}
@@ -131,7 +127,7 @@ public class TextUI {
 	 */
 	private void moneyTransactions() throws BarberException {
 		float sum = 0.0f;
-		byte option = 0;
+		byte option = -1;
 		logger.trace("Introduce the service you offered {}", "\n");
 		do {
 			logger.trace("Select an option of haircut: {}", "\n");
@@ -142,7 +138,7 @@ public class TextUI {
 				option = Byte.parseByte(input);
 				sum += haircutCost(option);
 			} catch (NumberFormatException e) {
-				throw new BarberException(input + " is not a number");
+				logger.warn( "{} {} is not a number", Constants.WARN, input);
 			} catch (BarberException e) {
 				logger.warn(e.getMessage());
 			}
@@ -165,7 +161,7 @@ public class TextUI {
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			throw new BarberException(input + " is not a number.");
+			throw new BarberException(Constants.WARN + " " + input + " is not a number");
 		}
 	}
 
@@ -183,7 +179,7 @@ public class TextUI {
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			throw new BarberException(input + " is not a number.");
+			throw new BarberException(Constants.WARN + " " + input + " is not a number");
 		}
 	}
 

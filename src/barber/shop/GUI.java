@@ -4,8 +4,8 @@ import barber.shop.exceptions.BarberException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class UI {
-	private static final Logger logger = LogManager.getLogger(UI.class);
+public class GUI {
+	private static final Logger logger = LogManager.getLogger(GUI.class);
 	private final BarberShop barberShop;
 
 	/**
@@ -13,7 +13,7 @@ public class UI {
 	 *
 	 * @param bShop a barber shop.
 	 */
-	public UI(BarberShop bShop) {
+	public GUI(BarberShop bShop) {
 		this.barberShop = bShop;
 	}
 
@@ -69,7 +69,7 @@ public class UI {
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		} catch (NumberFormatException e) {
-			logger.warn(Constants.ERROR + "Wrong hour or minute");
+			logger.warn(Constants.ERROR + " wrong hour or minute");
 		}
 		this.barberShop.printHash();
 	}

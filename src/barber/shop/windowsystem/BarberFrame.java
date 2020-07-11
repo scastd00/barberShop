@@ -2,7 +2,7 @@ package barber.shop.windowsystem;
 
 import barber.shop.BarberShop;
 import barber.shop.Customer;
-import barber.shop.UI;
+import barber.shop.GUI;
 import barber.shop.exceptions.BarberException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +25,7 @@ public class BarberFrame extends JFrame {
 	private final JTextField hour1;
 	private final JTextField minute1;
 	private final JComboBox<String> comboBox1;
-	private final UI ui;
+	private final GUI ui;
 	private JComboBox<String> comboBox;
 	private String[] comboBoxList = new String[] {" ", "Astorga", "San Justo"};
 	private BarberShop barberShop;
@@ -46,7 +46,7 @@ public class BarberFrame extends JFrame {
 		this.comboBox1 = new JComboBox<>(comboBoxList);
 		this.confirmButton = new JButton("Confirm");
 		this.barberShop = new BarberShop();
-		this.ui = new UI(barberShop);
+		this.ui = new GUI(barberShop);
 	}
 
 	public void init() {
@@ -93,7 +93,6 @@ public class BarberFrame extends JFrame {
 		 */
 		this.modifyReservationButton.setBounds(225, 169, 170, 25);
 		this.modifyReservationButton.addActionListener(modify -> {
-			String place = comboBoxList[comboBox.getSelectedIndex()];
 			modifyReservationOption();
 		});
 
@@ -120,25 +119,25 @@ public class BarberFrame extends JFrame {
 	}
 
 	private void modifyReservationOption() {
-		JFrame modify = new JFrame("Modify Reservation");
+		JFrame modifyFrame = new JFrame("Modify Reservation");
 		JPanel panel = new JPanel();
 
-		modify.setBounds(235, 500, 800, 650);
+		modifyFrame.setBounds(235, 500, 700, 500);
 		comboBox1.setBounds(0, 100, 180, 24);
 		name1.setBounds(0, 0, 181, 19);
 		hour1.setBounds(0, 50, 70, 19);
 		minute1.setBounds(105, 50, 85, 19);
 		confirmButton.setBounds(15, 150, 100, 20);
 
-		panel.setBounds(modify.getBounds());
+		panel.setBounds(modifyFrame.getBounds());
 		panel.add(comboBox1);
 		panel.add(name1);
 		panel.add(hour1);
 		panel.add(minute1);
 		panel.add(confirmButton);
 
-		modify.getContentPane().add(panel);
-		modify.setVisible(true);
+		modifyFrame.getContentPane().add(panel);
+		modifyFrame.setVisible(true);
 
 		confirmButton.addActionListener(confirm -> {
 			try {
@@ -155,9 +154,8 @@ public class BarberFrame extends JFrame {
 			}
 
 			if (confirmButton.isEnabled()) {
-				modify.setVisible(false);
+				modifyFrame.setVisible(false);
 			}
-//			data = null;
 		});
 	}
 }

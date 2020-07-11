@@ -9,30 +9,17 @@ public class MainBarberShop {
 
 	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);
 
-//	public static void main(String[] args) {
-//		BarberShop bs = new BarberShop();
-//		TextUI ui = new TextUI(bs);
-//		try {
-//			ui.init();
-//		} catch (BarberException e) {
-//			logger.warn("Unexpected. {}", e.getMessage());
-//		}
-//	}
+	public static void main(String[] args) {
+//		BarberFrame bf = new BarberFrame();
+//		bf.init();
 
-//	public static void main(String[] args) {
-//		BarberShop bs = new BarberShop();
-//		TextUI ui = new TextUI(bs);
-//		do {
-//			try {
-//				ui.init();
-//			} catch (BarberException e) {
-//				logger.fatal("Exception");
-//			}
-//		} while (true);
-//	}
+		try {
+			BarberShop bs = new BarberShop();
+			TextUI ui = new TextUI(bs);
+			ui.init();
+		} catch (BarberException e) {
+			logger.warn(e.getMessage());
+		}
 
-	public static void main(String[] args) throws BarberException {
-		BarberFrame bf = new BarberFrame();
-		bf.init();
 	}
 }

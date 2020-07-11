@@ -44,8 +44,8 @@ public class Customer {
 		}
 
 		if (error.length() > 0) {
+			logger.debug(error);
 			throw new BarberException(error.toString());
-
 		} else {
 			this.name = name;
 			this.time = new Time(hour, minute);
@@ -81,7 +81,7 @@ public class Customer {
 	 */
 	public void setName(String name) throws BarberException {
 		if (name == null || name.length() == 0) {
-			throw new BarberException(Constants.RED + "ERROR: " + Constants.RESET + "you must introduce a valid name");
+			throw new BarberException(Constants.ERROR + " You must introduce a valid name");
 		} else {
 			this.name = name;
 		}
@@ -103,7 +103,7 @@ public class Customer {
 	 */
 	public void setTime(Time time) throws BarberException {
 		if (time == null) {
-			throw new BarberException(Constants.RED + "ERROR: " + Constants.RESET + "Invalid time assignation");
+			throw new BarberException(Constants.ERROR + " Invalid time assignation");
 		}
 
 		this.time = time;
@@ -126,7 +126,7 @@ public class Customer {
 	 */
 	public void setPlace(String place) throws BarberException {
 		if (place == null || place.length() == 0) {
-			throw new BarberException(Constants.RED + "ERROR: " + Constants.RESET + "You must introduce a valid place");
+			throw new BarberException(Constants.ERROR + " You must introduce a valid place");
 		} else {
 			this.place = place;
 		}
