@@ -55,7 +55,7 @@ public class Customer {
 	}
 
 	/**
-	 * Empty constructor of the class
+	 * Empty constructor of the class. Empty name, 0:00, empty place.
 	 */
 	public Customer() {
 		this.name = "";

@@ -62,7 +62,7 @@ public class BarberShop {
 		int hashPos = this.hashPosition(customer);
 		int listPos = this.arrayPosition(customer);
 
-		// Checks if other customer already holds the same position of the new customer.
+		// Checks if other customer already holds the same position as the new customer.
 		if (this.timetable.get(hashPos)[listPos] != null) {
 			throw new BarberException("Other customer has a reservation in that hour");
 		}
@@ -74,9 +74,8 @@ public class BarberShop {
 	 * Removes an existing reservation of the specified customer.
 	 *
 	 * @param customer the customer to remove the reservation.
-	 * @throws BarberException if the customer values are incorrect.
 	 */
-	public void cancelReservation(Customer customer) throws BarberException {
+	public void cancelReservation(Customer customer) {
 		this.timetable.get(this.hashPosition(customer))[this.arrayPosition(customer)] = null;
 	}
 
@@ -84,7 +83,7 @@ public class BarberShop {
 	 * Modifies an existing reservation.
 	 *
 	 * @param oldCustomer the customer to modify the reservation.
-	 * @param newCustomer the new customer.
+	 * @param newCustomer the new customer to add.
 	 * @throws BarberException if the customer values are incorrect.
 	 */
 	public void modifyReservation(Customer oldCustomer, Customer newCustomer) throws BarberException {
