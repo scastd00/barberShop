@@ -8,6 +8,9 @@
 # Log file
 *.log
 
+# Jar generated files
+\build
+
 # BlueJ files
 *.ctxt
 

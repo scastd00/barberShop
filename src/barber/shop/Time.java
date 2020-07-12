@@ -91,11 +91,11 @@ public class Time {
 	}
 
 	/**
-	 * Adjusts the values of the time corresponding to [Hash position, List position].
+	 * Adjusts the values of the time corresponding to [Hash position, Array position].
 	 *
 	 * @return an array with the values of the position that occupies a particular customer.
 	 */
-	public int[] hashListPositions() {
+	public int[] hashArrayPositions() {
 		int[] output = new int[2];
 		output[0] = this.hour;
 

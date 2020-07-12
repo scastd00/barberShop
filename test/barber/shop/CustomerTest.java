@@ -100,6 +100,11 @@ public class CustomerTest {
 		customer.getTime().setMinute(60);
 	}
 
+	@Test(expected = BarberException.class)
+	public void testNullTime() throws BarberException {
+	    customer.setTime(null);
+	}
+
 	@Test
 	public void testSetGetPlace() throws BarberException {
 		customer.setPlace("Astorga");
@@ -131,6 +136,7 @@ public class CustomerTest {
 	    customer.getTime().setHour(1);
 	    customer.setPlace("Astorga");
 	    assertTrue(customer.equals(customer1));
+	    assertTrue(customer.equals(customer));
 	    assertFalse(customer.equals(new BarberShop()));
 	}
 

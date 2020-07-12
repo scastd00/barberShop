@@ -70,11 +70,11 @@ public class TextUI {
 							break;
 
 						default:
-							logger.warn("Invalid option, try again");
+							logger.warn("{} Invalid option, try again", Constants.WARN);
 					}
 				}
 			} catch (NumberFormatException e) {
-				logger.warn( "{} {} is not a number", Constants.WARN, input);
+				logger.warn("{} {} is not a number", Constants.WARN, input);
 			} catch (BarberException e) {
 				logger.debug(e.getMessage());
 			}
@@ -127,7 +127,7 @@ public class TextUI {
 	 */
 	private void moneyTransactions() throws BarberException {
 		float sum = 0.0f;
-		byte option = -1;
+		byte option = 1;
 		logger.trace("Introduce the service you offered {}", "\n");
 		do {
 			logger.trace("Select an option of haircut: {}", "\n");
@@ -138,7 +138,7 @@ public class TextUI {
 				option = Byte.parseByte(input);
 				sum += haircutCost(option);
 			} catch (NumberFormatException e) {
-				logger.warn( "{} {} is not a number", Constants.WARN, input);
+				logger.warn("{} {} is not a number", Constants.WARN, input);
 			} catch (BarberException e) {
 				logger.warn(e.getMessage());
 			}
@@ -227,10 +227,11 @@ public class TextUI {
 
 		logger.trace("Introduce a minute: ");
 		int minute = inputMinute();
-		customer.setTime(new Time(hour, minute));
+		Time time = new Time(hour, minute);
+		customer.setTime(time);
 
 		if (modify == 1) {
-			Customer aux = this.barberShop.getCustomerByTime(new Time(hour, minute));
+			Customer aux = this.barberShop.getCustomerByTime(time);
 			customer.setName(aux.getName());
 			customer.setPlace(aux.getPlace());
 

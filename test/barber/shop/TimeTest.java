@@ -102,19 +102,19 @@ public class TimeTest {
 	public void testHashListPositions() throws BarberException {
 		time1.setHour(17);
 		time1.setMinute(10);
-	    int[] pos = time1.hashListPositions();
+	    int[] pos = time1.hashArrayPositions();
 	    assertEquals(17, pos[0]);
 	    assertEquals(0, pos[1]);
 		time1.setMinute(20);
-		pos = time1.hashListPositions();
+		pos = time1.hashArrayPositions();
 		assertEquals(17, pos[0]);
 		assertEquals(1, pos[1]);
 		time1.setMinute(40);
-		pos = time1.hashListPositions();
+		pos = time1.hashArrayPositions();
 		assertEquals(17, pos[0]);
 		assertEquals(2, pos[1]);
 		time1.setMinute(50);
-		pos = time1.hashListPositions();
+		pos = time1.hashArrayPositions();
 		assertEquals(17, pos[0]);
 		assertEquals(3, pos[1]);
 	}
