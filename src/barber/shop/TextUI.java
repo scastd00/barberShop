@@ -78,7 +78,7 @@ public class TextUI {
 			} catch (BarberException e) {
 				logger.debug(e.getMessage());
 			}
-			this.barberShop.printHash();
+			logger.trace(this.barberShop.toString());
 		} while (true);
 	}
 

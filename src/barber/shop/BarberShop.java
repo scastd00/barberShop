@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class that makes all the transactions of a barber shop.
@@ -31,20 +32,8 @@ public class BarberShop {
 		}
 	}
 
-	/**
-	 * Returns the customer that has a reservation at the selected hour.
-	 *
-	 * @param time the time to select the customer.
-	 * @return the customer selected.
-	 * @throws BarberException if there is no customer in the selected position.
-	 */
-	public Customer getCustomerByTime(Time time) throws BarberException {
-		int[] aux = time.hashArrayPositions();
-		if (this.timetable.get(aux[0])[aux[1]] == null) {
-			throw new BarberException("No customer has a reservation in that hour");
-		}
-
-		return this.timetable.get(aux[0])[aux[1]];
+	public Map<Integer, Customer[]> getTimetable() {
+		return this.timetable;
 	}
 
 	/**
@@ -84,11 +73,27 @@ public class BarberShop {
 	 *
 	 * @param oldCustomer the customer to modify the reservation.
 	 * @param newCustomer the new customer to add.
-	 * @throws BarberException if the customer values are incorrect.
+	 * @throws BarberException if the customers' values are incorrect.
 	 */
 	public void modifyReservation(Customer oldCustomer, Customer newCustomer) throws BarberException {
 		this.cancelReservation(oldCustomer);
 		this.addReservation(newCustomer);
+	}
+
+	/**
+	 * Returns the customer that has a reservation at the selected hour.
+	 *
+	 * @param time the time to select the customer.
+	 * @return the customer selected.
+	 * @throws BarberException if there is no customer in the selected position.
+	 */
+	public Customer getCustomerByTime(Time time) throws BarberException {
+		int[] aux = time.hashArrayPositions();
+		if (this.timetable.get(aux[0])[aux[1]] == null) {
+			throw new BarberException("No customer has a reservation in that hour");
+		}
+
+		return this.timetable.get(aux[0])[aux[1]];
 	}
 
 	/**
@@ -151,16 +156,18 @@ public class BarberShop {
 	/**
 	 * Prints all the customers in the table.
 	 */
-	public void printHash() {
+	@Override
+	public String toString() {
+		StringBuilder output = new StringBuilder();
 		for (int i = 0; i < this.timetable.size(); i++) {
 			Customer[] array = this.timetable.get(i);
 			for (Customer c : array) {
 				if (c != null) {
-					logger.info(c);
+					output.append(c.toString()).append('\n');
 				}
 			}
 		}
-		logger.trace("");
+		return output.toString();
 	}
 
 }

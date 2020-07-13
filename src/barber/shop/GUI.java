@@ -21,7 +21,7 @@ public class GUI {
 	 * Adds a reservation for the specified customer.
 	 *
 	 * @param customer the customer to make the reservation.
-	 * @throws BarberException
+	 * @throws BarberException if the new customer values are incorrect or other customer holds the specified position.
 	 */
 	private void addReservation(Customer customer) throws BarberException {
 		this.barberShop.addReservation(customer);
@@ -31,9 +31,8 @@ public class GUI {
 	 * Cancels a reservation of the specified customer.
 	 *
 	 * @param customer the customer to remove the reservation.
-	 * @throws BarberException
 	 */
-	private void cancelReservation(Customer customer) throws BarberException {
+	private void cancelReservation(Customer customer) {
 		this.barberShop.cancelReservation(customer);
 	}
 
@@ -42,7 +41,7 @@ public class GUI {
 	 *
 	 * @param oldC the customer to modify the reservation.
 	 * @param newC the new customer.
-	 * @throws BarberException
+	 * @throws BarberException if the customers' values are incorrect.
 	 */
 	private void modifyReservation(Customer oldC, Customer newC) throws BarberException {
 		this.barberShop.modifyReservation(oldC, newC);
@@ -71,7 +70,7 @@ public class GUI {
 		} catch (NumberFormatException e) {
 			logger.warn(Constants.ERROR + " wrong hour or minute");
 		}
-		this.barberShop.printHash();
+		logger.trace(this.barberShop.toString());
 	}
 
 	public void actionModifyCustomer(String[] names, String[] hours, String[] minutes, String[] places) {
@@ -85,6 +84,6 @@ public class GUI {
 		} catch (NumberFormatException e) {
 			logger.warn(Constants.ERROR + " wrong hour or minute");
 		}
-		this.barberShop.printHash();
+		this.barberShop.toString();
 	}
 }
