@@ -41,7 +41,7 @@
 	<target name="compile" depends="clean">
 		<mkdir dir="${classes.dir}"/>
 
-		<javac destdir="${classes.dir}" verbose="false" debug="true" includeantruntime="false">
+		<javac destdir="${classes.dir}" verbose="true" debug="true" includeantruntime="false">
 			<!-- Where to find the src files -->
 			<src path="${src.dir}"/>
 			<classpath>
@@ -71,7 +71,7 @@
 	<!-- Documentation target -->
 	<target name="document">
 		<mkdir dir="${doc.dir}"/>
-		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="false" author="true"
+		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="true" author="true"
 		         access="private" splitindex="true" version="true" windowtitle="${title}" doctitle="${title}">
 			<classpath>
 				<fileset dir="${lib.dir}">
@@ -86,7 +86,7 @@
 
 	<!-- Tests compiler target -->
 	<target name="compileTests" depends="compile">
-		<javac includeantruntime="false" verbose="false" destdir="${classes.dir}">
+		<javac includeantruntime="false" verbose="true" destdir="${classes.dir}">
 			<!-- Where to search the src files -->
 			<src path="${tests.dir}"/>
 			<classpath>

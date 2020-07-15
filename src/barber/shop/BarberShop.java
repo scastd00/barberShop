@@ -26,9 +26,6 @@ public class BarberShop {
 		this.timetable = new HashMap<>(Constants.MAX_HOUR + 1);
 		for (int i = 0; i < Constants.MAX_HOUR + 1; i++) {
 			this.timetable.put(i, new Customer[4]);
-			for (int j = 0; j < 4; j++) {
-				this.timetable.get(i)[j] = null;
-			}
 		}
 	}
 
@@ -45,7 +42,7 @@ public class BarberShop {
 	 */
 	public void addReservation(Customer customer) throws BarberException {
 		if (this.contains(customer)) {
-			throw new BarberException(customer.getName() + " already has a reservation");
+			throw new BarberException(Constants.WARN + " " + customer.getName() + " already has a reservation");
 		}
 
 		int hashPos = this.hashPosition(customer);
@@ -53,10 +50,11 @@ public class BarberShop {
 
 		// Checks if other customer already holds the same position as the new customer.
 		if (this.timetable.get(hashPos)[listPos] != null) {
-			throw new BarberException("Other customer has a reservation in that hour");
+			throw new BarberException(Constants.WARN + " Other customer has a reservation in that hour");
 		}
 
 		this.timetable.get(hashPos)[listPos] = customer;
+		logger.debug("Added: " + customer.toString());
 	}
 
 	/**
@@ -66,18 +64,20 @@ public class BarberShop {
 	 */
 	public void cancelReservation(Customer customer) {
 		this.timetable.get(this.hashPosition(customer))[this.arrayPosition(customer)] = null;
+		logger.debug("Cancelled: " + customer.getName() + " " + customer.getTime().toString());
 	}
 
 	/**
 	 * Modifies an existing reservation.
 	 *
-	 * @param oldCustomer the customer to modify the reservation.
-	 * @param newCustomer the new customer to add.
+	 * @param oldCust the customer to modify the reservation.
+	 * @param newCust the new customer to add.
 	 * @throws BarberException if the customers' values are incorrect.
 	 */
-	public void modifyReservation(Customer oldCustomer, Customer newCustomer) throws BarberException {
-		this.cancelReservation(oldCustomer);
-		this.addReservation(newCustomer);
+	public void modifyReservation(Customer oldCust, Customer newCust) throws BarberException {
+		this.cancelReservation(oldCust);
+		this.addReservation(newCust);
+		logger.debug("Modification done");
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class BarberShop {
 	public Customer getCustomerByTime(Time time) throws BarberException {
 		int[] aux = time.hashArrayPositions();
 		if (this.timetable.get(aux[0])[aux[1]] == null) {
-			throw new BarberException("No customer has a reservation in that hour");
+			throw new BarberException(Constants.WARN + " No customer has a reservation in that hour");
 		}
 
 		return this.timetable.get(aux[0])[aux[1]];
@@ -108,7 +108,7 @@ public class BarberShop {
 		float exchange = paid - toPay;
 
 		if (exchange < 0) {
-			throw new BarberException("The customer owe some money: " + exchange * (-1));
+			throw new BarberException(Constants.WARN + " The customer owe some money: " + exchange * (-1));
 		}
 
 		return exchange;

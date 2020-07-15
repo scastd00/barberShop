@@ -150,6 +150,11 @@ public class Customer {
 		return false;
 	}
 
+	/**
+	 * String version of the customer.
+	 *
+	 * @return a String with the format: name  time  place.
+	 */
 	@Override
 	public String toString() {
 		return this.name + "  " + this.time.toString() + "  " + this.place;

@@ -27,7 +27,7 @@ public class BarberFrame extends JFrame {
 	private final JComboBox<String> comboBox1;
 	private final GUI ui;
 	private JComboBox<String> comboBox;
-	private String[] comboBoxList = new String[] {" ", "Astorga", "San Justo"};
+	private final String[] comboBoxList = new String[] {" ", "Astorga", "San Justo"};
 	private BarberShop barberShop;
 
 	public BarberFrame() {
@@ -127,7 +127,7 @@ public class BarberFrame extends JFrame {
 		name1.setBounds(0, 0, 181, 19);
 		hour1.setBounds(0, 50, 70, 19);
 		minute1.setBounds(105, 50, 85, 19);
-		confirmButton.setBounds(15, 150, 100, 20);
+		confirmButton.setBounds(15, 150, 10, 20);
 
 		panel.setBounds(modifyFrame.getBounds());
 		panel.add(comboBox1);

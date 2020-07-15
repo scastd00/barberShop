@@ -10,9 +10,6 @@ public class MainBarberShop {
 	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);
 
 	public static void main(String[] args) {
-//		BarberFrame bf = new BarberFrame();
-//		bf.init();
-
 		try {
 			BarberShop bs = new BarberShop();
 			TextUI ui = new TextUI(bs);

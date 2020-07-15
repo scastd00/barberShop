@@ -109,9 +109,9 @@ public class TextUI {
 	 */
 	private void modifyReservation() {
 		try {
-			logger.info("Introduce the customer you want to modify\n");
+			logger.trace("Introduce the customer you want to modify\n");
 			Customer oldC = this.customerModification(Constants.MODIFY_TIME);
-			logger.info("Introduce the new customer\n");
+			logger.trace("Introduce the new customer\n");
 			Customer newC = this.customerModification(Constants.MODIFY_ALL);
 
 			this.barberShop.modifyReservation(oldC, newC);
@@ -204,7 +204,7 @@ public class TextUI {
 	 */
 	private float haircutCost(int option) throws BarberException {
 		if (option < 0 || option > Constants.NUM_HAIRCUTS) {
-			throw new BarberException("Incorrect value");
+			throw new BarberException(Constants.WARN + " Incorrect value");
 		} else {
 			return this.haircuts.getHairCuts()[option].getPrice();
 		}

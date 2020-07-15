@@ -84,6 +84,6 @@ public class GUI {
 		} catch (NumberFormatException e) {
 			logger.warn(Constants.ERROR + " wrong hour or minute");
 		}
-		this.barberShop.toString();
+		logger.trace(this.barberShop.toString());
 	}
 }
