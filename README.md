@@ -1,9 +1,9 @@
-#Barber Shop Agenda v0.1-beta1
+# Barber Shop Agenda v0.1-beta1
 
 This application controls the agenda of a barber shop. You can add, cancel or modify reservations typing the parameters on
 to the console.
 
-####Add reservation parameters:
+#### Add reservation parameters:
 
 1 - Customer's name.
 
@@ -11,11 +11,11 @@ to the console.
 
 3 - Place of the reservation.
 
-####Cancel Reservation parameter:
+#### Cancel Reservation parameter:
 
 1 - Hour of the reservation.
 
-####Modify Reservation parameters:
+#### Modify Reservation parameters:
 
 1 - Hour of the old customer's reservation.
 
