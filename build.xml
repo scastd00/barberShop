@@ -12,7 +12,6 @@
 	<property name="lib.dir" value="lib"/>
 	<property name="tests.dir" value="test"/>
 	<property name="logs.dir" value="logs"/>
-	<property name="jar.dir" value="build"/>
 	<property name="junit.jar" value="${lib.dir}/junit-4.8.2.jar"/>
 	<property name="coverage.result.dir" location="./coverage_report"/>
 	<property name="coverage.result.report.dir" location="${coverage.result.dir}/site/jacoco"/>
@@ -182,13 +181,22 @@
 		</java>
 	</target>
 
-	<!-- Executes the coverage report file -->
+	<!-- Executes the coverage report file in Ubuntu (Chromium) -->
 	<target name="coverage" depends="test, report">
 		<exec executable="/snap/bin/chromium">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>
 	</target>
 
-	<target name="todo" depends="compile, document, test, jar, coverage, execute"/>
+	<target name="todo" depends="compile, document, jar, coverage, execute"/>
+
+	<!-- Executes the coverage report file in Windows (Google Chrome) -->
+	<target name="coverageWindows" depends="test, report">
+		<exec executable="C:\Program Files (x86)\Google\Chrome\Application\chrome">
+			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
+		</exec>
+	</target>
+
+	<target name="todoWindows" depends="compile, document, jar, coverageWindows, execute"/>
 
 </project>
