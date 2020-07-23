@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 
-<project xmlns:jacoco="antlib:org.jacoco.ant" name="BarberShop" basedir="."
-         default="todo">
+<project xmlns:jacoco="antlib:org.jacoco.ant" name="BarberShop" basedir="." default="todo">
 	<property name="projectName" value="BarberShop"/>
 	<property name="src.dir" value="src"/>
 	<property name="classes.dir" value="classes"/>
@@ -71,7 +70,7 @@
 	<!-- Documentation target -->
 	<target name="document">
 		<mkdir dir="${doc.dir}"/>
-		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="true" author="true"
+		<javadoc sourcepath="${src.dir}" packagenames="${package}" destdir="${doc.dir}" verbose="false" author="true"
 		         access="private" splitindex="true" version="true" windowtitle="${title}" doctitle="${title}">
 			<classpath>
 				<fileset dir="${lib.dir}">

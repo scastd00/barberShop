@@ -1,7 +1,6 @@
 package barber.shop;
 
 import barber.shop.exceptions.BarberException;
-import barber.shop.windowsystem.BarberFrame;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +16,5 @@ public class MainBarberShop {
 		} catch (BarberException e) {
 			logger.warn(e.getMessage());
 		}
-
 	}
 }

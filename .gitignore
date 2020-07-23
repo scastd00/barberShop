@@ -2,6 +2,9 @@
 *.class
 \classes
 
+# DB files
+\data
+
 # Doc Folder
 \doc
 

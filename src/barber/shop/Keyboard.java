@@ -8,7 +8,6 @@ import barber.shop.exceptions.BarberException;
 /**
  * Class that reads lines introduced in the console.
  */
-
 public final class Keyboard {
 
 	/**
