@@ -18,22 +18,21 @@ public class BarberShopTest {
 		bs = new BarberShop();
 		cust1 = new Customer("Sam", 2, 35, "Astorga");
 		cust2 = new Customer("Samuel", 12, 40, "San Justo");
-
 	}
 
 	@Test
 	public void testAddReservation() throws BarberException {
 		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable().get(2)[2], cust1);
+		assertEquals(this.bs.getTimetable()[2][2], cust1);
 
 		this.bs.addReservation(cust2);
-		assertEquals(this.bs.getTimetable().get(12)[2], cust2);
+		assertEquals(this.bs.getTimetable()[12][2], cust2);
 	}
 
 	@Test(expected = BarberException.class)
 	public void testAddReservationOccupied() throws BarberException {
 		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable().get(2)[2], cust1);
+		assertEquals(this.bs.getTimetable()[2][2], cust1);
 		cust2.setTime(new Time(2, 35));
 		this.bs.addReservation(cust2);
 	}
@@ -41,32 +40,32 @@ public class BarberShopTest {
 	@Test(expected = BarberException.class)
 	public void testAddReservationContains() throws BarberException {
 		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable().get(2)[2], cust1);
+		assertEquals(this.bs.getTimetable()[2][2], cust1);
 		this.bs.addReservation(cust1);
 	}
 
 	@Test
 	public void testCancelReservation() throws BarberException {
 		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable().get(2)[2], cust1);
+		assertEquals(this.bs.getTimetable()[2][2], cust1);
 		this.bs.cancelReservation(cust1);
-		assertNull(this.bs.getTimetable().get(2)[2]);
+		assertNull(this.bs.getTimetable()[2][2]);
 
 		this.bs.addReservation(cust2);
-		assertEquals(this.bs.getTimetable().get(12)[2], cust2);
+		assertEquals(this.bs.getTimetable()[12][2], cust2);
 		this.bs.cancelReservation(cust2);
-		assertNull(this.bs.getTimetable().get(12)[2]);
+		assertNull(this.bs.getTimetable()[12][2]);
 	}
 
 	@Test
 	public void testModifyReservation() throws BarberException {
 		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable().get(2)[2], cust1);
+		assertEquals(this.bs.getTimetable()[2][2], cust1);
 
 		this.bs.modifyReservation(cust1, cust2);
 
-		assertEquals(this.bs.getTimetable().get(12)[2], cust2);
-		assertNull(this.bs.getTimetable().get(2)[2]);
+		assertEquals(this.bs.getTimetable()[12][2], cust2);
+		assertNull(this.bs.getTimetable()[2][2]);
 	}
 
 	@Test

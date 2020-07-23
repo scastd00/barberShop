@@ -95,7 +95,7 @@ public class Time {
 	 *
 	 * @return an array with the values of the position that occupies a particular customer.
 	 */
-	public int[] hashArrayPositions() {
+	public int[] hourMinutePositions() {
 		int[] output = new int[2];
 		output[0] = this.hour;
 

@@ -4,9 +4,6 @@ import barber.shop.exceptions.BarberException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Class that makes all the transactions of a barber shop.
  */
@@ -17,19 +14,16 @@ public class BarberShop {
 	/**
 	 * Hash for all the customers. Size = 24.
 	 */
-	private final HashMap<Integer, Customer[]> timetable;
+	private final Customer[][] timetable;
 
 	/**
 	 * Class constructor for the specified hours in Constants class.
 	 */
 	public BarberShop() {
-		this.timetable = new HashMap<>(Constants.MAX_HOUR + 1);
-		for (int i = 0; i < Constants.MAX_HOUR + 1; i++) {
-			this.timetable.put(i, new Customer[4]);
-		}
+		this.timetable = new Customer[Constants.MAX_HOUR + 1][4];
 	}
 
-	public Map<Integer, Customer[]> getTimetable() {
+	public Customer[][] getTimetable() {
 		return this.timetable;
 	}
 
@@ -45,15 +39,15 @@ public class BarberShop {
 			throw new BarberException(Constants.WARN + " " + customer.getName() + " already has a reservation");
 		}
 
-		int hashPos = this.hashPosition(customer);
-		int listPos = this.arrayPosition(customer);
+		int hashPos = this.hourPosition(customer);
+		int listPos = this.minutePosition(customer);
 
 		// Checks if other customer already holds the same position as the new customer.
-		if (this.timetable.get(hashPos)[listPos] != null) {
+		if (this.timetable[hashPos][listPos] != null) {
 			throw new BarberException(Constants.WARN + " Other customer has a reservation in that hour");
 		}
 
-		this.timetable.get(hashPos)[listPos] = customer;
+		this.timetable[hashPos][listPos] = customer;
 		logger.debug("Added: " + customer.toString());
 	}
 
@@ -63,7 +57,7 @@ public class BarberShop {
 	 * @param customer the customer to remove the reservation.
 	 */
 	public void cancelReservation(Customer customer) {
-		this.timetable.get(this.hashPosition(customer))[this.arrayPosition(customer)] = null;
+		this.timetable[this.hourPosition(customer)][this.minutePosition(customer)] = null;
 		logger.debug("Cancelled: " + customer.getName() + " " + customer.getTime().toString());
 	}
 
@@ -88,12 +82,12 @@ public class BarberShop {
 	 * @throws BarberException if there is no customer in the selected position.
 	 */
 	public Customer getCustomerByTime(Time time) throws BarberException {
-		int[] aux = time.hashArrayPositions();
-		if (this.timetable.get(aux[0])[aux[1]] == null) {
+		int[] aux = time.hourMinutePositions();
+		if (this.timetable[aux[0]][aux[1]] == null) {
 			throw new BarberException(Constants.WARN + " No customer has a reservation in that hour");
 		}
 
-		return this.timetable.get(aux[0])[aux[1]];
+		return this.timetable[aux[0]][aux[1]];
 	}
 
 	/**
@@ -120,8 +114,8 @@ public class BarberShop {
 	 * @param customer Customer to get the hour.
 	 * @return the hour where the customer must be in the Hash.
 	 */
-	private int hashPosition(Customer customer) {
-		return customer.getTime().hashArrayPositions()[0];
+	private int hourPosition(Customer customer) {
+		return customer.getTime().hourMinutePositions()[0];
 	}
 
 	/**
@@ -130,8 +124,8 @@ public class BarberShop {
 	 * @param customer Customer to get the minute.
 	 * @return the minute where the customer must be in the ArrayList.
 	 */
-	private int arrayPosition(Customer customer) {
-		return customer.getTime().hashArrayPositions()[1];
+	private int minutePosition(Customer customer) {
+		return customer.getTime().hourMinutePositions()[1];
 	}
 
 	/**
@@ -141,8 +135,7 @@ public class BarberShop {
 	 * @return <code>true</code> if customer is in the table, <code>false</code> otherwise
 	 */
 	private boolean contains(Customer customer) {
-		for (int i = 0; i < this.timetable.size(); i++) {
-			Customer[] array = this.timetable.get(i);
+		for (Customer[] array : this.timetable) {
 			for (Customer c : array) {
 				if (c != null && c.equals(customer)) {
 					return true;
@@ -159,8 +152,7 @@ public class BarberShop {
 	@Override
 	public String toString() {
 		StringBuilder output = new StringBuilder();
-		for (int i = 0; i < this.timetable.size(); i++) {
-			Customer[] array = this.timetable.get(i);
+		for (Customer[] array : this.timetable) {
 			for (Customer c : array) {
 				if (c != null) {
 					output.append(c.toString()).append('\n');
