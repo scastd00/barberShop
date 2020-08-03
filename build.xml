@@ -31,7 +31,6 @@
 		<delete dir="${jar.dir}"/>
 		<delete file="${logs.dir}/result.xml"/>
 		<delete dir="${coverage.result.dir}"/>
-		<delete dir="${jar.dir}"/>
 	</target>
 
 
@@ -50,8 +49,7 @@
 		</javac>
 
 		<!--
-            Unjars the log4j libraries and copies the log4j.xml file to classes.
-            Used to be able to execute the command:
+            Un-jars the log4j libraries and copies the log4j.xml file to classes. Used to be able to execute the command:
             java -cp classes barber.shop.MainBarberShop
         -->
 		<unjar dest="${classes.dir}">
@@ -113,7 +111,7 @@
 				<batchtest todir="${coverage.result.dir}">
 					<fileset dir="${classes.dir}">
 						<exclude name="**/*$*.class"/>
-						<include name="barber/*/**Test.class"/>
+						<include name="barber/*/*Test.class"/>
 					</fileset>
 				</batchtest>
 				<test name="${package}.AllTests" haltonfailure="no" outfile="result" todir="${logs.dir}">
@@ -125,7 +123,7 @@
 
 
 	<!-- Reporter target | Shows the coverage percentage of the code -->
-	<target name="report">
+	<target name="report" depends="test">
 		<jacoco:report>
 			<executiondata>
 				<file file="${coverage.result.exec.file}"/>
@@ -134,12 +132,13 @@
 				<classfiles>
 					<fileset dir="${classes.dir}">
 						<exclude name="**/*$*.class"/>
-						<include name="barber/*/**.class"/>
 						<exclude name="barber/*/*Test*.class"/>
 						<exclude name="barber/*/Main*.class"/>
 						<exclude name="barber/*/*Exception.class"/>
 						<exclude name="barber/*/Keyboard.class"/>
 						<exclude name="barber/*/TextUI.class"/>
+
+						<include name="barber/*/**.class"/>
 					</fileset>
 				</classfiles>
 
@@ -158,7 +157,7 @@
 	<!-- Jars the classes to run the swing application -->
 	<target name="jar" depends="compile">
 		<mkdir dir="build/jar"/>
-		<jar destfile="build/jar/${projectName}.jar" basedir="${classes.dir}">
+		<jar destfile="${jar.dir}/jar/${projectName}.jar" basedir="${classes.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="${package}.Main${projectName}"/>
 			</manifest>
@@ -182,7 +181,7 @@
 	</target>
 
 	<!-- Executes the coverage report file in Ubuntu (Chromium) -->
-	<target name="coverage" depends="test, report">
+	<target name="coverage" depends="report">
 		<exec executable="/snap/bin/chromium">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>
@@ -191,7 +190,7 @@
 	<target name="todo" depends="compile, document, jar, coverage, execute"/>
 
 	<!-- Executes the coverage report file in Windows (Google Chrome) -->
-	<target name="coverageWindows" depends="test, report">
+	<target name="coverageWindows" depends="report">
 		<exec executable="C:\Program Files (x86)\Google\Chrome\Application\chrome">
 			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
 		</exec>
