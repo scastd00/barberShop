@@ -52,7 +52,7 @@
 		<!--
             Unjars the log4j libraries and copies the log4j.xml file to classes.
             Used to be able to execute the command:
-            java -cp classes es.unileon.prg1.candyClean.MainCandyClean dimensions colors
+            java -cp classes candy.clean.MainCandyClean dimensions colors
         -->
 		<unjar dest="${classes.dir}">
 			<fileset dir="${lib.dir}">
