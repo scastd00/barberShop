@@ -111,7 +111,7 @@
 				<batchtest todir="${coverage.result.dir}">
 					<fileset dir="${classes.dir}">
 						<exclude name="**/*$*.class"/>
-						<include name="barber/*/*Test.class"/>
+						<include name="barber/**/*Test.class"/>
 					</fileset>
 				</batchtest>
 				<test name="${package}.AllTests" haltonfailure="no" outfile="result" todir="${logs.dir}">
@@ -132,13 +132,13 @@
 				<classfiles>
 					<fileset dir="${classes.dir}">
 						<exclude name="**/*$*.class"/>
-						<exclude name="barber/*/*Test*.class"/>
-						<exclude name="barber/*/Main*.class"/>
-						<exclude name="barber/*/*Exception.class"/>
-						<exclude name="barber/*/Keyboard.class"/>
-						<exclude name="barber/*/TextUI.class"/>
+						<exclude name="barber/**/*Test*.class"/>
+						<exclude name="barber/**/Main*.class"/>
+						<exclude name="barber/**/*Exception.class"/>
+						<exclude name="barber/**/Keyboard.class"/>
+						<exclude name="barber/**/TextUI.class"/>
 
-						<include name="barber/*/**.class"/>
+						<include name="barber/**/*.class"/>
 					</fileset>
 				</classfiles>
 
