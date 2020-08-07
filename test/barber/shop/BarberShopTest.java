@@ -5,81 +5,87 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import barber.shop.exceptions.BarberException;
-
 public class BarberShopTest {
 
 	private BarberShop bs;
-	private Customer cust1;
-	private Customer cust2;
+	private Customer customer1;
+	private Customer customer2;
 
 	@Before
 	public void setUp() throws Exception {
 		bs = new BarberShop();
-		cust1 = new Customer("Sam", 2, 35, "Astorga");
-		cust2 = new Customer("Samuel", 12, 40, "San Justo");
+		customer1 = new Customer("Sam", 2, 35, "Astorga");
+		customer2 = new Customer("Samuel", 12, 40, "San Justo");
 	}
 
 	@Test
 	public void testAddReservation() throws BarberException {
-		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable()[2][2], cust1);
+		this.bs.addReservation(customer1);
+		assertEquals(customer1, this.bs.getTimetable()[2][2]);
 
-		this.bs.addReservation(cust2);
-		assertEquals(this.bs.getTimetable()[12][2], cust2);
+		this.bs.addReservation(customer2);
+		assertEquals(customer2, this.bs.getTimetable()[12][2]);
 	}
 
 	@Test(expected = BarberException.class)
 	public void testAddReservationOccupied() throws BarberException {
-		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable()[2][2], cust1);
-		cust2.setTime(new Time(2, 35));
-		this.bs.addReservation(cust2);
+		this.bs.addReservation(customer1);
+		addOccupied();
+		customer2.setTime(new Time(2, 35));
+		this.bs.addReservation(customer2);
+	}
+
+	private void addOccupied() {
+		assertEquals(customer1, this.bs.getTimetable()[2][2]);
 	}
 
 	@Test(expected = BarberException.class)
 	public void testAddReservationContains() throws BarberException {
-		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable()[2][2], cust1);
-		this.bs.addReservation(cust1);
+		this.bs.addReservation(customer1);
+		addContains();
+		this.bs.addReservation(customer1);
+	}
+
+	private void addContains() {
+		assertEquals(customer1, this.bs.getTimetable()[2][2]);
 	}
 
 	@Test
 	public void testCancelReservation() throws BarberException {
-		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable()[2][2], cust1);
-		this.bs.cancelReservation(cust1);
+		this.bs.addReservation(customer1);
+		assertEquals(customer1, this.bs.getTimetable()[2][2]);
+		this.bs.cancelReservation(customer1);
 		assertNull(this.bs.getTimetable()[2][2]);
 
-		this.bs.addReservation(cust2);
-		assertEquals(this.bs.getTimetable()[12][2], cust2);
-		this.bs.cancelReservation(cust2);
+		this.bs.addReservation(customer2);
+		assertEquals(customer2, this.bs.getTimetable()[12][2]);
+		this.bs.cancelReservation(customer2);
 		assertNull(this.bs.getTimetable()[12][2]);
 	}
 
 	@Test
 	public void testModifyReservation() throws BarberException {
-		this.bs.addReservation(cust1);
-		assertEquals(this.bs.getTimetable()[2][2], cust1);
+		this.bs.addReservation(customer1);
+		assertEquals(customer1, this.bs.getTimetable()[2][2]);
 
-		this.bs.modifyReservation(cust1, cust2);
+		this.bs.modifyReservation(customer1, customer2);
 
-		assertEquals(this.bs.getTimetable()[12][2], cust2);
+		assertEquals(customer2, this.bs.getTimetable()[12][2]);
 		assertNull(this.bs.getTimetable()[2][2]);
 	}
 
 	@Test
 	public void testGetCustomerByTime() throws BarberException {
-	    this.bs.addReservation(cust1);
-	    this.bs.addReservation(cust2);
+	    this.bs.addReservation(customer1);
+	    this.bs.addReservation(customer2);
 
-	    assertEquals(this.bs.getCustomerByTime(cust1.getTime()), cust1);
-	    assertEquals(this.bs.getCustomerByTime(cust2.getTime()), cust2);
+	    assertEquals(customer1, this.bs.getCustomerByTime(customer1.getTime()));
+	    assertEquals(customer2, this.bs.getCustomerByTime(customer2.getTime()));
 	}
 
 	@Test(expected = BarberException.class)
 	public void testGetCustomerByTimeNoCustomer() throws BarberException {
-	    this.bs.getCustomerByTime(cust1.getTime());
+	    this.bs.getCustomerByTime(customer1.getTime());
 	}
 
 	@Test
@@ -94,9 +100,9 @@ public class BarberShopTest {
 
 	@Test
 	public void testToString() throws BarberException {
-	    this.bs.addReservation(cust1);
-	    this.bs.addReservation(cust2);
+	    this.bs.addReservation(customer1);
+	    this.bs.addReservation(customer2);
 
-	    assertEquals(this.bs.toString(), "Sam  02:35  Astorga\nSamuel  12:40  San Justo\n");
+	    assertEquals("Sam  02:35  Astorga\nSamuel  12:40  San Justo\n", this.bs.toString());
 	}
 }

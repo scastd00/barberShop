@@ -3,8 +3,6 @@ package barber.shop;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import barber.shop.exceptions.BarberException;
-
 /**
  * Class that reads lines introduced in the console.
  */
@@ -18,7 +16,7 @@ public final class Keyboard {
 	 *                         be any issue with the I/O system.
 	 */
 	public static String readLine() throws BarberException {
-		String line = "";
+		String line;
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			line = br.readLine();
@@ -28,6 +26,10 @@ public final class Keyboard {
 		}
 
 		return line;
+	}
+
+	private Keyboard() {
+		throw new IllegalStateException("Utility class");
 	}
 
 }

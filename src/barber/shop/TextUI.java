@@ -3,8 +3,6 @@ package barber.shop;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import barber.shop.exceptions.BarberException;
-
 /**
  * Class that represents the User Interface (Console) of the application.
  */
@@ -13,6 +11,7 @@ public class TextUI {
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
 	private final BarberShop barberShop;
 	private final Constants haircuts;
+	private static final String NAN = "{} {} is not a number";
 
 	/**
 	 * Class constructor.
@@ -44,7 +43,7 @@ public class TextUI {
 
 			try {
 				if (input.length() == 0) {
-					logger.warn("{} {} is not a number", Constants.WARN, input);
+					logger.warn(NAN, Constants.WARN, input);
 				} else {
 					option = Byte.parseByte(input);
 
@@ -74,11 +73,11 @@ public class TextUI {
 					}
 				}
 			} catch (NumberFormatException e) {
-				logger.warn("{} {} is not a number", Constants.WARN, input);
+				logger.warn(NAN, Constants.WARN, input);
 			} catch (BarberException e) {
 				logger.debug(e.getMessage());
 			}
-			logger.trace(this.barberShop.toString());
+			logger.trace(this.barberShop);
 		} while (true);
 	}
 
@@ -138,7 +137,7 @@ public class TextUI {
 				option = Byte.parseByte(input);
 				sum += haircutCost(option);
 			} catch (NumberFormatException e) {
-				logger.warn("{} {} is not a number", Constants.WARN, input);
+				logger.warn(NAN, Constants.WARN, input);
 			} catch (BarberException e) {
 				logger.warn(e.getMessage());
 			}

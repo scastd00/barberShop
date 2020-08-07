@@ -1,7 +1,5 @@
 package barber.shop;
 
-import barber.shop.exceptions.BarberException;
-
 /**
  * Class that represents the time organization of the BarberShop
  */
@@ -154,5 +152,10 @@ public class Time {
 		}
 
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Integer.hashCode(this.hour + this.minute);
 	}
 }

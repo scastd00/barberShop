@@ -2,7 +2,6 @@ package barber.shop;
 
 import static org.junit.Assert.*;
 
-import barber.shop.exceptions.BarberException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -84,6 +83,27 @@ public class TimeTest {
 	}
 
 	@Test
+	public void testHourMinutePositions() throws BarberException {
+		time1.setHour(17);
+		time1.setMinute(10);
+		int[] pos = time1.hourMinutePositions();
+		assertEquals(17, pos[0]);
+		assertEquals(0, pos[1]);
+		time1.setMinute(20);
+		pos = time1.hourMinutePositions();
+		assertEquals(17, pos[0]);
+		assertEquals(1, pos[1]);
+		time1.setMinute(40);
+		pos = time1.hourMinutePositions();
+		assertEquals(17, pos[0]);
+		assertEquals(2, pos[1]);
+		time1.setMinute(50);
+		pos = time1.hourMinutePositions();
+		assertEquals(17, pos[0]);
+		assertEquals(3, pos[1]);
+	}
+
+	@Test
 	public void testToString() throws BarberException {
 		time.setHour(16);
 		time.setMinute(27);
@@ -103,23 +123,10 @@ public class TimeTest {
 	}
 
 	@Test
-	public void testHashListPositions() throws BarberException {
-		time1.setHour(17);
-		time1.setMinute(10);
-	    int[] pos = time1.hourMinutePositions();
-	    assertEquals(17, pos[0]);
-	    assertEquals(0, pos[1]);
-		time1.setMinute(20);
-		pos = time1.hourMinutePositions();
-		assertEquals(17, pos[0]);
-		assertEquals(1, pos[1]);
-		time1.setMinute(40);
-		pos = time1.hourMinutePositions();
-		assertEquals(17, pos[0]);
-		assertEquals(2, pos[1]);
-		time1.setMinute(50);
-		pos = time1.hourMinutePositions();
-		assertEquals(17, pos[0]);
-		assertEquals(3, pos[1]);
+	public void testHashCode() throws BarberException {
+		assertEquals(0, time.hashCode());
+		time.setHour(12);
+		time.setMinute(39);
+		assertEquals(51, time.hashCode());
 	}
 }

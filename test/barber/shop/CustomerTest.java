@@ -2,7 +2,6 @@ package barber.shop;
 
 import static org.junit.Assert.*;
 
-import barber.shop.exceptions.BarberException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -140,4 +139,12 @@ public class CustomerTest {
 	    assertFalse(customer.equals(new BarberShop()));
 	}
 
+	@Test
+	public void testHashCode() throws BarberException {
+		assertEquals(0, customer.hashCode());
+		customer.setName("Manuel");
+		customer.setPlace("Astorga");
+		customer.setTime(new Time(10, 15));
+		assertEquals(-1036450854, customer.hashCode());
+	}
 }

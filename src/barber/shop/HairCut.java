@@ -13,7 +13,7 @@ public class HairCut {
 	/**
 	 * Type of haircut
 	 */
-	private final String hairCut;
+	private final String hairCutName;
 
 	/**
 	 * Class constructor
@@ -22,7 +22,7 @@ public class HairCut {
 	 */
 	public HairCut(int num) {
 		this.price = hairCutToPrice(numberToHaircut(num));
-		this.hairCut = numberToHaircut(num).toString();
+		this.hairCutName = numberToHaircut(num).toString();
 	}
 
 	/**
@@ -39,8 +39,8 @@ public class HairCut {
 	 *
 	 * @return returns the name of the haircut
 	 */
-	public String getHairCut() {
-		return this.hairCut;
+	public String getHairCutName() {
+		return this.hairCutName;
 	}
 
 	/**
