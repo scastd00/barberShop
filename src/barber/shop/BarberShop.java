@@ -56,7 +56,7 @@ public class BarberShop {
 	 * @param customer the customer to remove the reservation.
 	 */
 	public void cancelReservation(Customer customer) throws BarberException {
-		if (this.timetable[this.hourPosition(customer)][this.minutePosition(customer)] == null){
+		if (this.timetable[this.hourPosition(customer)][this.minutePosition(customer)] == null) {
 			throw new BarberException("No customer has a reservation in that hour. Can't remove an empty slot");
 		} else {
 			this.timetable[this.hourPosition(customer)][this.minutePosition(customer)] = null;

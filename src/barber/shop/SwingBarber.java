@@ -1,9 +1,8 @@
 package barber.shop;
 
-import org.jetbrains.annotations.Contract;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 import javax.swing.*;
 import java.awt.*;
@@ -187,38 +186,42 @@ public class SwingBarber extends JFrame {
 			this.counterToShowOnlyOneError = 0;
 
 			this.confirmButton.addActionListener(confirm -> {
-				try {
-					String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
-					int hour = Integer.parseInt(this.hourTextField.getText());
-					int minute = Integer.parseInt(this.minuteTextField.getText());
+				if (this.counterToShowOnlyOneError == 0) {
+					try {
+						String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+						int hour = Integer.parseInt(this.hourTextField.getText());
+						int minute = Integer.parseInt(this.minuteTextField.getText());
 
-					String place2 = this.comboBoxList[this.comboBox1.getSelectedIndex()];
-					int hour2 = Integer.parseInt(this.hour1.getText());
-					int minute2 = Integer.parseInt(this.minute1.getText());
+						String place2 = this.comboBoxList[this.comboBox1.getSelectedIndex()];
+						int hour2 = Integer.parseInt(this.hour1.getText());
+						int minute2 = Integer.parseInt(this.minute1.getText());
 
-					this.barberShop.modifyReservation(
-						new Customer(fullNameTextField.getText(), hour, minute, place),
-						new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
-
-					logger.info(this.barberShop);
-				} catch (BarberException e) {
-					if (this.counterToShowOnlyOneError == 0) {
-						JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-						logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField1.getText(),
-							this.comboBoxList[this.comboBox1.getSelectedIndex()]);
+						this.barberShop.modifyReservation(
+							new Customer(fullNameTextField.getText(), hour, minute, place),
+							new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
 
 						this.counterToShowOnlyOneError++;
-					}
-				} catch (NumberFormatException e) {
-					if (this.counterToShowOnlyOneError == 0) {
-						JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
-						logger.debug("Incorrect time values. Hour: {}, Minute: {}", hour1.getText(), minute1.getText());
+					} catch (BarberException e) {
+						if (this.counterToShowOnlyOneError == 0) {
+							JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField1.getText(),
+								this.comboBoxList[this.comboBox1.getSelectedIndex()]);
 
-						this.counterToShowOnlyOneError++;
+							this.counterToShowOnlyOneError++;
+						}
+
+					} catch (NumberFormatException e) {
+						if (this.counterToShowOnlyOneError == 0) {
+							JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
+							logger.debug("Incorrect time values. Hour: {}, Minute: {}", hour1.getText(), minute1.getText());
+
+							this.counterToShowOnlyOneError++;
+						}
+					} finally {
+						this.modificationFrame.setVisible(false);
+						logger.info(this.barberShop);
 					}
 				}
-
-				this.modificationFrame.setVisible(false);
 			});
 		});
 
