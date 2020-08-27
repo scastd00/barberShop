@@ -27,19 +27,19 @@ public class Customer {
 		StringBuilder error = new StringBuilder();
 
 		if (name == null || name.trim().length() == 0) {
-			error.append(Constants.ERROR + " you must introduce a valid name\n");
+			error.append("You must introduce a valid name\n");
 		}
 
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			error.append(Constants.ERROR + " hour value must be between 0 and 23\n");
+			error.append("Hour value must be between 0 and 23\n");
 		}
 
 		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			error.append(Constants.ERROR + " minute value must be between 0 and 59\n");
+			error.append("Minute value must be between 0 and 59\n");
 		}
 
 		if (place == null || place.trim().length() == 0) {
-			error.append(Constants.ERROR + " you must introduce a valid place\n");
+			error.append("You must introduce a valid place\n");
 		}
 
 		if (error.length() > 0) {
@@ -80,7 +80,7 @@ public class Customer {
 	 */
 	public void setName(String name) throws BarberException {
 		if (name == null || name.length() == 0) {
-			throw new BarberException(Constants.ERROR + " You must introduce a valid name");
+			throw new BarberException("You must introduce a valid name");
 		} else {
 			this.name = name;
 		}
@@ -102,7 +102,7 @@ public class Customer {
 	 */
 	public void setTime(Time time) throws BarberException {
 		if (time == null) {
-			throw new BarberException(Constants.ERROR + " Invalid time assignation");
+			throw new BarberException("Invalid time assignation");
 		}
 
 		this.time = time;
@@ -125,7 +125,7 @@ public class Customer {
 	 */
 	public void setPlace(String place) throws BarberException {
 		if (place == null || place.length() == 0) {
-			throw new BarberException(Constants.ERROR + " You must introduce a valid place");
+			throw new BarberException("You must introduce a valid place");
 		} else {
 			this.place = place;
 		}

@@ -134,22 +134,56 @@ public class SwingBarber extends JFrame {
 	@Contract(pure = true)
 	private void actionPerformed() {
 		this.addReservationButton.addActionListener(add -> {
-			String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
-			String stringHour = hourTextField.getText();
-			String stringMinute = minuteTextField.getText();
-
 			try {
-				int hour = Integer.parseInt(stringHour);
-				int minute = Integer.parseInt(stringMinute);
+				String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+				int hour = Integer.parseInt(hourTextField.getText());
+				int minute = Integer.parseInt(minuteTextField.getText());
 
 				this.barberShop.addReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
 				logger.info(this.barberShop.toString());
 			} catch (BarberException e) {
-				JOptionPane.showMessageDialog(null, "Incorrect customer values", "Error", JOptionPane.ERROR_MESSAGE);
-				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(), place);
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
+					this.comboBoxList[this.comboBox.getSelectedIndex()]);
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Incorrect time values", "Error", JOptionPane.ERROR_MESSAGE);
-				logger.debug("Incorrect time values. Hour: {}, Minute: {}", stringHour, stringMinute);
+				JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
+				logger.debug("Incorrect time values. Hour: {}, Minute: {}", hourTextField.getText(), minuteTextField.getText());
+			}
+		});
+
+//		this.modifyReservationButton.addActionListener(add -> {
+//			try {
+//				String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+//				int hour = Integer.parseInt(hourTextField.getText());
+//				int minute = Integer.parseInt(minuteTextField.getText());
+//
+//				this.barberShop.modifyReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
+//				logger.info(this.barberShop.toString());
+//			} catch (BarberException e) {
+//				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
+//					this.comboBoxList[this.comboBox.getSelectedIndex()]);
+//			} catch (NumberFormatException e) {
+//				JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
+//				logger.debug("Incorrect time values. Hour: {}, Minute: {}", hourTextField.getText(), minuteTextField.getText());
+//			}
+//		});
+
+		this.cancelReservationButton.addActionListener(add -> {
+			try {
+				String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+				int hour = Integer.parseInt(hourTextField.getText());
+				int minute = Integer.parseInt(minuteTextField.getText());
+
+				this.barberShop.cancelReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
+				logger.info(this.barberShop.toString());
+			} catch (BarberException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
+					this.comboBoxList[this.comboBox.getSelectedIndex()]);
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
+				logger.debug("Incorrect time values. Hour: {}, Minute: {}", hourTextField.getText(), minuteTextField.getText());
 			}
 		});
 	}
