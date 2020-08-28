@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Contract;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class SwingBarber extends JFrame {
@@ -26,6 +28,7 @@ public class SwingBarber extends JFrame {
 	private final JComboBox<String> comboBox1;
 	private final String[] comboBoxList = new String[] {"", "Astorga", "San Justo"};
 	private final JComboBox<String> comboBox;
+	private final JTable customersTable;
 	private final BarberShop barberShop;
 
 	// In order to suppress the recurrent error messages when an error occurs while modifying a reservation.
@@ -48,11 +51,16 @@ public class SwingBarber extends JFrame {
 		this.minute1 = new JTextField();
 		this.comboBox1 = new JComboBox<>(comboBoxList);
 		this.confirmButton = new JButton("Confirm");
+		this.customersTable = new JTable();
 		this.barberShop = new BarberShop();
 	}
 
 	public void init() {
-		this.setBounds(0, 0, 800, 700);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenHeight = screenSize.height;
+		int screenWidth = screenSize.width;
+
+		this.setBounds(0, 0, screenWidth, screenHeight);
 		this.setLayout(null);
 		this.setTitle("Barber Shop Agenda");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,10 +78,6 @@ public class SwingBarber extends JFrame {
 	}
 
 	private void initializeComponents() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenHeight = screenSize.height;
-		int screenWidth = screenSize.width;
-
 		this.panelBarberShop.setBounds(this.getBounds());
 		this.panelBarberShop.setBackground(Color.GRAY);
 		this.panelBarberShop.setLayout(null);
@@ -157,9 +161,22 @@ public class SwingBarber extends JFrame {
 		newPlaceSelection.setBounds(65, 109, 150, 20);
 		newPlaceSelection.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 		this.modificationPanel.add(newPlaceSelection);
+
+		this.customersTable.setFillsViewportHeight(true);
+		this.customersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.customersTable.setSurrendersFocusOnKeystroke(true);
+		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
+			"Customer 3", "Customer 4"}));
+		this.customersTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+		this.customersTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		this.customersTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+		this.customersTable.getColumnModel().getColumn(3).setPreferredWidth(200);
+		this.customersTable.setBorder(new LineBorder(Color.BLACK));
+		this.customersTable.setBounds(100, 300, 800, 384);
+		this.customersTable.setVisible(true);
+		this.panelBarberShop.add(this.customersTable);
 	}
 
-	@Contract(pure = true)
 	private void buttonPressed() {
 		this.addReservationButton.addActionListener(add -> {
 			try {
@@ -169,6 +186,7 @@ public class SwingBarber extends JFrame {
 
 				this.barberShop.addReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
 				logger.info(this.barberShop.toString());
+				refreshTable();
 			} catch (BarberException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
@@ -199,26 +217,22 @@ public class SwingBarber extends JFrame {
 						this.barberShop.modifyReservation(
 							new Customer(fullNameTextField.getText(), hour, minute, place),
 							new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
-
-						this.counterToShowOnlyOneError++;
+						refreshTable();
 					} catch (BarberException e) {
 						if (this.counterToShowOnlyOneError == 0) {
 							JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 							logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField1.getText(),
 								this.comboBoxList[this.comboBox1.getSelectedIndex()]);
-
-							this.counterToShowOnlyOneError++;
 						}
 
 					} catch (NumberFormatException e) {
 						if (this.counterToShowOnlyOneError == 0) {
 							JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
 							logger.debug("Incorrect time values. Hour: {}, Minute: {}", hour1.getText(), minute1.getText());
-
-							this.counterToShowOnlyOneError++;
 						}
 					} finally {
 						this.modificationFrame.setVisible(false);
+						this.counterToShowOnlyOneError++;
 						logger.info(this.barberShop);
 					}
 				}
@@ -233,6 +247,7 @@ public class SwingBarber extends JFrame {
 
 				this.barberShop.cancelReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
 				logger.info(this.barberShop.toString());
+				refreshTable();
 			} catch (BarberException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
@@ -242,5 +257,25 @@ public class SwingBarber extends JFrame {
 				logger.debug("Incorrect time values. Hour: {}, Minute: {}", hourTextField.getText(), minuteTextField.getText());
 			}
 		});
+	}
+
+	private String[][] printTableInWindow() {
+		String[][] timetable = new String[Constants.MAX_HOUR + 1][4];
+		Customer[][] customers = this.barberShop.getTimetable();
+
+		for (int i = 0; i < customers.length; i++) {
+			for (int j = 0; j < customers[i].length; j++) {
+				if (customers[i][j] != null) {
+					timetable[i][j] = customers[i][j].toString();
+				}
+			}
+		}
+
+		return timetable;
+	}
+
+	private void refreshTable() {
+		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
+			"Customer 3", "Customer 4"}));
 	}
 }
