@@ -1,13 +1,10 @@
 package barber.shop;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class MainBarberShop {
 
-	private static final Logger logger = LogManager.getLogger(MainBarberShop.class);
-
 	public static void main(String[] args) {
+//      Text User Interface
+
 //		try {
 //			BarberShop bs = new BarberShop();
 //			TextUI ui = new TextUI(bs);
@@ -15,7 +12,9 @@ public class MainBarberShop {
 //		} catch (BarberException e) {
 //			logger.warn(e.getMessage());
 //		}
-		SwingBarber sb = new SwingBarber();
-		sb.init();
+
+//		Graphic User Interface
+
+		new SwingBarber().init();
 	}
 }

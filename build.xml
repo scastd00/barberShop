@@ -141,6 +141,7 @@
 						<exclude name="${packageFirst}/**/*Exception.class"/>
 						<exclude name="${packageFirst}/**/Keyboard.class"/>
 						<exclude name="${packageFirst}/**/TextUI.class"/>
+						<exclude name="${packageFirst}/**/*Swing*.class"/>
 					</fileset>
 				</classfiles>
 

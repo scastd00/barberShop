@@ -1,9 +1,9 @@
 package barber.shop;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TimeTest {
 
@@ -87,16 +87,20 @@ public class TimeTest {
 		time1.setHour(17);
 		time1.setMinute(10);
 		int[] pos = time1.hourMinutePositions();
+
 		assertEquals(17, pos[0]);
 		assertEquals(0, pos[1]);
+
 		time1.setMinute(20);
 		pos = time1.hourMinutePositions();
 		assertEquals(17, pos[0]);
 		assertEquals(1, pos[1]);
+
 		time1.setMinute(40);
 		pos = time1.hourMinutePositions();
 		assertEquals(17, pos[0]);
 		assertEquals(2, pos[1]);
+
 		time1.setMinute(50);
 		pos = time1.hourMinutePositions();
 		assertEquals(17, pos[0]);

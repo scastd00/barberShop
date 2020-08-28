@@ -41,12 +41,13 @@ public class BarberShopTest {
 
 	@Test(expected = BarberException.class)
 	public void testAddReservationContains() throws BarberException {
-		this.bs.addReservation(customer1);
-		addContains();
+		testAddReservationCheckOk();
 		this.bs.addReservation(customer1);
 	}
 
-	private void addContains() {
+	@Test
+	public void testAddReservationCheckOk() throws BarberException {
+		this.bs.addReservation(customer1);
 		assertEquals(customer1, this.bs.getTimetable()[2][2]);
 	}
 
@@ -61,6 +62,11 @@ public class BarberShopTest {
 		assertEquals(customer2, this.bs.getTimetable()[12][2]);
 		this.bs.cancelReservation(customer2);
 		assertNull(this.bs.getTimetable()[12][2]);
+	}
+
+	@Test(expected = BarberException.class)
+	public void testCancelReservationNoCustomerInPosition() throws BarberException {
+		this.bs.cancelReservation(new Customer("Manuel", 10, 10, "Astorga"));
 	}
 
 	@Test

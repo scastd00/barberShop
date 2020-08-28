@@ -89,7 +89,7 @@ public class Time {
 	}
 
 	/**
-	 * Adjusts the values of the time corresponding to [Hash position, Array position].
+	 * Adjusts the values of the time corresponding to [Array hour position, Array minute position].
 	 *
 	 * @return an array with the values of the position that occupies a particular customer.
 	 */
@@ -97,11 +97,11 @@ public class Time {
 		int[] output = new int[2];
 		output[0] = this.hour;
 
-		if (0 <= this.minute && this.minute < 15) {
+		if (this.minute < 15) {
 			return output;
-		} else if (15 <= this.minute && this.minute < 30) {
+		} else if (this.minute < 30) {
 			output[1] = 1;
-		} else if (30 <= this.minute && this.minute < 45) {
+		} else if (this.minute < 45) {
 			output[1] = 2;
 		} else {
 			output[1] = 3;

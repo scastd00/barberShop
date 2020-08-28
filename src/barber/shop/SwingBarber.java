@@ -2,7 +2,6 @@ package barber.shop;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.Contract;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -185,7 +184,7 @@ public class SwingBarber extends JFrame {
 				int minute = Integer.parseInt(minuteTextField.getText());
 
 				this.barberShop.addReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
-				logger.info(this.barberShop.toString());
+				logger.debug(this.barberShop.toString());
 				refreshTable();
 			} catch (BarberException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -233,7 +232,7 @@ public class SwingBarber extends JFrame {
 					} finally {
 						this.modificationFrame.setVisible(false);
 						this.counterToShowOnlyOneError++;
-						logger.info(this.barberShop);
+						logger.debug(this.barberShop);
 					}
 				}
 			});
@@ -246,7 +245,7 @@ public class SwingBarber extends JFrame {
 				int minute = Integer.parseInt(minuteTextField.getText());
 
 				this.barberShop.cancelReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
-				logger.info(this.barberShop.toString());
+				logger.debug(this.barberShop.toString());
 				refreshTable();
 			} catch (BarberException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
