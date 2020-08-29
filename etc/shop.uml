@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>barber.shop</OriginalElement>
+  <nodes>
+    <node x="1206.5" y="182.5">barber.shop.Constants</node>
+    <node x="1933.5" y="262.5">barber.shop.BarberException</node>
+    <node x="692.0" y="262.5">barber.shop.HairCuts</node>
+    <node x="937.5" y="262.5">barber.shop.HairCut</node>
+    <node x="1663.0" y="342.5">barber.shop.TextUI</node>
+    <node x="1641.0" y="662.5">barber.shop.BarberShop</node>
+    <node x="-21.0" y="-17.5">barber.shop.MainBarberShop</node>
+    <node x="554.0" y="502.5">barber.shop.Time</node>
+    <node x="292.0" y="822.5">barber.shop.Customer</node>
+    <node x="1452.0" y="262.5">barber.shop.Keyboard</node>
+    <node x="2275.5" y="-17.5">barber.shop.SwingBarber</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="barber.shop.TextUI" target="barber.shop.Customer">
+      <point x="-57.0" y="-0.0" />
+      <point x="373.3333333333333" y="360.0" />
+      <point x="13.333333333333314" y="-17.5" />
+    </edge>
+    <edge source="barber.shop.HairCut" target="barber.shop.HairCuts">
+      <point x="-62.5" y="-0.0" />
+      <point x="68.0" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.SwingBarber" target="barber.shop.BarberShop">
+      <point x="-13.333333333333485" y="17.5" />
+      <point x="2346.6666666666665" y="680.0" />
+      <point x="79.0" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.Constants" target="barber.shop.HairCuts">
+      <point x="-73.5" y="5.14285714285711" />
+      <point x="760.0" y="205.1428571428571" />
+      <point x="0.0" y="-17.5" />
+    </edge>
+    <edge source="barber.shop.TextUI" target="barber.shop.Time">
+      <point x="-20.0" y="17.5" />
+      <point x="1700.0" y="520.0" />
+      <point x="46.0" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.Keyboard" target="barber.shop.BarberException">
+      <point x="68.0" y="-0.0" />
+      <point x="-106.5" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.TextUI" target="barber.shop.Constants">
+      <point x="-57.0" y="-2.3999999999999773" />
+      <point x="640.0" y="357.6" />
+      <point x="640.0" y="203.42857142857144" />
+      <point x="-73.5" y="3.428571428571445" />
+    </edge>
+    <edge source="barber.shop.BarberShop" target="barber.shop.Constants">
+      <point x="79.0" y="-4.0" />
+      <point x="2200.0" y="676.0" />
+      <point x="2200.0" y="200.0" />
+      <point x="73.5" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.TextUI" target="barber.shop.BarberException">
+      <point x="0.0" y="-17.5" />
+      <point x="1720.0" y="292.0" />
+      <point x="-106.5" y="12.0" />
+    </edge>
+    <edge source="barber.shop.Constants" target="barber.shop.HairCut">
+      <point x="-73.5" y="10.285714285714334" />
+      <point x="1120.0" y="210.28571428571433" />
+      <point x="1120.0" y="280.0" />
+      <point x="62.5" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.SwingBarber" target="barber.shop.BarberException">
+      <point x="-26.666666666666515" y="17.5" />
+      <point x="2333.3333333333335" y="280.0" />
+      <point x="106.5" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.BarberShop" target="barber.shop.BarberException">
+      <point x="79.0" y="-8.0" />
+      <point x="2040.0" y="672.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="barber.shop.BarberShop" target="barber.shop.Time">
+      <point x="-79.0" y="-0.0" />
+      <point x="600.0" y="680.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="barber.shop.BarberShop" target="barber.shop.Customer">
+      <point x="0.0" y="17.5" />
+      <point x="1720.0" y="840.0" />
+      <point x="68.0" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.MainBarberShop" target="barber.shop.SwingBarber">
+      <point x="101.0" y="-0.0" />
+      <point x="-84.5" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.TextUI" target="barber.shop.Keyboard">
+      <point x="-57.0" y="-12.0" />
+      <point x="1520.0" y="348.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="barber.shop.TextUI" target="barber.shop.BarberShop">
+      <point x="57.0" y="12.0" />
+      <point x="1840.0" y="372.0" />
+      <point x="1840.0" y="668.0" />
+      <point x="79.0" y="-12.0" />
+    </edge>
+    <edge source="barber.shop.SwingBarber" target="barber.shop.Constants">
+      <point x="-40.0" y="17.5" />
+      <point x="2320.0" y="80.0" />
+      <point x="1280.0" y="80.0" />
+      <point x="0.0" y="-17.5" />
+    </edge>
+    <edge source="barber.shop.Customer" target="barber.shop.Time">
+      <point x="22.22222222222223" y="-17.5" />
+      <point x="382.22222222222223" y="440.0" />
+      <point x="560.0" y="440.0" />
+      <point x="-40.0" y="-17.5" />
+    </edge>
+    <edge source="barber.shop.Time" target="barber.shop.BarberException">
+      <point x="40.0" y="17.5" />
+      <point x="640.0" y="600.0" />
+      <point x="2000.0" y="600.0" />
+      <point x="-40.0" y="17.5" />
+    </edge>
+    <edge source="barber.shop.Customer" target="barber.shop.Constants">
+      <point x="8.888888888888914" y="-17.5" />
+      <point x="368.8888888888889" y="200.0" />
+      <point x="-73.5" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.TextUI" target="barber.shop.HairCuts">
+      <point x="-57.0" y="-4.7999999999999545" />
+      <point x="760.0" y="355.20000000000005" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="barber.shop.Time" target="barber.shop.Constants">
+      <point x="0.0" y="-17.5" />
+      <point x="600.0" y="201.71428571428567" />
+      <point x="-73.5" y="1.7142857142856656" />
+    </edge>
+    <edge source="barber.shop.Keyboard" target="barber.shop.Constants">
+      <point x="-68.0" y="-0.0" />
+      <point x="1320.0" y="280.0" />
+      <point x="40.0" y="17.5" />
+    </edge>
+    <edge source="barber.shop.SwingBarber" target="barber.shop.Customer">
+      <point x="-84.5" y="6.0" />
+      <point x="240.0" y="6.0" />
+      <point x="240.0" y="840.0" />
+      <point x="-68.0" y="-0.0" />
+    </edge>
+    <edge source="barber.shop.Customer" target="barber.shop.BarberException">
+      <point x="4.444444444444457" y="-17.5" />
+      <point x="364.44444444444446" y="120.0" />
+      <point x="2040.0" y="120.0" />
+      <point x="0.0" y="-17.5" />
+    </edge>
+  </edges>
+  <settings layout="Directed Orthogonal" zoom="0.5000000000000001" x="1682.9404761904734" y="492.6904761904764" />
+  <SelectedNodes>
+    <node>barber.shop.Constants</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
