@@ -8,9 +8,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class SwingBarber extends JFrame {
+public class SwingBarber {
 
+	private static final String ERROR = "Error";
+	private static final String CUSTOMER_WRONG = "Incorrect customer values. Name: {}, Place: {}";
+	private static final String TIME_WRONG = "Incorrect time values. Hour: {}, Minute: {}";
+	private static final String INCORRECT_VALUE = "Incorrect time value";
 	private static final Logger logger = LogManager.getLogger(SwingBarber.class);
+
+	private final JFrame generalFrame;
 	private final JFrame modificationFrame;
 	private final JPanel panelBarberShop;
 	private final JPanel modificationPanel;
@@ -34,7 +40,7 @@ public class SwingBarber extends JFrame {
 	private int counterToShowOnlyOneError = 0;
 
 	public SwingBarber() {
-		this.setName("BarberShop");
+		this.generalFrame = new JFrame("Barber Shop Agenda");
 		this.modificationFrame = new JFrame("Customer Modification");
 		this.panelBarberShop = new JPanel();
 		this.modificationPanel = new JPanel();
@@ -59,10 +65,10 @@ public class SwingBarber extends JFrame {
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 
-		this.setBounds(0, 0, screenWidth, screenHeight);
-		this.setLayout(null);
-		this.setTitle("Barber Shop Agenda");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.generalFrame.setBounds(0, 0, screenWidth, screenHeight);
+		this.generalFrame.setLayout(null);
+		this.generalFrame.setTitle("Barber Shop Agenda");
+		this.generalFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		this.modificationFrame.setBounds(50, 200, 600, 400);
 		this.modificationFrame.setLayout(null);
@@ -70,14 +76,14 @@ public class SwingBarber extends JFrame {
 		initializeComponents();
 
 		this.panelBarberShop.setVisible(true);
-		this.getContentPane().add(this.panelBarberShop);
-		this.setVisible(true);
+		this.generalFrame.getContentPane().add(this.panelBarberShop);
+		this.generalFrame.setVisible(true);
 
 		buttonPressed();
 	}
 
 	private void initializeComponents() {
-		this.panelBarberShop.setBounds(this.getBounds());
+		this.panelBarberShop.setBounds(this.generalFrame.getBounds());
 		this.panelBarberShop.setBackground(Color.GRAY);
 		this.panelBarberShop.setLayout(null);
 
@@ -177,85 +183,11 @@ public class SwingBarber extends JFrame {
 	}
 
 	private void buttonPressed() {
-		this.addReservationButton.addActionListener(add -> {
-			try {
-				String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
-				int hour = Integer.parseInt(hourTextField.getText());
-				int minute = Integer.parseInt(minuteTextField.getText());
+		this.addReservationButton.addActionListener(add -> addButtonActions());
 
-				this.barberShop.addReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
-				logger.debug(this.barberShop.toString());
-				refreshTable();
-			} catch (BarberException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
-					this.comboBoxList[this.comboBox.getSelectedIndex()]);
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
-				logger.debug("Incorrect time values. Hour: {}, Minute: {}", hourTextField.getText(), minuteTextField.getText());
-			}
-		});
+		this.modifyReservationButton.addActionListener(modify -> modifyButtonActions());
 
-		this.modifyReservationButton.addActionListener(modify -> {
-			this.modificationFrame.getContentPane().add(this.modificationPanel);
-			this.modificationFrame.setVisible(true);
-
-			this.counterToShowOnlyOneError = 0;
-
-			this.confirmButton.addActionListener(confirm -> {
-				if (this.counterToShowOnlyOneError == 0) {
-					try {
-						String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
-						int hour = Integer.parseInt(this.hourTextField.getText());
-						int minute = Integer.parseInt(this.minuteTextField.getText());
-
-						String place2 = this.comboBoxList[this.comboBox1.getSelectedIndex()];
-						int hour2 = Integer.parseInt(this.hour1.getText());
-						int minute2 = Integer.parseInt(this.minute1.getText());
-
-						this.barberShop.modifyReservation(
-							new Customer(fullNameTextField.getText(), hour, minute, place),
-							new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
-						refreshTable();
-					} catch (BarberException e) {
-						if (this.counterToShowOnlyOneError == 0) {
-							JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-							logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField1.getText(),
-								this.comboBoxList[this.comboBox1.getSelectedIndex()]);
-						}
-
-					} catch (NumberFormatException e) {
-						if (this.counterToShowOnlyOneError == 0) {
-							JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.debug("Incorrect time values. Hour: {}, Minute: {}", hour1.getText(), minute1.getText());
-						}
-					} finally {
-						this.modificationFrame.setVisible(false);
-						this.counterToShowOnlyOneError++;
-						logger.debug(this.barberShop);
-					}
-				}
-			});
-		});
-
-		this.cancelReservationButton.addActionListener(cancel -> {
-			try {
-				String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
-				int hour = Integer.parseInt(hourTextField.getText());
-				int minute = Integer.parseInt(minuteTextField.getText());
-
-				this.barberShop.cancelReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
-				logger.debug(this.barberShop.toString());
-				refreshTable();
-			} catch (BarberException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				logger.debug("Incorrect customer values. Name: {}, Place: {}", fullNameTextField.getText(),
-					this.comboBoxList[this.comboBox.getSelectedIndex()]);
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Incorrect time value", "Error", JOptionPane.ERROR_MESSAGE);
-				logger.debug("Incorrect time values. Hour: {}, Minute: {}", hourTextField.getText(), minuteTextField.getText());
-			}
-		});
+		this.cancelReservationButton.addActionListener(cancel -> cancelButtonActions());
 	}
 
 	private String[][] printTableInWindow() {
@@ -276,5 +208,85 @@ public class SwingBarber extends JFrame {
 	private void refreshTable() {
 		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
 			"Customer 3", "Customer 4"}));
+	}
+
+	private void addButtonActions() {
+		try {
+			String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+			int hour = Integer.parseInt(hourTextField.getText());
+			int minute = Integer.parseInt(minuteTextField.getText());
+
+			this.barberShop.addReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
+			logger.debug(this.barberShop);
+			refreshTable();
+		} catch (BarberException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+			logger.debug(SwingBarber.CUSTOMER_WRONG, fullNameTextField.getText(),
+				this.comboBoxList[this.comboBox.getSelectedIndex()]);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+			logger.debug(SwingBarber.TIME_WRONG, hourTextField.getText(), minuteTextField.getText());
+		}
+	}
+
+	private void modifyButtonActions() {
+		this.modificationFrame.getContentPane().add(this.modificationPanel);
+		this.modificationFrame.setVisible(true);
+
+		this.counterToShowOnlyOneError = 0;
+
+		this.confirmButton.addActionListener(confirm -> confirmButtonActions());
+	}
+
+	private void cancelButtonActions() {
+		try {
+			String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+			int hour = Integer.parseInt(hourTextField.getText());
+			int minute = Integer.parseInt(minuteTextField.getText());
+
+			this.barberShop.cancelReservation(new Customer(fullNameTextField.getText(), hour, minute, place));
+			logger.debug(this.barberShop);
+			refreshTable();
+		} catch (BarberException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+			logger.debug(SwingBarber.CUSTOMER_WRONG, fullNameTextField.getText(),
+				this.comboBoxList[this.comboBox.getSelectedIndex()]);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+			logger.debug(SwingBarber.TIME_WRONG, hourTextField.getText(), minuteTextField.getText());
+		}
+	}
+
+	private void confirmButtonActions() {
+		if (this.counterToShowOnlyOneError == 0) {
+			try {
+				String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
+				int hour = Integer.parseInt(this.hourTextField.getText());
+				int minute = Integer.parseInt(this.minuteTextField.getText());
+
+				String place2 = this.comboBoxList[this.comboBox1.getSelectedIndex()];
+				int hour2 = Integer.parseInt(this.hour1.getText());
+				int minute2 = Integer.parseInt(this.minute1.getText());
+
+				this.barberShop.modifyReservation(
+					new Customer(fullNameTextField.getText(), hour, minute, place),
+					new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
+				refreshTable();
+			} catch (BarberException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+				logger.debug(SwingBarber.CUSTOMER_WRONG, fullNameTextField1.getText(),
+					this.comboBoxList[this.comboBox1.getSelectedIndex()]);
+
+			} catch (NumberFormatException e) {
+				if (this.counterToShowOnlyOneError == 0) {
+					JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+					logger.debug(SwingBarber.TIME_WRONG, hour1.getText(), minute1.getText());
+				}
+			} finally {
+				this.modificationFrame.setVisible(false);
+				this.counterToShowOnlyOneError++;
+				logger.debug(this.barberShop);
+			}
+		}
 	}
 }
