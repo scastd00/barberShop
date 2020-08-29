@@ -96,7 +96,7 @@ public class BarberShopTest {
 
 	@Test
 	public void testExchange() throws BarberException {
-	    assertEquals(3, this.bs.exchange(6, 3),0);
+	    assertEquals(3f, this.bs.exchange(6, 3), 0f);
 	}
 
 	@Test(expected = BarberException.class)

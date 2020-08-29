@@ -18,7 +18,7 @@ public class HairCutTest {
 	@Test
 	public void testGetPrice() {
 		assertEquals(8.00f, hairCut.getPrice(), 0);
-		assertEquals(0, finishHC.getPrice(), 0);
+		assertEquals(0f, finishHC.getPrice(), 0f);
 	}
 
 	@Test
