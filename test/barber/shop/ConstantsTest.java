@@ -17,6 +17,6 @@ public class ConstantsTest {
 	public void testAll() {
 	    assertEquals(31, Constants.NUM_HAIRCUTS);
 	    HairCut[] hairCuts = constants.getHairCuts();
-	    assertEquals("P0", hairCuts[10].getHairCutName());
+	    assertEquals("P0", hairCuts[10].getType());
 	}
 }

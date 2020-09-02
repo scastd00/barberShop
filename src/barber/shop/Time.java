@@ -1,11 +1,20 @@
 package barber.shop;
 
+import org.jetbrains.annotations.Contract;
+
 /**
- * Class that represents the time organization of the BarberShop
+ * Class that represents the time organization of the BarberShop.
  */
 public class Time {
 
+	/**
+	 * Hour of the time.
+	 */
 	private int hour;
+
+	/**
+	 * Minute of the time.
+	 */
 	private int minute;
 
 	/**
@@ -13,7 +22,7 @@ public class Time {
 	 *
 	 * @param hour   Hour to set.
 	 * @param minute Minute to set.
-	 * @throws BarberException if values of hour or minute are incorrect.
+	 * @throws BarberException if hour or minute values are incorrect.
 	 */
 	public Time(int hour, int minute) throws BarberException {
 		StringBuilder error = new StringBuilder();
@@ -35,8 +44,9 @@ public class Time {
 	}
 
 	/**
-	 * Empty class constructor. Sets the hour and the minute to 0.
+	 * Empty class constructor. Sets the hour and minute to 0.
 	 */
+	@Contract(pure = true)
 	public Time() {
 		this.hour = 0;
 		this.minute = 0;
@@ -82,7 +92,7 @@ public class Time {
 	 */
 	public void setMinute(int minute) throws BarberException {
 		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			throw new BarberException("Incorrect minute value");
+			throw new BarberException("Minute value must be between 0 and 59");
 		} else {
 			this.minute = minute;
 		}
@@ -137,10 +147,10 @@ public class Time {
 	}
 
 	/**
-	 * Compares hour and minute of the this and o Times
+	 * Compares hour and minute of the this and o Times.
 	 *
-	 * @param o other Time
-	 * @return <code>true</code> if this hour and minute are equal to o hour and minute, <code>false</code> otherwise
+	 * @param o other Time.
+	 * @return <code>true</code> if this hour and minute are equal to o hour and minute, <code>false</code> otherwise.
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -154,6 +164,11 @@ public class Time {
 		return false;
 	}
 
+	/**
+	 * Returns an Integer corresponding to the sum of the two attributes of the class.
+	 *
+	 * @return the hash code of the object.
+	 */
 	@Override
 	public int hashCode() {
 		return Integer.hashCode(this.hour + this.minute);

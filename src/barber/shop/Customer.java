@@ -2,6 +2,7 @@ package barber.shop;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 /**
  * Class that represents a customer.
@@ -9,19 +10,30 @@ import org.apache.logging.log4j.Logger;
 public class Customer {
 
 	private static final Logger logger = LogManager.getLogger(Customer.class);
+
+	/**
+	 * Name of the customer.
+	 */
 	private String name;
+
+	/**
+	 * Time when the customer make a reservation.
+	 */
 	private Time time;
+
+	/**
+	 * Place where the customer make a reservation.
+	 */
 	private String place;
 
 	/**
 	 * Class constructor of the customer.
 	 *
 	 * @param name   Name of the customer.
-	 * @param hour   Hour when the customer want to go to the BarberShop.
-	 * @param minute Minute when the customer want to go to the BarberShop.
-	 * @param place  Place of the BarberShop.
-	 * @throws BarberException A BarberException will be thrown if there's no
-	 *                         name, hour, minute or place.
+	 * @param hour   Hour when the customer want to make a reservation.
+	 * @param minute Minute when the customer want to make a reservation.
+	 * @param place  Place of the BarberShop where the customer wants to go.
+	 * @throws BarberException if there's no name, hour, minute or place.
 	 */
 	public Customer(String name, int hour, int minute, String place) throws BarberException {
 		StringBuilder error = new StringBuilder();
@@ -56,6 +68,7 @@ public class Customer {
 	/**
 	 * Empty constructor of the class. Empty name, 0:00, empty place.
 	 */
+	@Contract(pure = true)
 	public Customer() {
 		this.name = "";
 		this.time = new Time();
@@ -74,9 +87,8 @@ public class Customer {
 	/**
 	 * Name setter.
 	 *
-	 * @param name The new name to set.
-	 * @throws BarberException A BarberException will be thrown if the
-	 *                         introduced name is incorrect.
+	 * @param name The new name to set to the customer.
+	 * @throws BarberException if the introduced name is incorrect.
 	 */
 	public void setName(String name) throws BarberException {
 		if (name == null || name.length() == 0) {
@@ -89,7 +101,7 @@ public class Customer {
 	/**
 	 * Time getter.
 	 *
-	 * @return the time of the customer's reservation
+	 * @return the time of the customer's reservation.
 	 */
 	public Time getTime() {
 		return this.time;
@@ -99,6 +111,7 @@ public class Customer {
 	 * Time setter.
 	 *
 	 * @param time the time of the reservation to set.
+	 * @throws BarberException if time is incorrect (null).
 	 */
 	public void setTime(Time time) throws BarberException {
 		if (time == null) {
@@ -134,9 +147,10 @@ public class Customer {
 	/**
 	 * Compares the time of this customer and o customer.
 	 *
-	 * @param o Other customer
+	 * @param o Other customer.
 	 * @return <code>true</code> if the name is equal for both customers, <code>false</code> otherwise.
 	 */
+	@Contract(value = "null -> false", pure = true)
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -149,6 +163,11 @@ public class Customer {
 		return false;
 	}
 
+	/**
+	 * Returns an Integer corresponding to the sum of the hash code of each attribute.
+	 *
+	 * @return the hash code of the object.
+	 */
 	@Override
 	public int hashCode() {
 		return this.name.hashCode() + this.place.hashCode() + this.time.hashCode();
@@ -157,7 +176,7 @@ public class Customer {
 	/**
 	 * String version of the customer.
 	 *
-	 * @return a String with the format: name  time  place.
+	 * @return a String with the format: Name  Time  Place.
 	 */
 	@Override
 	public String toString() {

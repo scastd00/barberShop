@@ -1,7 +1,7 @@
 package barber.shop;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Class that represents the User Interface (Console) of the application.
@@ -9,9 +9,17 @@ import org.apache.logging.log4j.LogManager;
 public class TextUI {
 
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
+
+	/**
+	 * The Barber Shop used in the program.
+	 */
 	private final BarberShop barberShop;
+
+	/**
+	 * All the haircuts available.
+	 */
 	private final Constants haircuts;
-	private static final String NAN = "{} {} is not a number";
+	private static final String NAN = "{} is not a number";
 
 	/**
 	 * Class constructor.
@@ -43,7 +51,7 @@ public class TextUI {
 
 			try {
 				if (input.length() == 0) {
-					logger.warn(NAN, Constants.WARN, input);
+					logger.warn(NAN, input);
 				} else {
 					option = Byte.parseByte(input);
 
@@ -69,11 +77,11 @@ public class TextUI {
 							break;
 
 						default:
-							logger.warn("{} Invalid option, try again", Constants.WARN);
+							logger.warn("Invalid option, try again");
 					}
 				}
 			} catch (NumberFormatException e) {
-				logger.warn(NAN, Constants.WARN, input);
+				logger.warn(NAN, input);
 			} catch (BarberException e) {
 				logger.debug(e.getMessage());
 			}
@@ -128,6 +136,7 @@ public class TextUI {
 		float sum = 0.0f;
 		byte option = 1;
 		logger.trace("Introduce the service you offered {}", "\n");
+
 		do {
 			logger.trace("Select an option of haircut: {}", "\n");
 			this.showHaircuts();
@@ -137,12 +146,13 @@ public class TextUI {
 				option = Byte.parseByte(input);
 				sum += haircutCost(option);
 			} catch (NumberFormatException e) {
-				logger.warn(NAN, Constants.WARN, input);
+				logger.warn(NAN, input);
 			} catch (BarberException e) {
 				logger.warn(e.getMessage());
 			}
 
 		} while (option != 0);
+
 		logger.trace("Total to pay {}", sum);
 	}
 
@@ -150,8 +160,7 @@ public class TextUI {
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
 	 * @return The number of the hour.
-	 * @throws BarberException A BarberException will be thrown if the input is
-	 *                         not a number.
+	 * @throws BarberException if the input is not a number.
 	 */
 	public int inputHour() throws BarberException {
 		String input = Keyboard.readLine().trim();
@@ -160,7 +169,7 @@ public class TextUI {
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			throw new BarberException(Constants.WARN + " " + input + " is not a number");
+			throw new BarberException(input + " is not a number");
 		}
 	}
 
@@ -168,8 +177,7 @@ public class TextUI {
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
 	 * @return The number of the minute.
-	 * @throws BarberException A BarberException will be thrown if the input is
-	 *                         not a number.
+	 * @throws BarberException if the input is not a number.
 	 */
 	public int inputMinute() throws BarberException {
 		String input = Keyboard.readLine().trim();
@@ -178,7 +186,7 @@ public class TextUI {
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			throw new BarberException(Constants.WARN + " " + input + " is not a number");
+			throw new BarberException(input + " is not a number");
 		}
 	}
 
@@ -196,14 +204,13 @@ public class TextUI {
 	/**
 	 * Returns the price of the chosen haircut.
 	 *
-	 * @param option haircut to chose.
-	 * @return the price of the haircut.
-	 * @throws BarberException if option is less than 0 or greater than number
-	 *                         of haircuts available.
+	 * @param option haircut chosen.
+	 * @return haircut price.
+	 * @throws BarberException if option is less than 0 or greater than number of haircuts available.
 	 */
 	private float haircutCost(int option) throws BarberException {
 		if (option < 0 || option > Constants.NUM_HAIRCUTS) {
-			throw new BarberException(Constants.WARN + " Incorrect value");
+			throw new BarberException(" Incorrect value");
 		} else {
 			return this.haircuts.getHairCuts()[option].getPrice();
 		}
@@ -214,9 +221,8 @@ public class TextUI {
 	 *
 	 * @param modify 1 - Time, 2 - All.
 	 * @return a new Customer.
-	 * @throws BarberException if there is no customer in the selected position.
-	 *                         Exception treated in {@link #addReservation()}, {@link #cancelReservation()} and
-	 *                         {@link #modifyReservation()} methods.
+	 * @throws BarberException if there is no customer in the selected position. Exception treated in {@link #addReservation()},
+	 *                         {@link #cancelReservation()} and {@link #modifyReservation()} methods.
 	 */
 	private Customer customerModification(int modify) throws BarberException {
 		Customer customer = new Customer();

@@ -1,64 +1,68 @@
 package barber.shop;
 
+import org.jetbrains.annotations.Contract;
+
 /**
- * Class that represents the haircuts
+ * Class that represents all the available haircuts in the Barber Shop.
  */
 public class HairCut {
 
 	/**
-	 * Price of the haircut
+	 * Price of the haircut.
 	 */
 	private final float price;
 
 	/**
-	 * Type of haircut
+	 * Type of haircut.
 	 */
-	private final String hairCutName;
+	private final String type;
 
 	/**
-	 * Class constructor
+	 * Class constructor.
 	 *
-	 * @param num number corresponding to the haircut
+	 * @param num number corresponding to the haircut.
 	 */
 	public HairCut(int num) {
 		this.price = hairCutToPrice(numberToHaircut(num));
-		this.hairCutName = numberToHaircut(num).toString();
+		this.type = numberToHaircut(num).toString();
 	}
 
 	/**
-	 * Price getter
+	 * Price getter.
 	 *
-	 * @return returns the price of the haircut
+	 * @return the price of the haircut.
 	 */
 	public float getPrice() {
 		return this.price;
 	}
 
 	/**
-	 * Haircut getter
+	 * Haircut getter.
 	 *
-	 * @return returns the name of the haircut
+	 * @return the name of the haircut.
 	 */
-	public String getHairCutName() {
-		return this.hairCutName;
+	public String getType() {
+		return this.type;
 	}
 
 	/**
-	 * Changes a num into the corresponding value of the haircut enumeration
+	 * Changes a number into the corresponding value of the haircut enumeration.
 	 *
-	 * @param num haircut
-	 * @return value of the haircut enumeration
+	 * @param num haircut code.
+	 * @return value of the haircut enumeration.
 	 */
+	@Contract(pure = true)
 	private HairCuts numberToHaircut(int num) {
 		return HairCuts.values()[num];
 	}
 
 	/**
-	 * Changes a value of the haircut enumeration into the price of it
+	 * Changes a value of the haircut enumeration into its price.
 	 *
-	 * @param haircut selected haircut
-	 * @return price of the haircut
+	 * @param haircut the selected haircut.
+	 * @return price of the selected haircut.
 	 */
+	@Contract(pure = true)
 	private float hairCutToPrice(HairCuts haircut) {
 		switch (haircut) {
 			case P1:

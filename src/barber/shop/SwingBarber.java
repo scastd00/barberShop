@@ -60,6 +60,9 @@ public class SwingBarber {
 		this.barberShop = new BarberShop();
 	}
 
+	/**
+	 * Initializes the window and all the components.
+	 */
 	public void init() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenHeight = screenSize.height;
@@ -82,6 +85,9 @@ public class SwingBarber {
 		buttonPressed();
 	}
 
+	/**
+	 * Initializes all the window components.
+	 */
 	private void initializeComponents() {
 		this.panelBarberShop.setBounds(this.generalFrame.getBounds());
 		this.panelBarberShop.setBackground(Color.GRAY);
@@ -182,6 +188,10 @@ public class SwingBarber {
 		this.panelBarberShop.add(this.customersTable);
 	}
 
+	/**
+	 * When a button is pressed, a special action is done. {@link #addButtonActions()} {@link #modifyButtonActions()}
+	 * {@link #cancelButtonActions()}
+	 */
 	private void buttonPressed() {
 		this.addReservationButton.addActionListener(add -> addButtonActions());
 
@@ -190,6 +200,11 @@ public class SwingBarber {
 		this.cancelReservationButton.addActionListener(cancel -> cancelButtonActions());
 	}
 
+	/**
+	 * Shows the timetable with all the customers in the window.
+	 *
+	 * @return a String board with all the customers.
+	 */
 	private String[][] printTableInWindow() {
 		String[][] timetable = new String[Constants.MAX_HOUR + 1][4];
 		Customer[][] customers = this.barberShop.getTimetable();
@@ -205,11 +220,18 @@ public class SwingBarber {
 		return timetable;
 	}
 
+	/**
+	 * Refreshes the table when a modification is done.
+	 */
 	private void refreshTable() {
 		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
 			"Customer 3", "Customer 4"}));
 	}
 
+	/**
+	 * When the AddReservationButton is pressed, the parameters specified in the TextFields and ComboBox are taken to create a new
+	 * Customer.
+	 */
 	private void addButtonActions() {
 		try {
 			String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
@@ -229,15 +251,10 @@ public class SwingBarber {
 		}
 	}
 
-	private void modifyButtonActions() {
-		this.modificationFrame.getContentPane().add(this.modificationPanel);
-		this.modificationFrame.setVisible(true);
-
-		this.counterToShowOnlyOneError = 0;
-
-		this.confirmButton.addActionListener(confirm -> confirmButtonActions());
-	}
-
+	/**
+	 * When the CancelReservationButton is pressed, the parameters specified in the TextFields and ComboBox are taken to delete a
+	 * Customer.
+	 */
 	private void cancelButtonActions() {
 		try {
 			String place = this.comboBoxList[this.comboBox.getSelectedIndex()];
@@ -257,6 +274,22 @@ public class SwingBarber {
 		}
 	}
 
+	/**
+	 * When the ModifyReservationButton is pressed, the parameters specified in the TextFields and ComboBox of the first window are
+	 * taken to delete a Customer. Then, a popup window appears with other TextFields and ComboBox, used to create a new Customer.
+	 */
+	private void modifyButtonActions() {
+		this.modificationFrame.getContentPane().add(this.modificationPanel);
+		this.modificationFrame.setVisible(true);
+
+		this.counterToShowOnlyOneError = 0;
+
+		this.confirmButton.addActionListener(confirm -> confirmButtonActions());
+	}
+
+	/**
+	 * Checks if the parameters in the modification popup window are correct before adding a new Customer to the timetable.
+	 */
 	private void confirmButtonActions() {
 		if (this.counterToShowOnlyOneError == 0) {
 			try {

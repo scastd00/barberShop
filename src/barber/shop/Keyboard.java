@@ -1,5 +1,7 @@
 package barber.shop;
 
+import org.jetbrains.annotations.Contract;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -7,6 +9,11 @@ import java.io.InputStreamReader;
  * Class that reads lines introduced in the console.
  */
 public final class Keyboard {
+
+	@Contract(value = " -> fail", pure = true)
+	private Keyboard() {
+		throw new IllegalStateException("Utility class");
+	}
 
 	/**
 	 * Read a line from console.
@@ -21,15 +28,10 @@ public final class Keyboard {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			line = br.readLine();
 		} catch (Exception e) {
-			throw new BarberException(
-				Constants.RED + "ERROR: " + Constants.RESET + "Something went wrong with I/O. Please, reenter the input");
+			throw new BarberException("ERROR: Something went wrong with I/O. Please, reenter the input");
 		}
 
 		return line;
-	}
-
-	private Keyboard() {
-		throw new IllegalStateException("Utility class");
 	}
 
 }

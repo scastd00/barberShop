@@ -13,19 +13,14 @@ public class Constants {
 	public static final byte ARRAY_LIST_SIZE = 4;
 	public static final int MODIFY_TIME = 1;
 	public static final int MODIFY_ALL = 2;
-	public static final String RED = "\u001B[31m";
-	public static final String YELLOW = "\u001B[33m";
-	public static final String RESET = "\u001B[0m";
-	public static final String ERROR = RED + "Error:" + RESET;
-	public static final String WARN = YELLOW + "Warn:" + RESET;
 
 	/**
-	 * Array where the haircuts are stored to access them
+	 * Array where the haircuts are stored to access them when making transactions.
 	 */
 	private final HairCut[] hairCuts;
 
 	/**
-	 * Class constructor for the array of haircuts
+	 * Class constructor for the array of haircuts.
 	 */
 	public Constants() {
 		this.hairCuts = new HairCut[Constants.NUM_HAIRCUTS];
@@ -37,7 +32,7 @@ public class Constants {
 	}
 
 	/**
-	 * Fills the haircuts HashMap with Key: (Byte) | Value: (HairCut)
+	 * Fills the haircuts array.
 	 */
 	private void fillArray() {
 		for (int i = 0; i < Constants.NUM_HAIRCUTS; i++) {

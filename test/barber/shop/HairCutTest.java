@@ -23,8 +23,8 @@ public class HairCutTest {
 
 	@Test
 	public void testGetHairCutName() {
-		assertEquals("P1", hairCut.getHairCutName());
-		assertEquals("FINISH", finishHC.getHairCutName());
+		assertEquals("P1", hairCut.getType());
+		assertEquals("FINISH", finishHC.getType());
 	}
 
 	@Test

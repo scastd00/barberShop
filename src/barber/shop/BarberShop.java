@@ -2,6 +2,7 @@ package barber.shop;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 /**
  * Class that makes all the transactions of a barber shop.
@@ -11,13 +12,14 @@ public class BarberShop {
 	private static final Logger logger = LogManager.getLogger(BarberShop.class);
 
 	/**
-	 * Hash for all the customers. Size = 24.
+	 * Array for all the customers. Default size = 24 * 4.
 	 */
 	private final Customer[][] timetable;
 
 	/**
 	 * Class constructor for the specified hours in Constants class.
 	 */
+	@Contract(pure = true)
 	public BarberShop() {
 		this.timetable = new Customer[Constants.MAX_HOUR + 1][4];
 	}
@@ -28,25 +30,25 @@ public class BarberShop {
 
 	/**
 	 * Makes a reservation for a new valid customer.
-	 * Inserts the new customer in the position (Hash, Array) = (Hour, Minute).
+	 * Inserts the new customer in the position (Hour array, Minute array) = (Hour, Minute).
 	 *
 	 * @param customer the customer to make the reservation.
-	 * @throws BarberException if the new customer values are incorrect or other customer holds the specified position.
+	 * @throws BarberException if the values of the new customer are incorrect or other customer holds the specified position.
 	 */
 	public void addReservation(Customer customer) throws BarberException {
 		if (this.contains(customer)) {
 			throw new BarberException(customer.getName() + " already has a reservation");
 		}
 
-		int hashPos = this.hourPosition(customer);
-		int listPos = this.minutePosition(customer);
+		int hourPosition = this.hourPosition(customer);
+		int minutePosition = this.minutePosition(customer);
 
-		// Checks if other customer already holds the same position as the new customer.
-		if (this.timetable[hashPos][listPos] != null) {
+		// Checks if other customer holds the same position as the new customer.
+		if (this.timetable[hourPosition][minutePosition] != null) {
 			throw new BarberException("Other customer has a reservation in that hour");
 		}
 
-		this.timetable[hashPos][listPos] = customer;
+		this.timetable[hourPosition][minutePosition] = customer;
 		logger.debug("Added: {}", customer);
 	}
 
@@ -56,10 +58,13 @@ public class BarberShop {
 	 * @param customer the customer to remove the reservation.
 	 */
 	public void cancelReservation(Customer customer) throws BarberException {
-		if (this.timetable[this.hourPosition(customer)][this.minutePosition(customer)] == null) {
+		int hourPosition = this.hourPosition(customer);
+		int minutePosition = this.minutePosition(customer);
+
+		if (this.timetable[hourPosition][minutePosition] == null) {
 			throw new BarberException("No customer has a reservation in that hour. Can't remove an empty slot");
 		} else {
-			this.timetable[this.hourPosition(customer)][this.minutePosition(customer)] = null;
+			this.timetable[hourPosition][minutePosition] = null;
 			logger.debug("Cancelled: {} {}", customer.getName(), customer.getTime());
 		}
 	}
@@ -81,11 +86,12 @@ public class BarberShop {
 	 * Returns the customer that has a reservation at the selected hour.
 	 *
 	 * @param time the time to select the customer.
-	 * @return the customer selected.
+	 * @return the customer selected with the specified time.
 	 * @throws BarberException if there is no customer in the selected position.
 	 */
 	public Customer getCustomerByTime(Time time) throws BarberException {
 		int[] aux = time.hourMinutePositions();
+
 		if (this.timetable[aux[0]][aux[1]] == null) {
 			throw new BarberException("No customer has a reservation in that hour");
 		}
@@ -112,20 +118,20 @@ public class BarberShop {
 	}
 
 	/**
-	 * Returns the position of the customer in the Hash.
+	 * Returns the position of the customer in the Hour Array.
 	 *
 	 * @param customer Customer to get the hour.
-	 * @return the hour where the customer must be in the Hash.
+	 * @return the hour where the customer must be in the Hour Array.
 	 */
 	private int hourPosition(Customer customer) {
 		return customer.getTime().hourMinutePositions()[0];
 	}
 
 	/**
-	 * Returns the position of the customer in the ArrayList.
+	 * Returns the position of the customer in the Minute Array.
 	 *
 	 * @param customer Customer to get the minute.
-	 * @return the minute where the customer must be in the ArrayList.
+	 * @return the minute where the customer must be in the Minute Array.
 	 */
 	private int minutePosition(Customer customer) {
 		return customer.getTime().hourMinutePositions()[1];
@@ -137,6 +143,7 @@ public class BarberShop {
 	 * @param customer the customer to check.
 	 * @return <code>true</code> if customer is in the table, <code>false</code> otherwise
 	 */
+	@Contract(pure = true)
 	private boolean contains(Customer customer) {
 		for (Customer[] array : this.timetable) {
 			for (Customer c : array) {
