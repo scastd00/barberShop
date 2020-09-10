@@ -183,12 +183,6 @@
 	</target>
 
 	<!-- Executes the coverage report file in Ubuntu (Chromium) -->
-	<target name="coverage" depends="report">
-		<exec executable="/snap/bin/chromium">
-			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
-		</exec>
-	</target>
-
 	<target name="sonarqube" depends="report">
 		<mkdir dir="${sonar.srcClass}"/>
 		<mkdir dir="${sonar.testClass}"/>
@@ -207,7 +201,11 @@
 		</copy>
 	</target>
 
-	<target name="todo" depends="report, document, execute"/>
+	<target name="coverage" depends="report">
+		<exec executable="/snap/bin/chromium">
+			<arg value="${coverage.result.report.dir}/${package}/index.html"/>
+		</exec>
+	</target>
 
 	<!-- Executes the coverage report file in Windows (Google Chrome) -->
 	<target name="coverageWindows" depends="report">
@@ -216,6 +214,6 @@
 		</exec>
 	</target>
 
-	<target name="todoWindows" depends="todo"/>
+	<target name="todo" depends="report, document"/>
 
 </project>
