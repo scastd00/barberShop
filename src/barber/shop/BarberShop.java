@@ -90,13 +90,13 @@ public class BarberShop {
 	 * @throws BarberException if there is no customer in the selected position.
 	 */
 	public Customer getCustomerByTime(Time time) throws BarberException {
-		int[] aux = time.hourMinutePositions();
+		int[] positions = time.hourMinutePositions();
 
-		if (this.timetable[aux[0]][aux[1]] == null) {
+		if (this.timetable[positions[0]][positions[1]] == null) {
 			throw new BarberException("No customer has a reservation in that hour");
 		}
 
-		return this.timetable[aux[0]][aux[1]];
+		return this.timetable[positions[0]][positions[1]];
 	}
 
 	/**
@@ -108,13 +108,11 @@ public class BarberShop {
 	 * @throws BarberException if the customer owes some money.
 	 */
 	public float exchange(float paid, float toPay) throws BarberException {
-		float exchange = paid - toPay;
-
-		if (exchange < 0) {
-			throw new BarberException("The customer owe some money: " + exchange * (-1));
+		if ((paid - toPay) < 0) {
+			throw new BarberException("The customer owe some money: " + (paid - toPay) * (-1));
 		}
 
-		return exchange;
+		return (paid - toPay);
 	}
 
 	/**
@@ -171,5 +169,4 @@ public class BarberShop {
 		}
 		return output.toString();
 	}
-
 }

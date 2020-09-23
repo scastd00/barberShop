@@ -66,13 +66,13 @@ public class Customer {
 	}
 
 	/**
-	 * Empty constructor of the class. Empty name, 0:00, empty place.
+	 * Empty constructor of the class. Null name, 0:00, Null place.
 	 */
 	@Contract(pure = true)
 	public Customer() {
-		this.name = "";
+		this.name = null;
 		this.time = new Time();
-		this.place = "";
+		this.place = null;
 	}
 
 	/**

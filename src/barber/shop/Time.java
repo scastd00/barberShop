@@ -158,7 +158,7 @@ public class Time {
 
 		if (o instanceof Time) {
 			Time time = (Time) o;
-			return this.hour == time.hour && this.minute == time.minute;
+			return (this.hour == time.hour) && (this.minute == time.minute);
 		}
 
 		return false;

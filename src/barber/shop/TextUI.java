@@ -8,7 +8,15 @@ import org.apache.logging.log4j.Logger;
  */
 public class TextUI {
 
+	/**
+	 * Logger of the class.
+	 */
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
+
+	/**
+	 * Constant used to log an error when the user does not introduce a number.
+	 */
+	private static final String NAN = "{} is not a number";
 
 	/**
 	 * The Barber Shop used in the program.
@@ -19,7 +27,6 @@ public class TextUI {
 	 * All the haircuts available.
 	 */
 	private final Constants haircuts;
-	private static final String NAN = "{} is not a number";
 
 	/**
 	 * Class constructor.
@@ -35,6 +42,7 @@ public class TextUI {
 	 * Initializes the program.
 	 *
 	 * @throws BarberException if the option is incorrect.
+	 * @deprecated since program has GUI.
 	 */
 	public void init() throws BarberException {
 		byte option;
@@ -118,6 +126,7 @@ public class TextUI {
 		try {
 			logger.trace("Introduce the customer you want to modify\n");
 			Customer oldC = this.customerModification(Constants.MODIFY_TIME);
+
 			logger.trace("Introduce the new customer\n");
 			Customer newC = this.customerModification(Constants.MODIFY_ALL);
 
@@ -195,9 +204,11 @@ public class TextUI {
 	 */
 	private void showHaircuts() {
 		StringBuilder output = new StringBuilder();
+
 		for (int i = 0; i < Constants.NUM_HAIRCUTS; i++) {
 			output.append(i).append(" - ").append(HairCuts.values()[i].toString()).append("\n");
 		}
+
 		logger.trace(output);
 	}
 
@@ -220,7 +231,7 @@ public class TextUI {
 	 * Creates a customer with the specified parameters.
 	 *
 	 * @param modify 1 - Time, 2 - All.
-	 * @return a new Customer.
+	 * @return a new Customer with the new properties introduced by the user.
 	 * @throws BarberException if there is no customer in the selected position. Exception treated in {@link #addReservation()},
 	 *                         {@link #cancelReservation()} and {@link #modifyReservation()} methods.
 	 */
