@@ -31,7 +31,7 @@ public class SwingBarber {
 	private final JTextField hour1;
 	private final JTextField minute1;
 	private final JComboBox<String> comboBox1;
-	private final String[] comboBoxList = new String[] {"", "Astorga", "San Justo"};
+	private final String[] comboBoxList = new String[]{"", "Astorga", "San Justo"};
 	private final JComboBox<String> comboBox;
 	private final JTable customersTable;
 	private final BarberShop barberShop;
@@ -176,8 +176,8 @@ public class SwingBarber {
 		this.customersTable.setFillsViewportHeight(true);
 		this.customersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.customersTable.setSurrendersFocusOnKeystroke(true);
-		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
-			"Customer 3", "Customer 4"}));
+		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[]{"Customer 1", "Customer 2",
+				"Customer 3", "Customer 4"}));
 		this.customersTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		this.customersTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		this.customersTable.getColumnModel().getColumn(2).setPreferredWidth(200);
@@ -224,8 +224,8 @@ public class SwingBarber {
 	 * Refreshes the table when a modification is done.
 	 */
 	private void refreshTable() {
-		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
-			"Customer 3", "Customer 4"}));
+		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[]{"Customer 1", "Customer 2",
+				"Customer 3", "Customer 4"}));
 	}
 
 	/**
@@ -244,7 +244,7 @@ public class SwingBarber {
 		} catch (BarberException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
 			logger.debug(SwingBarber.CUSTOMER_WRONG, fullNameTextField.getText(),
-				this.comboBoxList[this.comboBox.getSelectedIndex()]);
+					this.comboBoxList[this.comboBox.getSelectedIndex()]);
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
 			logger.debug(SwingBarber.TIME_WRONG, hourTextField.getText(), minuteTextField.getText());
@@ -267,7 +267,7 @@ public class SwingBarber {
 		} catch (BarberException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
 			logger.debug(SwingBarber.CUSTOMER_WRONG, fullNameTextField.getText(),
-				this.comboBoxList[this.comboBox.getSelectedIndex()]);
+					this.comboBoxList[this.comboBox.getSelectedIndex()]);
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
 			logger.debug(SwingBarber.TIME_WRONG, hourTextField.getText(), minuteTextField.getText());
@@ -302,13 +302,13 @@ public class SwingBarber {
 				int minute2 = Integer.parseInt(this.minute1.getText());
 
 				this.barberShop.modifyReservation(
-					new Customer(fullNameTextField.getText(), hour, minute, place),
-					new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
+						new Customer(fullNameTextField.getText(), hour, minute, place),
+						new Customer(fullNameTextField1.getText(), hour2, minute2, place2));
 				refreshTable();
 			} catch (BarberException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
 				logger.debug(SwingBarber.CUSTOMER_WRONG, fullNameTextField1.getText(),
-					this.comboBoxList[this.comboBox1.getSelectedIndex()]);
+						this.comboBoxList[this.comboBox1.getSelectedIndex()]);
 
 			} catch (NumberFormatException e) {
 				if (this.counterToShowOnlyOneError == 0) {

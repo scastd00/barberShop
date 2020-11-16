@@ -21,7 +21,7 @@ public class BarberShop {
 	 */
 	@Contract(pure = true)
 	public BarberShop() {
-		this.timetable = new Customer[Constants.MAX_HOUR + 1][4];
+		this.timetable = new Customer[Constants.MAX_HOUR + 1][Constants.ARRAY_SIZE];
 	}
 
 	public Customer[][] getTimetable() {
@@ -33,6 +33,7 @@ public class BarberShop {
 	 * Inserts the new customer in the position (Hour array, Minute array) = (Hour, Minute).
 	 *
 	 * @param customer the customer to make the reservation.
+	 *
 	 * @throws BarberException if the values of the new customer are incorrect or other customer holds the specified position.
 	 */
 	public void addReservation(Customer customer) throws BarberException {
@@ -74,6 +75,7 @@ public class BarberShop {
 	 *
 	 * @param oldCustomer the customer to modify the reservation.
 	 * @param newCustomer the new customer to add.
+	 *
 	 * @throws BarberException if the customers' values are incorrect.
 	 */
 	public void modifyReservation(Customer oldCustomer, Customer newCustomer) throws BarberException {
@@ -86,7 +88,9 @@ public class BarberShop {
 	 * Returns the customer that has a reservation at the selected hour.
 	 *
 	 * @param time the time to select the customer.
+	 *
 	 * @return the customer selected with the specified time.
+	 *
 	 * @throws BarberException if there is no customer in the selected position.
 	 */
 	public Customer getCustomerByTime(Time time) throws BarberException {
@@ -104,7 +108,9 @@ public class BarberShop {
 	 *
 	 * @param paid  money paid.
 	 * @param toPay sum of all cuts offered.
+	 *
 	 * @return the cashback if the customer paid more money.
+	 *
 	 * @throws BarberException if the customer owes some money.
 	 */
 	public float exchange(float paid, float toPay) throws BarberException {
@@ -119,6 +125,7 @@ public class BarberShop {
 	 * Returns the position of the customer in the Hour Array.
 	 *
 	 * @param customer Customer to get the hour.
+	 *
 	 * @return the hour where the customer must be in the Hour Array.
 	 */
 	private int hourPosition(Customer customer) {
@@ -129,6 +136,7 @@ public class BarberShop {
 	 * Returns the position of the customer in the Minute Array.
 	 *
 	 * @param customer Customer to get the minute.
+	 *
 	 * @return the minute where the customer must be in the Minute Array.
 	 */
 	private int minutePosition(Customer customer) {
@@ -139,6 +147,7 @@ public class BarberShop {
 	 * Checks if the customer given is contained in the table.
 	 *
 	 * @param customer the customer to check.
+	 *
 	 * @return <code>true</code> if customer is in the table, <code>false</code> otherwise
 	 */
 	@Contract(pure = true)

@@ -169,6 +169,7 @@ public class TextUI {
 	 * Asks the hour of the reservation we want to apply changes.
 	 *
 	 * @return The number of the hour.
+	 *
 	 * @throws BarberException if the input is not a number.
 	 */
 	public int inputHour() throws BarberException {
@@ -186,6 +187,7 @@ public class TextUI {
 	 * Asks the minute of the reservation we want to apply changes.
 	 *
 	 * @return The number of the minute.
+	 *
 	 * @throws BarberException if the input is not a number.
 	 */
 	public int inputMinute() throws BarberException {
@@ -216,7 +218,9 @@ public class TextUI {
 	 * Returns the price of the chosen haircut.
 	 *
 	 * @param option haircut chosen.
+	 *
 	 * @return haircut price.
+	 *
 	 * @throws BarberException if option is less than 0 or greater than number of haircuts available.
 	 */
 	private float haircutCost(int option) throws BarberException {
@@ -231,7 +235,9 @@ public class TextUI {
 	 * Creates a customer with the specified parameters.
 	 *
 	 * @param modify 1 - Time, 2 - All.
+	 *
 	 * @return a new Customer with the new properties introduced by the user.
+	 *
 	 * @throws BarberException if there is no customer in the selected position. Exception treated in {@link #addReservation()},
 	 *                         {@link #cancelReservation()} and {@link #modifyReservation()} methods.
 	 */

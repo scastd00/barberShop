@@ -22,6 +22,7 @@ public class Time {
 	 *
 	 * @param hour   Hour to set.
 	 * @param minute Minute to set.
+	 *
 	 * @throws BarberException if hour or minute values are incorrect.
 	 */
 	public Time(int hour, int minute) throws BarberException {
@@ -65,6 +66,7 @@ public class Time {
 	 * Hour setter.
 	 *
 	 * @param hour Hour to set.
+	 *
 	 * @throws BarberException if hour value is incorrect.
 	 */
 	public void setHour(int hour) throws BarberException {
@@ -88,6 +90,7 @@ public class Time {
 	 * Minute setter.
 	 *
 	 * @param minute Minute to set.
+	 *
 	 * @throws BarberException if minute value is incorrect.
 	 */
 	public void setMinute(int minute) throws BarberException {
@@ -150,18 +153,22 @@ public class Time {
 	 * Compares hour and minute of the this and o Times.
 	 *
 	 * @param o other Time.
+	 *
 	 * @return <code>true</code> if this hour and minute are equal to o hour and minute, <code>false</code> otherwise.
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-
-		if (o instanceof Time) {
-			Time time = (Time) o;
-			return (this.hour == time.hour) && (this.minute == time.minute);
+		if (this == o) {
+			return true;
 		}
 
-		return false;
+		if (o == null || this.getClass() != o.getClass()) {
+			return false;
+		}
+
+		Time time = (Time) o;
+
+		return hour == time.hour && minute == time.minute;
 	}
 
 	/**

@@ -10,7 +10,7 @@ public class Constants {
 	public static final byte MAX_MINUTE = 59;
 	public static final byte MIN_MINUTE = 0;
 	public static final int NUM_HAIRCUTS = HairCuts.values().length;
-	public static final byte ARRAY_LIST_SIZE = 4;
+	public static final byte ARRAY_SIZE = 4;
 	public static final int MODIFY_TIME = 1;
 	public static final int MODIFY_ALL = 2;
 

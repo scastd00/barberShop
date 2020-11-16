@@ -49,6 +49,7 @@ public class HairCut {
 	 * Changes a number into the corresponding value of the haircut enumeration.
 	 *
 	 * @param num haircut code.
+	 *
 	 * @return value of the haircut enumeration.
 	 */
 	@Contract(pure = true)
@@ -60,6 +61,7 @@ public class HairCut {
 	 * Changes a value of the haircut enumeration into its price.
 	 *
 	 * @param haircut the selected haircut.
+	 *
 	 * @return price of the selected haircut.
 	 */
 	@Contract(pure = true)

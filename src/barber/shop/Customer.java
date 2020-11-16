@@ -33,6 +33,7 @@ public class Customer {
 	 * @param hour   Hour when the customer want to make a reservation.
 	 * @param minute Minute when the customer want to make a reservation.
 	 * @param place  Place of the BarberShop where the customer wants to go.
+	 *
 	 * @throws BarberException if there's no name, hour, minute or place.
 	 */
 	public Customer(String name, int hour, int minute, String place) throws BarberException {
@@ -88,6 +89,7 @@ public class Customer {
 	 * Name setter.
 	 *
 	 * @param name The new name to set to the customer.
+	 *
 	 * @throws BarberException if the introduced name is incorrect.
 	 */
 	public void setName(String name) throws BarberException {
@@ -111,6 +113,7 @@ public class Customer {
 	 * Time setter.
 	 *
 	 * @param time the time of the reservation to set.
+	 *
 	 * @throws BarberException if time is incorrect (null).
 	 */
 	public void setTime(Time time) throws BarberException {
@@ -134,6 +137,7 @@ public class Customer {
 	 * Place setter.
 	 *
 	 * @param place Place where the customer want to go.
+	 *
 	 * @throws BarberException if the introduced place isn't valid.
 	 */
 	public void setPlace(String place) throws BarberException {
@@ -148,19 +152,22 @@ public class Customer {
 	 * Compares the time of this customer and o customer.
 	 *
 	 * @param o Other customer.
+	 *
 	 * @return <code>true</code> if the name is equal for both customers, <code>false</code> otherwise.
 	 */
 	@Contract(value = "null -> false", pure = true)
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-
-		if (o instanceof Customer) {
-			Customer customer = (Customer) o;
-			return this.name.equalsIgnoreCase(customer.name);
+		if (this == o) {
+			return true;
 		}
 
-		return false;
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		Customer customer = (Customer) o;
+		return name.equals(customer.name) && time.equals(customer.time) && place.equals(customer.place);
 	}
 
 	/**
