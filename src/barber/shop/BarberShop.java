@@ -118,7 +118,7 @@ public class BarberShop {
 			throw new BarberException("The customer owe some money: " + (paid - toPay) * (-1));
 		}
 
-		return (paid - toPay);
+		return paid - toPay;
 	}
 
 	/**
@@ -172,10 +172,11 @@ public class BarberShop {
 		for (Customer[] array : this.timetable) {
 			for (Customer c : array) {
 				if (c != null) {
-					output.append(c.toString()).append('\n');
+					output.append(c).append('\n');
 				}
 			}
 		}
+
 		return output.toString();
 	}
 }
