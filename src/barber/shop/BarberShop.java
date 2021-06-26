@@ -87,14 +87,14 @@ public class BarberShop {
 	/**
 	 * Returns the customer that has a reservation at the selected hour.
 	 *
-	 * @param time the time to select the customer.
+	 * @param sinkTime the sinkTime to select the customer.
 	 *
-	 * @return the customer selected with the specified time.
+	 * @return the customer selected with the specified sinkTime.
 	 *
 	 * @throws BarberException if there is no customer in the selected position.
 	 */
-	public Customer getCustomerByTime(Time time) throws BarberException {
-		int[] positions = time.hourMinutePositions();
+	public Customer getCustomerByTime(Time sinkTime) throws BarberException {
+		int[] positions = sinkTime.hourMinutePositions();
 
 		if (this.timetable[positions[0]][positions[1]] == null) {
 			throw new BarberException("No customer has a reservation in that hour");

@@ -12,8 +12,8 @@ public class SwingBarber {
 
 	private static final String ERROR = "Error";
 	private static final String CUSTOMER_WRONG = "Incorrect customer values. Name: {}, Place: {}";
-	private static final String TIME_WRONG = "Incorrect time values. Hour: {}, Minute: {}";
-	private static final String INCORRECT_VALUE = "Incorrect time value";
+	private static final String TIME_WRONG = "Incorrect sinkTime values. Hour: {}, Minute: {}";
+	private static final String INCORRECT_VALUE = "Incorrect sinkTime value";
 	private static final Logger logger = LogManager.getLogger(SwingBarber.class);
 
 	private final JFrame generalFrame;

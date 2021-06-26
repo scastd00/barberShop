@@ -249,11 +249,11 @@ public class TextUI {
 
 		logger.trace("Introduce a minute: ");
 		int minute = inputMinute();
-		Time time = new Time(hour, minute);
-		customer.setTime(time);
+		Time sinkTime = new Time(hour, minute);
+		customer.setTime(sinkTime);
 
 		if (modify == 1) {
-			Customer aux = this.barberShop.getCustomerByTime(time);
+			Customer aux = this.barberShop.getCustomerByTime(sinkTime);
 			customer.setName(aux.getName());
 			customer.setPlace(aux.getPlace());
 

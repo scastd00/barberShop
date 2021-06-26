@@ -3,17 +3,17 @@ package barber.shop;
 import org.jetbrains.annotations.Contract;
 
 /**
- * Class that represents the time organization of the BarberShop.
+ * Class that represents the sinkTime organization of the BarberShop.
  */
 public class Time {
 
 	/**
-	 * Hour of the time.
+	 * Hour of the sinkTime.
 	 */
 	private int hour;
 
 	/**
-	 * Minute of the time.
+	 * Minute of the sinkTime.
 	 */
 	private int minute;
 
@@ -29,11 +29,11 @@ public class Time {
 		StringBuilder error = new StringBuilder();
 
 		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			error.append("Incorrect hour value");
+			error.append("Hour value must be between 0 and 23\n");
 		}
 
 		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			error.append("Incorrect minute value");
+			error.append("Minute value must be between 0 and 59\n");
 		}
 
 		if (error.length() > 0) {
@@ -56,7 +56,7 @@ public class Time {
 	/**
 	 * Hour getter.
 	 *
-	 * @return Returns the hour of the time.
+	 * @return Returns the hour of the sinkTime.
 	 */
 	public int getHour() {
 		return this.hour;
@@ -80,7 +80,7 @@ public class Time {
 	/**
 	 * Minute getter.
 	 *
-	 * @return Returns the minute of the time.
+	 * @return Returns the minute of the sinkTime.
 	 */
 	public int getMinute() {
 		return this.minute;
@@ -102,7 +102,7 @@ public class Time {
 	}
 
 	/**
-	 * Adjusts the values of the time corresponding to [Array hour position, Array minute position].
+	 * Adjusts the values of the sinkTime corresponding to [Array hour position, Array minute position].
 	 *
 	 * @return an array with the values of the position that occupies a particular customer.
 	 */
@@ -124,9 +124,9 @@ public class Time {
 	}
 
 	/**
-	 * Returns the String of the time.
+	 * Returns the String of the sinkTime.
 	 *
-	 * @return The String of the time in the format hh:mm.
+	 * @return The String of the sinkTime in the format hh:mm.
 	 */
 	@Override
 	public String toString() {
@@ -166,9 +166,9 @@ public class Time {
 			return false;
 		}
 
-		Time time = (Time) o;
+		Time sinkTime = (Time) o;
 
-		return hour == time.hour && minute == time.minute;
+		return hour == sinkTime.hour && minute == sinkTime.minute;
 	}
 
 	/**

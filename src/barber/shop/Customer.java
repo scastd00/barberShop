@@ -19,7 +19,7 @@ public class Customer {
 	/**
 	 * Time when the customer make a reservation.
 	 */
-	private Time time;
+	private Time sinkTime;
 
 	/**
 	 * Place where the customer make a reservation.
@@ -43,14 +43,6 @@ public class Customer {
 			error.append("You must introduce a valid name\n");
 		}
 
-		if (hour < Constants.MIN_HOUR || hour > Constants.MAX_HOUR) {
-			error.append("Hour value must be between 0 and 23\n");
-		}
-
-		if (minute < Constants.MIN_MINUTE || minute > Constants.MAX_MINUTE) {
-			error.append("Minute value must be between 0 and 59\n");
-		}
-
 		if (place == null || place.trim().length() == 0) {
 			error.append("You must introduce a valid place\n");
 		}
@@ -59,11 +51,14 @@ public class Customer {
 			logger.debug(error);
 			throw new BarberException(error.toString());
 		} else {
-			this.name = name;
-			this.time = new Time(hour, minute);
-			this.place = place;
+			try {
+				this.name = name;
+				this.sinkTime = new Time(hour, minute);
+				this.place = place;
+			} catch (BarberException e) {
+				throw new BarberException(e.getMessage());
+			}
 		}
-
 	}
 
 	/**
@@ -72,7 +67,7 @@ public class Customer {
 	@Contract(pure = true)
 	public Customer() {
 		this.name = null;
-		this.time = new Time();
+		this.sinkTime = new Time();
 		this.place = null;
 	}
 
@@ -103,25 +98,25 @@ public class Customer {
 	/**
 	 * Time getter.
 	 *
-	 * @return the time of the customer's reservation.
+	 * @return the sinkTime of the customer's reservation.
 	 */
 	public Time getTime() {
-		return this.time;
+		return this.sinkTime;
 	}
 
 	/**
 	 * Time setter.
 	 *
-	 * @param time the time of the reservation to set.
+	 * @param sinkTime the sinkTime of the reservation to set.
 	 *
-	 * @throws BarberException if time is incorrect (null).
+	 * @throws BarberException if sinkTime is incorrect (null).
 	 */
-	public void setTime(Time time) throws BarberException {
-		if (time == null) {
-			throw new BarberException("Invalid time assignation");
+	public void setTime(Time sinkTime) throws BarberException {
+		if (sinkTime == null) {
+			throw new BarberException("Invalid sinkTime assignation");
 		}
 
-		this.time = time;
+		this.sinkTime = sinkTime;
 	}
 
 	/**
@@ -149,7 +144,7 @@ public class Customer {
 	}
 
 	/**
-	 * Compares the time of this customer and o customer.
+	 * Compares the sinkTime of this customer and o customer.
 	 *
 	 * @param o Other customer.
 	 *
@@ -167,7 +162,7 @@ public class Customer {
 		}
 
 		Customer customer = (Customer) o;
-		return name.equals(customer.name) && time.equals(customer.time) && place.equals(customer.place);
+		return name.equals(customer.name) && sinkTime.equals(customer.sinkTime) && place.equals(customer.place);
 	}
 
 	/**
@@ -177,7 +172,7 @@ public class Customer {
 	 */
 	@Override
 	public int hashCode() {
-		return this.name.hashCode() + this.place.hashCode() + this.time.hashCode();
+		return this.name.hashCode() + this.place.hashCode() + this.sinkTime.hashCode();
 	}
 
 	/**
@@ -187,6 +182,6 @@ public class Customer {
 	 */
 	@Override
 	public String toString() {
-		return this.name + "  " + this.time.toString() + "  " + this.place;
+		return this.name + "  " + this.sinkTime.toString() + "  " + this.place;
 	}
 }
