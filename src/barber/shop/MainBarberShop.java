@@ -1,6 +1,6 @@
 package barber.shop;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 public class MainBarberShop {
 

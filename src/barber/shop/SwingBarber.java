@@ -31,7 +31,7 @@ public class SwingBarber {
 	private final JTextField hour1;
 	private final JTextField minute1;
 	private final JComboBox<String> comboBox1;
-	private final String[] comboBoxList = new String[]{"", "Astorga", "San Justo"};
+	private final String[] comboBoxList = new String[] {"", "Astorga", "San Justo"};
 	private final JComboBox<String> comboBox;
 	private final JTable customersTable;
 	private final BarberShop barberShop;
@@ -176,7 +176,7 @@ public class SwingBarber {
 		this.customersTable.setFillsViewportHeight(true);
 		this.customersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.customersTable.setSurrendersFocusOnKeystroke(true);
-		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[]{"Customer 1", "Customer 2",
+		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
 				"Customer 3", "Customer 4"}));
 		this.customersTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		this.customersTable.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -224,7 +224,7 @@ public class SwingBarber {
 	 * Refreshes the table when a modification is done.
 	 */
 	private void refreshTable() {
-		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[]{"Customer 1", "Customer 2",
+		this.customersTable.setModel(new DefaultTableModel(printTableInWindow(), new String[] {"Customer 1", "Customer 2",
 				"Customer 3", "Customer 4"}));
 	}
 
@@ -312,7 +312,8 @@ public class SwingBarber {
 
 			} catch (NumberFormatException e) {
 				if (this.counterToShowOnlyOneError == 0) {
-					JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, SwingBarber.INCORRECT_VALUE, SwingBarber.ERROR,
+							JOptionPane.ERROR_MESSAGE);
 					logger.debug(SwingBarber.TIME_WRONG, hour1.getText(), minute1.getText());
 				}
 			} finally {

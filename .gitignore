@@ -18,7 +18,6 @@
 *.ctxt
 
 # IntelliJ files
-*.iml
 .idea
 out
 

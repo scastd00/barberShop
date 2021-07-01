@@ -1,9 +1,9 @@
 package barber.shop;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class CustomerTest {
 
@@ -74,8 +74,8 @@ public class CustomerTest {
 
 	@Test
 	public void testSetGetTime() throws BarberException {
-	    customer.setTime(new Time(12, 30));
-	    assertEquals(12, customer.getTime().getHour());
+		customer.setTime(new Time(12, 30));
+		assertEquals(12, customer.getTime().getHour());
 		assertEquals(30, customer.getTime().getMinute());
 	}
 
@@ -101,7 +101,7 @@ public class CustomerTest {
 
 	@Test(expected = BarberException.class)
 	public void testNullTime() throws BarberException {
-	    customer.setTime(null);
+		customer.setTime(null);
 	}
 
 	@Test
@@ -130,13 +130,13 @@ public class CustomerTest {
 
 	@Test
 	public void testEquals() throws BarberException {
-	    assertFalse(customer.equals(customer1));
-	    customer.setName("Sam");
-	    customer.getTime().setHour(1);
-	    customer.setPlace("Astorga");
-	    assertTrue(customer.equals(customer1));
-	    assertTrue(customer.equals(customer));
-	    assertFalse(customer.equals(new BarberShop()));
+		assertFalse(customer.equals(customer1));
+		customer.setName("Sam");
+		customer.getTime().setHour(1);
+		customer.setPlace("Astorga");
+		assertTrue(customer.equals(customer1));
+		assertTrue(customer.equals(customer));
+		assertFalse(customer.equals(new BarberShop()));
 	}
 
 	@Test

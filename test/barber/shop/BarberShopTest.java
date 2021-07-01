@@ -1,9 +1,10 @@
 package barber.shop;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class BarberShopTest {
 
@@ -82,33 +83,33 @@ public class BarberShopTest {
 
 	@Test
 	public void testGetCustomerByTime() throws BarberException {
-	    this.bs.addReservation(customer1);
-	    this.bs.addReservation(customer2);
+		this.bs.addReservation(customer1);
+		this.bs.addReservation(customer2);
 
-	    assertEquals(customer1, this.bs.getCustomerByTime(customer1.getTime()));
-	    assertEquals(customer2, this.bs.getCustomerByTime(customer2.getTime()));
+		assertEquals(customer1, this.bs.getCustomerByTime(customer1.getTime()));
+		assertEquals(customer2, this.bs.getCustomerByTime(customer2.getTime()));
 	}
 
 	@Test(expected = BarberException.class)
 	public void testGetCustomerByTimeNoCustomer() throws BarberException {
-	    this.bs.getCustomerByTime(customer1.getTime());
+		this.bs.getCustomerByTime(customer1.getTime());
 	}
 
 	@Test
 	public void testExchange() throws BarberException {
-	    assertEquals(3f, this.bs.exchange(6, 3), 0f);
+		assertEquals(3f, this.bs.exchange(6, 3), 0f);
 	}
 
 	@Test(expected = BarberException.class)
 	public void testExchangeNegative() throws BarberException {
-	    this.bs.exchange(2, 5);
+		this.bs.exchange(2, 5);
 	}
 
 	@Test
 	public void testToString() throws BarberException {
-	    this.bs.addReservation(customer1);
-	    this.bs.addReservation(customer2);
+		this.bs.addReservation(customer1);
+		this.bs.addReservation(customer2);
 
-	    assertEquals("Sam  02:35  Astorga\nSamuel  12:40  San Justo\n", this.bs.toString());
+		assertEquals("Sam  02:35  Astorga\nSamuel  12:40  San Justo\n", this.bs.toString());
 	}
 }
